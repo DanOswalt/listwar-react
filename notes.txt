@@ -1,0 +1,80 @@
+listwar-app
+
+router-dom
+animation transitions
+firebase hookup
+all anonymous-user
+animated battle
+ui mobile focused
+leave open for auth, if i want to add it (for saving lists)
+
+routes:
+
+home '/' (default back and redirect) //show lists? anonymous user in fb?
+|
+|
+create '/create' (back = home)
+|
+|
+howto '/howto' (explanation and 3 example lists)
+|
+|
+listview '/list/:list-id/:list-slug/start (back=home)
+|
+|---- 404 '/list/notfound' (back=home, redirect here if /list/*)
+|
+listwar 'list/:list-id/:list-slug/war (back=listview, redirect to listview)
+|
+|
+listresult 'list/:list-id/:list-slug/myresult (back=home) //how to determine who, session?
+|
+|
+listresults 'list/:list-id/:list-slug/allresults (back=myresult)
+
+all list routes should have a footer nav with cancel, share, confirm
+header, title
+
+dialogue modals?
+
+User stories:
+
+Main ideas:
+I can create a list.
+I can complete the war.
+I can view my result (same url).
+I can share my with others.
+I can see everyone who has done my list.
+I can be anonymous, yet see my results later via local storage or anon session.
+
+I can open a url of a list that is new to me and start at listview.
+I can open a url a list I've already completed and see my result. (check stored listids)
+I can view the results of everyone who has done the list only after completion.
+
+On homepage, there's a short explanation of listwar, and a link for examples, my results, and create a list.
+
+On examples page, I see a longer explanation.
+When I click examples, I see 3 links for example lists.
+When I click an example, I go to that listview.
+When I click back, I return to the examples page.
+
+x Connect firebase
+- Create 1 example list
+- Create reusable function to getListById(listId);
+- Create button that connects and pulls up list in via examples page
+
+- Create reusable function to getUserResultById(listId, userId) 
+  // should first check user's completed lists ids array, can only view if completed
+
+- Create reusable function to getAllResultsById(listId)
+  // should first check user's completed lists ids array, can only view if completed
+
+
+
+
+
+
+
+
+
+
+
