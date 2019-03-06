@@ -58,15 +58,7 @@ When I click an example, I go to that listview.
 When I click back, I return to the examples page.
 
 x Connect firebase
-- Create 1 example list
-- Create reusable function to getListById(listId);
-- Create button that connects and pulls up list in via examples page
 
-- Create reusable function to getUserResultById(listId, userId) 
-  // should first check user's completed lists ids array, can only view if completed
-
-- Create reusable function to getAllResultsById(listId)
-  // should first check user's completed lists ids array, can only view if completed
 
 
 

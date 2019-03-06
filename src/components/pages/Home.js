@@ -1,5 +1,7 @@
+/*
+Home 
+*/
 import React, {Component} from 'react';
-import db from '../../firebase/firebaseInit.js';
 
 class Home extends Component {
   constructor (props) {
@@ -9,25 +11,10 @@ class Home extends Component {
     }
   }
 
-  componentDidMount () {
-    const ref = db.collection("test").doc("testMessage");
-
-    ref.get().then(doc => {
-      if (doc.exists) {
-        this.setState({
-          testMessage: doc.data().message
-        })
-      }
-    }).catch(function(error) {
-      console.log("Error getting document:", error);
-    });
-  }
-
   render() {
     return (
       <div>
         <h1>Home</h1>
-        <p>Test Message: {this.state.testMessage}</p>
       </div>
     )
   }
