@@ -19,10 +19,8 @@ class App extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      user: {
-        username: "Guest"
-      },
-      guest: true,
+      user: null,
+      guest: null,
       loading: true,
       message: null,
       showErrorMessage: false,
@@ -48,14 +46,15 @@ class App extends Component {
     const userRef = db.collection('users').doc(uid);
     
     userRef.set(newUser)
-    .then(userRef => {
-      console.log('App user created:', userRef);
+    .then(user => {
+      console.log('App user created:', user);
       this.setState({
         loading: false,
         guest: isGuest,
         message: "App user created",
         showInfoMessage: true,
-        username
+        username,
+        user: newUser
       })
       // this.props.history.push("/");
     })
@@ -90,37 +89,22 @@ class App extends Component {
 
   signUpWithEmail(e) {
     e.preventDefault();
+    const self = this;
     const { email, password, username } = e.target.elements;
+    const credential = firebase.auth.EmailAuthProvider.credential(email.value, password.value);
+   
+    firebase.auth().currentUser.linkAndRetrieveDataWithCredential(credential).then(function(usercred) {
+      const user = usercred.user;
+      console.log("Anonymous account successfully upgraded", user);
 
-    firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
-    .then(userDoc => {
-      const { user } = userDoc;
-      console.log('User signed up:', user);
-
-      const credential = firebase.auth.EmailAuthProvider.credential(email.value, password.value);
-      firebase.auth().currentUser.linkAndRetrieveDataWithCredential(credential)
-      .then(function(usercred) {
-        const user = usercred.user;
-
-        console.log("Anonymous account successfully upgraded", user);
-        this.createAppUser({
-          uid: user.uid, 
-          username: username.value,
-          isGuest: false
-        });
-      }, (error) => {
-        console.log("Error upgrading anonymous account", error);
+      self.createAppUser({
+        uid: user.uid, 
+        username: username.value,
+        isGuest: false
       });
-
-    })
-    .catch(error => {
-      console.log(error.message)
-      this.setState({ 
-        loading: false,
-        message: error.message,
-        showErrorMessage: true
-      });
-    })
+    }, (error) => {
+      console.log("Error upgrading anonymous account", error);
+    });
   }
 
   signOut() {
@@ -150,12 +134,13 @@ class App extends Component {
         const userRef = db.collection('users').doc(uid);
 
         // don't save uid in state
-        console.log(uid)
+        console.log(`${isGuest ? 'guest' : 'full'} user is logged in`);
     
         // get the app user
         userRef.get()
           .then(doc => {
             if (doc.exists) {
+              console.log(`${isGuest ? 'guest' : 'full'} data is found`);
               user = doc.data();
               this.setState({ 
                 user,
@@ -166,9 +151,14 @@ class App extends Component {
                 showInfoMessage: true
               });
             } else {
-             // if user doesn't exist, create it
-             
-             console.log("user doesn't exist in app db")
+              // if user doesn't exist, create it
+              console.log(`${isGuest ? 'guest' : 'full'} data is not found`);
+              this.createAppUser({
+                loading: false,
+                uid: user.uid, 
+                username: user.username,
+                isGuest: false
+              });
             }
           })
           .catch(error => {
@@ -182,6 +172,7 @@ class App extends Component {
         // do dome kind of check here, what if they are trying to change users?
         firebase.auth().signInAnonymously()
         .then(authenticatedUser => {
+          console.log('user anonymously logged in')
           // check uid, if new, create it
           this.createAppUser({
             uid: authenticatedUser.user.uid,
