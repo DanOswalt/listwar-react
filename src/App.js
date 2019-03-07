@@ -24,7 +24,8 @@ class App extends Component {
       loading: true,
       message: null,
       showErrorMessage: false,
-      showInfoMessage: false
+      showInfoMessage: false,
+      pageIs: "Home"
     }
     this.signInWithEmail = this.signInWithEmail.bind(this);
     this.signUpWithEmail = this.signUpWithEmail.bind(this);

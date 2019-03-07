@@ -16,14 +16,17 @@ import SignUp from '../auth/SignUp.js';
 import SignIn from '../auth/SignIn.js';
 import SignOut from '../auth/SignOut.js';
 
-const Layout = (props) => {
+const Layout = ({history, ...props}) => {
+  const showMainHeader = props.state.pageIs !== "Home";
   return (
   <div className="layout">
     {props.state.loading && <div className="loading">Loading...</div>}
     <header>
-      <MainHeader 
-        guest={props.state.guest}
-      />
+      {showMainHeader && 
+        <MainHeader 
+          guest={props.state.guest}
+        />
+      }
     </header>
     <main>
       <Switch>
@@ -46,15 +49,15 @@ const Layout = (props) => {
         />
         <Route
           path="/signin"
-          render= {() => <SignIn onSubmit={props.signInWithEmail} history={props.history}/>}
+          render= {() => <SignIn onSubmit={props.signInWithEmail} history={history}/>}
         />
         <Route 
           path="/signup" 
-          render= {() => <SignUp onSubmit={props.signUpWithEmail}/>}
+          render= {() => <SignUp onSubmit={props.signUpWithEmail} history={history}/>}
         />
         <Route 
           path="/signout" 
-          render= {() => <SignOut onSubmit={props.signOut}/>}
+          render= {() => <SignOut onSubmit={props.signOut} history={history}/>}
         />
         <Redirect to="/" />
       </Switch>

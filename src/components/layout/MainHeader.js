@@ -2,18 +2,27 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 const MainHeader = ({ guest }) => (
-  <div className="mainHeader">
+  <div className="MainHeader">
     <nav className="headerLinks">
-      <Link to={"/"}><h3>ListWar</h3></Link>
+      <div >
+        <Link className="logo"
+              to={"/"}>ListWar</Link>
+      </div>
       {
         guest ? (
           <div className="authLinks">
-            <NavLink to={"/signin"} activeClassName="selected">Sign In</NavLink>
-            <NavLink to={"/signup"} activeClassName="selected">Sign Up</NavLink>
+            <NavLink className="nes-text is-normal header-link"
+                     to={"/signin"} 
+                    activeClassName="is-success">Sign In</NavLink>
+            <NavLink className="nes-text is-normal header-link"
+                     to={"/signup"} 
+                     activeClassName="is-success">Sign Up</NavLink>
           </div>
         ) : (
           <div className="authLinks">
-            <NavLink to={"/signout"} activeClassName="selected">Sign Out</NavLink>
+            <NavLink className="nes-text is-normal header-link"
+                     to={"/signout"} 
+                     activeClassName="is-success">Sign Out</NavLink>
           </div>
         )
       }

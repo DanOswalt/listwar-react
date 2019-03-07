@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import 'typeface-press-start-2p';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 

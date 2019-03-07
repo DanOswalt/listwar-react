@@ -15,21 +15,18 @@
   font-size: calc(10px + 2vmin);
   color: white;
 } */
-/* 
-.App-link {
-  color: #61dafb;
-} */
 
-.mainHeader .selected {
-  color: orangered;
+.MainHeader {
+  display: flex;
 }
 
-header {
-  background: greenyellow;
+.MainHeader .headerLinks {
+  text-decoration: none;
+
 }
 
-main {
-  
+.Home .home-menu {
+  list-style-type: none;
 }
 
 footer {
