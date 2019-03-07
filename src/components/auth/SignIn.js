@@ -1,11 +1,11 @@
 import React from "react";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
-const SignIn = (props) => {
+const SignIn = ({ onSubmit, history }) => {
   return (
     <div>
       <h1>Sign In</h1>
-      <form onSubmit={props.onSubmit}>
+      <form onSubmit={(e) => { onSubmit(e, history) }}>
         <label>
           Email
           <input

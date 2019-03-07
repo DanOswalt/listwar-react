@@ -2,7 +2,8 @@ import React from 'react';
 import {
   Switch,
   Route,
-  Redirect
+  Redirect,
+  withRouter
 } from 'react-router-dom';
 import MainHeader from './MainHeader.js';
 import MainNav from './MainNav.js';
@@ -45,7 +46,7 @@ const Layout = (props) => {
         />
         <Route
           path="/signin"
-          render= {() => <SignIn onSubmit={props.signInWithEmail}/>}
+          render= {() => <SignIn onSubmit={props.signInWithEmail} history={props.history}/>}
         />
         <Route 
           path="/signup" 
@@ -65,4 +66,4 @@ const Layout = (props) => {
   </div>
 )}
 
-export default Layout;
+export default withRouter(Layout);

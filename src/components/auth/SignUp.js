@@ -1,10 +1,11 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 
-const SignUp = ({ onSubmit }) => {
+const SignUp = ({ onSubmit, history }) => {
   return (
     <div>
       <h1>Sign up</h1>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={(e) => { onSubmit(e, history)} }>
         <label>
           Email
           <input
@@ -35,4 +36,4 @@ const SignUp = ({ onSubmit }) => {
   );
 };
 
-export default SignUp;
+export default withRouter(SignUp);

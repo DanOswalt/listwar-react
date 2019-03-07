@@ -56,25 +56,6 @@ class App extends Component {
         username,
         user: newUser
       })
-      // this.props.history.push("/");
-    })
-    .catch(error => {
-      console.log(error.message)
-      this.setState({ 
-        loading: false,
-        message: error.message,
-        showErrorMessage: true
-      });
-    })
-  }
-
-  signInWithEmail(e) {
-    e.preventDefault();
-    const { email, password } = e.target.elements;
-
-    firebase.auth().signInWithEmailAndPassword(email.value, password.value)
-    .then(userDoc => {
-      console.log('User signed in:', userDoc);
       this.props.history.push("/");
     })
     .catch(error => {
@@ -87,7 +68,26 @@ class App extends Component {
     })
   }
 
-  signUpWithEmail(e) {
+  signInWithEmail(e, history) {
+    e.preventDefault();
+    const { email, password } = e.target.elements;
+
+    firebase.auth().signInWithEmailAndPassword(email.value, password.value)
+    .then(userDoc => {
+      console.log('User signed in:', userDoc);
+      history.push("/");
+    })
+    .catch(error => {
+      console.log(error.message)
+      this.setState({ 
+        loading: false,
+        message: error.message,
+        showErrorMessage: true
+      });
+    })
+  }
+
+  signUpWithEmail(e, history) {
     e.preventDefault();
     const self = this;
     const { email, password, username } = e.target.elements;
@@ -102,19 +102,21 @@ class App extends Component {
         username: username.value,
         isGuest: false
       });
+      history.push("/");
     }, (error) => {
       console.log("Error upgrading anonymous account", error);
     });
   }
 
-  signOut() {
+  signOut(e, history) {
+    e.preventDefault();
     firebase.auth().signOut()
       .then(() => {
         this.setState({
           user: null,
           guest: null
         });
-        this.props.history.push("/");
+        history.push("/");
       });
   }
 
