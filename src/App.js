@@ -12,6 +12,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Layout from './components/layout/Layout.js';
 import 'nes.css/css/nes.css'
 import './App.css';
+
 import firebase from './firebase/firebaseInit.js';
 require('firebase/auth');
 

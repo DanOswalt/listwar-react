@@ -19,7 +19,7 @@ import SignOut from '../auth/SignOut.js';
 const Layout = ({history, ...props}) => {
   const showMainHeader = props.state.pageIs !== "Home";
   return (
-  <div className="layout">
+  <div className="Layout">
     {props.state.loading && <div className="loading">Loading...</div>}
     <header>
       {showMainHeader && 
@@ -33,7 +33,7 @@ const Layout = ({history, ...props}) => {
         <Route 
           exact 
           path="/" 
-          component={Home}
+          render= {() => <Home guest={props.state.guest}/>}
         />
         <Route 
           path="/create" 

@@ -1,31 +1,24 @@
-import React, {Component} from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-class Home extends Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      testMessage: "no message"
-    }
-  }
-
-  render() {
-    return (
-      <div className="Home">
-        <div className="home-title nes-container is-centered is-dark">
-          <h1>Super List War</h1>
-        </div>
-        <div className="home-menu-box">
-          <ul className="home-menu">
-            <li><button className="nes-btn">Play</button></li>
-            <li><button className="nes-btn">New</button></li>
-            <li><button className="nes-btn">Sign Up</button></li>
-            <li><button className="nes-btn">Sign In</button></li>
-            <li><button className="nes-btn">Completed</button></li>
-          </ul>
-        </div>
+const Home = ({ guest }) => {
+  return (
+    <div className="Home">
+      <div className="home-title nes-container is-centered is-dark">
+        <h1>Super ListWar</h1>
       </div>
-    )
-  }
+      <div className="home-menu-box">
+        <ul className="home-menu">
+          <li><Link to="examples"><button className="nes-btn menu-btn">Do A List</button></Link></li>
+          <li><Link to="create"><button className="nes-btn menu-btn">Create New</button></Link></li>
+          {guest && <li><Link to="signin"><button className="nes-btn menu-btn">Sign In</button></Link></li>}
+          {guest && <li><Link to="signup"><button className="nes-btn menu-btn">Sign Up</button></Link></li>}
+          {!guest && <li><Link to="#"><button className="nes-btn menu-btn">Completed</button></Link></li>}
+          {!guest && <li><Link to="signout"><button className="nes-btn menu-btn">Sign Out</button></Link></li>}
+        </ul>
+      </div>
+    </div>
+  )
 }
 
 export default Home
