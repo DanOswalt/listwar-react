@@ -2,13 +2,15 @@ import React, { Component} from 'react';
 import Header from '../layout/Header';
 import Message from '../layout/Message.js';
 import NavButtons from '../layout/NavButtons.js';
-
+import ListEntry from './Create/ListEntry.js';
 
 class Create extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      pageTitle: "Create New List",
+      subText: "Enter 4+ items (max 12)",
       listTitle: "",
       newEntry: "",
       entries: []
@@ -29,7 +31,6 @@ class Create extends Component {
 
   handleAdd = (e) => {
     //check for unique-entry
-    console.log(e.target)
     this.setState({ 
       entries: [...this.state.entries, this.state.newEntry],
       newEntry: "" 
@@ -41,11 +42,21 @@ class Create extends Component {
   }
 
   render () {
-    const { newEntry } = this.state;
+    const {
+      pageTitle,
+      subText,
+      newEntry
+    } = this.state;
+    const entries = this.state.entries.map((entry, index) => {
+      return <ListEntry value={entry} index={index}/>
+    })
+
     return (
       <div className="Create">
-        <Header pageTitle={"Create New List"} />
-        <p>Enter at least 3 items to war (max 20)</p>
+        <Header 
+          pageTitle={pageTitle} 
+          subText={subText}
+        />
         <form 
           className="new-list-form"
           onSubmit={this.handleSubmit}
@@ -62,18 +73,19 @@ class Create extends Component {
               onKeyUp={this.handleKeyup}
             />
             <span 
-              className="nes-btn add-entry"
+              className="nes-btn add-entry is-success"
               onClick={this.handleAdd}
             >+</span>
           </div>
         </form>
-        <div className="list-container nes-container">
-          <ul className="entries">
-            {/* for each entry */}
+        <div className="list-container is-dark with-title nes-container lists">
+          <p className="title">List</p>
+          <ul className="entries nes-list">
+            {entries}
           </ul>
         </div>
         <footer>
-          <Message />
+          {/* <Message /> */}
           <NavButtons />
         </footer>
       </div>

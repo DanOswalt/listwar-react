@@ -1,12 +1,3 @@
-/*
-  On app load, check for previous user, either anon or signed in user
-  User should have an array of completed resultIds.
-  App should load this into layout, so the nav layout parts can be easier
-    to update (not on every view).
-  Each page (inluding auth pages) will just need to show content.
-  * Add page title to layout
-*/
-
 import React, { Component } from 'react';
 import Layout from './components/layout/Layout.js';
 import 'nes.css/css/nes.css'

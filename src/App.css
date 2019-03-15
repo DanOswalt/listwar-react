@@ -4,12 +4,11 @@
   min-height: 100vh;
   flex-direction: column;
   background: rgb(20, 20, 20);
+  color: white;
 }
 
 .loading {
-  position: relative;
   height: 100vh;
-  opacity: 0.9;
   color: white;
 }
 
@@ -18,6 +17,19 @@ a:visited,
 a:hover {
   text-decoration: none;
   color: orangered;
+}
+
+.Header {
+  margin-bottom: 15px;
+}
+
+.Header .pageTitle {
+  color: sandybrown;
+}
+
+.Header .subText {
+  color: white;
+  font-size: 11px;
 }
 
 .Home .home-logo {
@@ -29,11 +41,31 @@ a:hover {
   margin: 0;
 }
 
+.ListEntry {
+  display: flex;
+}
+
+.ListEntry .entry-value {
+  align-self: flex-start;
+}
+
+.ListEntry .delete-entry {
+  align-self: flex-end;
+  width: 30px;
+  height: 30px;
+  font-size: 10px;
+  padding-left: 6px;  
+}
+
 .NavButtons {
   width: 100%;
   position: fixed;
   bottom: 0;
   left: 0;
+}
+
+.NavButtons .nav-btn {
+  color: rgb(20, 20, 20);
 }
 
 .NavButtons .navlinks {
@@ -64,11 +96,15 @@ a:hover {
 .Create .new-list-form {
   max-width: 400px;
   margin: auto;
+  text-align: left;
+  font-size: 11px;
 }
 
 .Create .list-container {
-  max-width: 400px;
+  width: 360px;
   margin: auto;
+  text-align: left;
+  font-size: 11px;
 }
 
 .Create .add-entry,
@@ -76,7 +112,3 @@ a:hover {
   display: inline-block;
   max-width: 300px;
 }
-
-/* footer .message {
-  background: gray;
-} */
