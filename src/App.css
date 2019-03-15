@@ -3,29 +3,40 @@
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  background: gray;
+  background: rgb(20, 20, 20);
 }
 
-/* .Layout {
+.loading {
+  position: relative;
   height: 100vh;
-} */
-
-.MainHeader {
-  display: flex;
+  opacity: 0.9;
+  color: white;
 }
 
-.MainHeader .headerLinks {
+a,
+a:visited,
+a:hover {
   text-decoration: none;
+  color: orangered;
 }
 
-.MainNav {
+.Home .home-logo {
+  height: 40vh;
+  font-size: 2em;
+}
+
+.Header .logo {
+  margin: 0;
+}
+
+.NavButtons {
   width: 100%;
   position: fixed;
   bottom: 0;
   left: 0;
 }
 
-.MainNav .navlinks {
+.NavButtons .navlinks {
   display: flex;
   justify-content: space-evenly;
 }
@@ -43,6 +54,27 @@
 
 .Home .menu-btn {
   width: 200px;
+}
+
+.Create {
+  display: flex;
+  flex-direction: column;
+}
+
+.Create .new-list-form {
+  max-width: 400px;
+  margin: auto;
+}
+
+.Create .list-container {
+  max-width: 400px;
+  margin: auto;
+}
+
+.Create .add-entry,
+.Create .new-entry {
+  display: inline-block;
+  max-width: 300px;
 }
 
 /* footer .message {
