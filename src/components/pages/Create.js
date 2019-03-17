@@ -17,17 +17,20 @@ class Create extends Component {
         back: {
           text: "Back",
           route: "/",
-          disabled: false
+          disabled: false,
+          action: null
         },
         share: {
           text: "Share",
           route: "/",
-          disabled: true
+          disabled: true,
+          action: null
         },
         confirm: {
           text: "Done",
-          route: "/",
-          disabled: true
+          route: "#",
+          disabled: true,
+          action: this.handleSubmit
         } 
       }
     }
@@ -71,7 +74,9 @@ class Create extends Component {
   }
 
   handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
+    console.log('submit');
+
   }
 
   entryIsDuplicate = (newEntry) => {

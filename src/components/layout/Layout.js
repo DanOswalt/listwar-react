@@ -10,10 +10,10 @@ import ListPages from '../pages/ListPages.js';
 import Create from '../pages/Create.js';
 import Examples from '../pages/Examples.js';
 
-const Layout = ({...props}) => {
+const Layout = ({state}) => {
   return (
   <div className="Layout">
-    {props.state.loading && <div className="loading">Loading...</div>}
+    {state.loading && <div className="loading">Loading...</div>}
     <main>
       <Switch>
         <Route 
@@ -22,20 +22,21 @@ const Layout = ({...props}) => {
           component={Home}
         />
         <Route 
-          path="/create" 
-          component={Create} 
+          path="/create"
+          render={()=> <Create state={state}/>}
         />
         <Route 
           path="/examples" 
-          component={Examples} 
+          render={()=> <Examples state={state}/>}
         />
         <Route 
-          path="/list" 
-          component={ListPages} 
+          path="/list"
+          render={()=> <ListPages state={state}/>}
         />
         <Redirect to="/" />
       </Switch>
     </main>
+    {/* blank space added to account for footer height */}
     <div className="footerpadding"></div>
   </div>
   )

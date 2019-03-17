@@ -1,20 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const MainNav = ({ back, share, confirm }) => {
-  const backButton = <div className={`nes-btn nav-btn ${(back.disabled ? "is-disabled fade" : "is-error")}`}>{back.text}</div>
-  const shareButton = <div className={`nes-btn nav-btn ${(share.disabled ? "is-disabled fade" : "is-primary")}`}>{share.text}</div>
-  const confirmButton = <div className={`nes-btn nav-btn ${(confirm.disabled ? "is-disabled fade" : "is-success")}`}>{confirm.text}</div>  
-  
+const NavButton = ({ btn, color }) => {
+  return <div className={`nes-btn nav-btn ${(btn.disabled ? "is-disabled fade" : color)}`}>{btn.text}</div>
+}
+
+const NavButtons = ({ back, share, confirm }) => {
+  const backButton = <NavButton btn={back} color={"is-error"} />
+  const shareButton = <NavButton btn={share} color={"is-primary"} />
+  const confirmButton = <NavButton btn={confirm} color={"is-success"} />
+
   return (
   <div className="NavButtons">
     <div className="nes-container is-dark is-rounded navlinks">
-      {back.disabled ? backButton : <Link to={back.route}>{backButton}</Link>}
-      {share.disabled ? shareButton : <Link to={share.route}>{shareButton}</Link>}
-      {confirm.disabled ? confirmButton : <Link to={confirm.route}>{confirmButton}</Link>}
+      {back.disabled ? backButton : <Link onClick={back.action} to={back.route}>{backButton}</Link>}
+      {share.disabled ? shareButton : <Link onClick={share.action} to={share.route}>{shareButton}</Link>}
+      {confirm.disabled ? confirmButton : <Link onClick={confirm.action} to={confirm.route}>{confirmButton}</Link>}
     </div>
   </div>
   )
 }
 
-export default MainNav
+export default NavButtons

@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
     this.state = {
       user: {
-        results: []
+        lists: []
       },
       loading: true,
       message: null,
@@ -20,16 +20,23 @@ class App extends Component {
     }
 
     this.createAppUser = this.createAppUser.bind(this);
+    this.createNewList = this.createNewList.bind(this);
   }
 
-  /*
-    Auth functions
-  */
+  createNewList({ user, title, entries }) {
+    const db = firebase.firestore();
+    const listId = 2;
+    const newList = {
+      listId,
+      title,
+      entries 
+    }
+  }
 
   createAppUser({ uid }) {
     const db = firebase.firestore();
-    const results = [];
-    const newUser = { uid, results }
+    const lists = [];
+    const newUser = { uid, lists }
 
     const userRef = db.collection('users').doc(uid);
     userRef.set(newUser)
@@ -94,7 +101,6 @@ class App extends Component {
             });
           })
       } else {
-        // do dome kind of check here, what if they are trying to change users?
         firebase.auth().signInAnonymously()
         .then(authenticatedUser => {
           console.log('user anonymously logged in')
