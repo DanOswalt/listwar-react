@@ -10,83 +10,135 @@ class Create extends Component {
 
     this.state = {
       pageTitle: "Create New List",
-      subText: "Enter 4+ items (max 12)",
-      listTitle: "",
+      listTitle: "New List",
       newEntry: "",
-      entries: []
+      entries: [],
+      navButtons: {
+        back: {
+          text: "Back",
+          route: "/",
+          disabled: false
+        },
+        share: {
+          text: "Share",
+          route: "/",
+          disabled: true
+        },
+        confirm: {
+          text: "Done",
+          route: "/",
+          disabled: true
+        } 
+      }
     }
   }
 
   handleInput = (e) => {
-    const newEntry = e.target.value;
-    this.setState({ newEntry })
+    const value = e.target.value;
+    const key = e.target.id === "list-entry" ? "newEntry" : "listTitle";
+
+    this.setState({ [key]: value })
   }
 
   handleKeyup = (e) => {
     e.preventDefault();
     if (e.keyCode === 13) {
+      console.log(e.target.id)
       this.handleAdd(e);
     }
   }
 
   handleAdd = (e) => {
-    //check for unique-entry
-    this.setState({ 
-      entries: [...this.state.entries, this.state.newEntry],
-      newEntry: "" 
+    const newEntry = this.state.newEntry.trim();
+
+    if (newEntry === "") return;
+    if (this.entryIsDuplicate(newEntry)) {
+      console.log('message for that entry is already added')
+    } else {
+      this.setState({ 
+        entries: [...this.state.entries, newEntry],
+        newEntry: ""
+      });
+    }
+  }
+
+  handleDelete = (deletedValue) => {
+    console.log(deletedValue)
+    const entries = this.state.entries.filter(entry => {
+      return entry !== deletedValue;
     });
+    this.setState({entries});
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
   }
 
+  entryIsDuplicate = (newEntry) => {
+    const lowerCaseNewEntry = newEntry.toLowerCase();
+    return this.state.entries.map(entry => entry.toLowerCase()).includes(lowerCaseNewEntry);
+  }
+
   render () {
-    const {
-      pageTitle,
-      subText,
-      newEntry
-    } = this.state;
+    const { pageTitle, newEntry, listTitle, navButtons } = this.state;
     const entries = this.state.entries.map((entry, index) => {
-      return <ListEntry value={entry} index={index}/>
+      return <ListEntry 
+               value={entry} 
+               index={index}
+               handleDelete={this.handleDelete}
+             />
     })
 
     return (
       <div className="Create">
         <Header 
           pageTitle={pageTitle} 
-          subText={subText}
         />
-        <form 
-          className="new-list-form"
-          onSubmit={this.handleSubmit}
-        >
-          <div className="nes-field">
-            <label htmlFor="list-entry">New Entry</label>
-            <input 
-              className="nes-input new-entry" 
-              type="text" 
-              id="list-entry"
-              placeholder="tap enter to add"
-              value={newEntry}
-              onChange={this.handleInput}
-              onKeyUp={this.handleKeyup}
-            />
-            <span 
-              className="nes-btn add-entry is-success"
-              onClick={this.handleAdd}
-            >+</span>
+        <div className="new-list-container">
+          <form 
+            className="new-list-form"
+            onSubmit={this.handleSubmit}
+          >
+            <div className="nes-field">
+              <input
+                className="new-title nes-input is-dark" 
+                type="text" 
+                id="list-title"
+                placeholder="Give it a title"
+                onChange={this.handleInput}
+                onKeyUp={this.handleKeyup}
+              />
+              <input 
+                className="new-entry nes-input is-dark" 
+                type="text" 
+                id="list-entry"
+                placeholder="Enter new list item"
+                value={newEntry}
+                onChange={this.handleInput}
+                onKeyUp={this.handleKeyup}
+              />
+              <span 
+                className="add-entry nes-btn is-success"
+                onClick={this.handleAdd}
+              >+</span>
+            </div>
+          </form>
+          <div className="list-container nes-container is-dark is-rounded with-title lists">
+            <p className="title">{listTitle}</p>
+            <ul className="entries nes-list">
+              {entries}
+            </ul>
           </div>
-        </form>
-        <div className="list-container is-dark with-title nes-container lists">
-          <p className="title">List</p>
-          <ul className="entries nes-list">
-            {entries}
-          </ul>
         </div>
+
         <footer>
           {/* <Message /> */}
-          <NavButtons />
+          {navButtons.confirm.disabled = entries.length < 4}
+          <NavButtons 
+            back={navButtons.back}
+            share={navButtons.share}
+            confirm={navButtons.confirm}
+          />
         </footer>
       </div>
     )

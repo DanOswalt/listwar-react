@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Header = ({ pageTitle, subText }) => (
+const Header = ({ pageTitle }) => (
   <div className="Header">
     <div className="top nes-container is-centered is-dark is-rounded">
       <Link to={"/"}>
-        <h3 className="logo">Super ListWar</h3>
+        <h2 className="logo">Super ListWar</h2>
       </Link>
     </div>
-    <h2 className="pageTitle">{pageTitle}</h2>
-    <p className="subText">{subText}</p>
+    <h4 className="pageTitle">{pageTitle}</h4>
   </div>
 )
 

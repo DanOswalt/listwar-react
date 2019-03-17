@@ -16,20 +16,19 @@ a,
 a:visited,
 a:hover {
   text-decoration: none;
-  color: orangered;
+  color: black;
 }
 
 .Header {
   margin-bottom: 15px;
 }
 
-.Header .pageTitle {
-  color: sandybrown;
+.Header .top {
+  margin-bottom: 20px;
 }
 
-.Header .subText {
+.Header .pageTitle {
   color: white;
-  font-size: 11px;
 }
 
 .Home .home-logo {
@@ -43,18 +42,20 @@ a:hover {
 
 .ListEntry {
   display: flex;
+  justify-content: space-between;
+  vertical-align: middle;
 }
 
 .ListEntry .entry-value {
-  align-self: flex-start;
+  vertical-align: middle;
 }
 
 .ListEntry .delete-entry {
-  align-self: flex-end;
+  /* align-self: flex-end; */
   width: 30px;
   height: 30px;
   font-size: 10px;
-  padding-left: 6px;  
+  padding-left: 7px;
 }
 
 .NavButtons {
@@ -93,11 +94,14 @@ a:hover {
   flex-direction: column;
 }
 
+.Create .new-list-container {
+  margin: auto;
+}
+
 .Create .new-list-form {
   max-width: 400px;
-  margin: auto;
-  text-align: left;
   font-size: 11px;
+  margin-bottom: 15px;
 }
 
 .Create .list-container {
@@ -111,4 +115,17 @@ a:hover {
 .Create .new-entry {
   display: inline-block;
   max-width: 300px;
+}
+
+.footerpadding {
+  content: "";
+  height: 100px;
+}
+
+.is-hidden {
+  display: none;
+}
+
+.NavButtons .fade {
+  opacity: 0.1;
 }

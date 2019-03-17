@@ -36,6 +36,7 @@ const Layout = ({...props}) => {
         <Redirect to="/" />
       </Switch>
     </main>
+    <div className="footerpadding"></div>
   </div>
   )
 }
