@@ -1,10 +1,72 @@
-import React from 'react';
+import React, { Component} from 'react';
+import Header from '../../layout/Header';
+import Message from '../../layout/Message.js';
+import NavButtons from '../../layout/NavButtons.js';
+import ListEntry from './../Create/ListEntry.js';
 
-const ListView = () => (
-  <div>
-    <h1>ListView</h1>
-    <p>This is a the start view. If a user has completed this list, should redirect to result</p>
-  </div>
-)
+class ListView extends Component {
+  constructor(props) {
+    super(props);
 
-export default ListView
+    this.state = {
+      pageTitle: "View List",
+      listTitle: "",
+      entries: [],
+      navButtons: {
+        back: {
+          text: "Back",
+          route: "/",
+          disabled: false,
+          action: null
+        },
+        share: {
+          text: "Share",
+          route: "/",
+          disabled: true,
+          action: null
+        },
+        confirm: {
+          text: "War",
+          route: "#",
+          disabled: true,
+          action: this.handleSubmit
+        } 
+      }
+    }
+  }
+  render () {
+    const { pageTitle, navButtons } = this.state;
+    const entries = this.state.entries.map((entry, index) => {
+      return <li key={index}>{entry}</li>
+    })
+
+    return (
+      <div className="ListView">
+        <Header 
+          pageTitle={pageTitle} 
+        />
+        <div className="new-list-container">
+          <div className="list-container nes-container is-dark is-rounded with-title lists">
+            <p className="title">{this.listTitle}</p>
+            <ul className="entries nes-list">
+              {entries}
+            </ul>
+          </div>
+        </div>
+
+        <footer>
+          {/* <Message /> */}
+
+          <NavButtons 
+            back={navButtons.back}
+            share={navButtons.share}
+            confirm={navButtons.confirm}
+          />
+        </footer>
+      </div>
+    )
+  }
+
+}
+
+export default ListView;

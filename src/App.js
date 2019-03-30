@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Layout from './components/layout/Layout.js';
+import { withRouter } from 'react-router-dom';
+import slugify from 'slugify'
+import shortid from 'shortid'
 import 'nes.css/css/nes.css'
 import './App.css';
 
@@ -23,14 +26,43 @@ class App extends Component {
     this.createNewList = this.createNewList.bind(this);
   }
 
-  createNewList({ user, title, entries }) {
+  handleError = error => {
+    console.log(error.message)
+    this.setState({ 
+      loading: false,
+      message: error.message,
+      showErrorMessage: true
+    })
+  }
+
+  createNewList(title, entries) {
+    const { user } = this.state;
     const db = firebase.firestore();
-    const listId = 2;
+    const listSlug = slugify(title, {
+      replacement: '-',
+      remove: /[$*_+~.()'"!\-:@]/g,
+      lower: true
+    })
+    const listId = shortid.generate();
     const newList = {
       listId,
       title,
-      entries 
+      entries,
+      listSlug
     }
+
+    user.lists.push(newList.listId);
+
+    const listRef = db.collection('lists').doc(newList.listId);
+    const userRef = db.collection('users').doc(user.uid);
+
+    listRef.set(newList)
+    .then(() => userRef.set(user))
+    .then(() => {
+      console.log('go to it')
+      this.props.history.push(`/list/${newList.listId}/${newList.listSlug}`)
+    })
+    .catch(this.handleError)
   }
 
   createAppUser({ uid }) {
@@ -47,17 +79,9 @@ class App extends Component {
         message: "App user created",
         showInfoMessage: true,
         user: newUser
-      })
-      this.props.history.push("/");
-    })
-    .catch(error => {
-      console.log(error.message)
-      this.setState({ 
-        loading: false,
-        message: error.message,
-        showErrorMessage: true
       });
     })
+    .catch(this.handleError)
   }
 
   componentDidMount () {
@@ -75,7 +99,6 @@ class App extends Component {
         userRef.get()
           .then(doc => {
             if (doc.exists) {
-              console.log(`data found for user`);
               user = doc.data();
               this.setState({ 
                 user,
@@ -89,33 +112,20 @@ class App extends Component {
               console.log(`data is not found, will create new user`);
               this.createAppUser({
                 loading: false,
-                uid: user.uid
+                uid
               });
             }
           })
-          .catch(error => {
-            this.setState({ 
-              loading: false,
-              message: error.message,
-              showErrorMessage: true
-            });
-          })
+          .catch(this.handleError)
       } else {
         firebase.auth().signInAnonymously()
         .then(authenticatedUser => {
           console.log('user anonymously logged in')
-          // check uid, if new, create it
           this.createAppUser({
             uid: authenticatedUser.user.uid
           }) 
         })
-        .catch(error => {
-          this.setState({ 
-            loading: false,
-            message: error.message,
-            showErrorMessage: true
-          });
-        })
+        .catch(this.handleError)
       }
     });
   }
@@ -123,10 +133,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Layout state={this.state}/>
+        <Layout state={this.state}
+                createNewList={this.createNewList}/>
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

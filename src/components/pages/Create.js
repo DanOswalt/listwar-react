@@ -66,7 +66,6 @@ class Create extends Component {
   }
 
   handleDelete = (deletedValue) => {
-    console.log(deletedValue)
     const entries = this.state.entries.filter(entry => {
       return entry !== deletedValue;
     });
@@ -74,9 +73,11 @@ class Create extends Component {
   }
 
   handleSubmit = (e) => {
-    // e.preventDefault();
+    const { createNewList } = this.props;
+    const { listTitle, entries} = this.state
+    e.preventDefault();
     console.log('submit');
-
+    createNewList(listTitle, entries);
   }
 
   entryIsDuplicate = (newEntry) => {
