@@ -2,7 +2,9 @@ import React, { Component} from 'react';
 import Header from '../../layout/Header';
 import Message from '../../layout/Message.js';
 import NavButtons from '../../layout/NavButtons.js';
-import ListEntry from './../Create/ListEntry.js';
+
+import firebase from '../../../firebase/firebaseInit.js';
+require('firebase/auth');
 
 class ListView extends Component {
   constructor(props) {
@@ -10,8 +12,9 @@ class ListView extends Component {
 
     this.state = {
       pageTitle: "View List",
-      listTitle: "",
-      entries: [],
+      listId: props.match.params.listId,
+      listTitle: props.state.currentList.title,
+      entries: props.state.currentList.entries,
       navButtons: {
         back: {
           text: "Back",
@@ -22,18 +25,48 @@ class ListView extends Component {
         share: {
           text: "Share",
           route: "/",
-          disabled: true,
+          disabled: false,
           action: null
         },
         confirm: {
           text: "War",
           route: "#",
-          disabled: true,
-          action: this.handleSubmit
+          disabled: false,
+          action: null
         } 
       }
     }
   }
+
+  fetchList() {
+    const db = firebase.firestore();
+    const listRef = db.collection('lists').doc(this.state.listId);
+
+    listRef.get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log('no list')
+        } else {
+          console.log('list exists')
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+  componentDidMount () {
+    if (this.props.state.currentList.entries.length > 0) {
+      console.log('from create page');
+    } else {
+      console.log('from url');
+      // get list from db, if exists
+      // check user to see if list was already completed
+      // for now, assume user has not
+      this.fetchList();
+    }
+  }
+
   render () {
     const { pageTitle, navButtons } = this.state;
     const entries = this.state.entries.map((entry, index) => {
@@ -45,9 +78,9 @@ class ListView extends Component {
         <Header 
           pageTitle={pageTitle} 
         />
-        <div className="new-list-container">
+        <div className="list-view-container">
           <div className="list-container nes-container is-dark is-rounded with-title lists">
-            <p className="title">{this.listTitle}</p>
+            <p className="title">{this.state.listTitle}</p>
             <ul className="entries nes-list">
               {entries}
             </ul>

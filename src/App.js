@@ -16,6 +16,12 @@ class App extends Component {
       user: {
         lists: []
       },
+      currentList: {
+        listId: "",
+        title: "",
+        entries: [],
+        listSlug: ""
+      },
       loading: true,
       message: null,
       showErrorMessage: false,
@@ -57,12 +63,15 @@ class App extends Component {
     const userRef = db.collection('users').doc(user.uid);
 
     listRef.set(newList)
-    .then(() => userRef.set(user))
-    .then(() => {
-      console.log('go to it')
-      this.props.history.push(`/list/${newList.listId}/${newList.listSlug}`)
-    })
-    .catch(this.handleError)
+      .then(() => {
+        userRef.set(user)
+        this.setState({
+          currentList: newList
+          // loading: true
+        })
+      })
+      .then(() => this.props.history.push(`/list/${newList.listId}/${newList.listSlug}`))
+      .catch(this.handleError)
   }
 
   createAppUser({ uid }) {
@@ -119,13 +128,13 @@ class App extends Component {
           .catch(this.handleError)
       } else {
         firebase.auth().signInAnonymously()
-        .then(authenticatedUser => {
-          console.log('user anonymously logged in')
-          this.createAppUser({
-            uid: authenticatedUser.user.uid
-          }) 
-        })
-        .catch(this.handleError)
+          .then(authenticatedUser => {
+            console.log('user anonymously logged in')
+            this.createAppUser({
+              uid: authenticatedUser.user.uid
+            }) 
+          })
+          .catch(this.handleError)
       }
     });
   }

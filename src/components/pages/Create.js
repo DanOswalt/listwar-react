@@ -76,7 +76,6 @@ class Create extends Component {
     const { createNewList } = this.props;
     const { listTitle, entries} = this.state
     e.preventDefault();
-    console.log('submit');
     createNewList(listTitle, entries);
   }
 

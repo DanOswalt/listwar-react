@@ -10,7 +10,7 @@ import Create from '../pages/Create.js';
 import Examples from '../pages/Examples.js';
 import ListView from '../pages/List/ListView.js';
 
-const Layout = ({state, ...props}) => {
+const Layout = ({state, match, ...props}) => {
   return (
   <div className="Layout">
     {state.loading && <div className="loading">Loading...</div>}
@@ -31,7 +31,7 @@ const Layout = ({state, ...props}) => {
         />
         <Route 
           path="/list/:listId/:slug"
-          render={()=> <ListView state={state}/>}
+          render={(props) => <ListView state={state} {...props} />}
         />
         <Redirect to="/" />
       </Switch>
