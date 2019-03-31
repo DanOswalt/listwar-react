@@ -13,8 +13,7 @@ class ListView extends Component {
     this.state = {
       pageTitle: "View List",
       listId: props.match.params.listId,
-      listTitle: props.state.currentList.title,
-      entries: props.state.currentList.entries,
+      currentList: props.state.currentList,
       navButtons: {
         back: {
           text: "Back",
@@ -46,8 +45,11 @@ class ListView extends Component {
       .then(doc => {
         if (!doc.exists) {
           console.log('no list')
+          // load doesn't exist text
         } else {
           console.log('list exists')
+          const currentList = doc.data();
+          this.setState({currentList});
         }
       })
       .catch(error => {
@@ -69,7 +71,7 @@ class ListView extends Component {
 
   render () {
     const { pageTitle, navButtons } = this.state;
-    const entries = this.state.entries.map((entry, index) => {
+    const entries = this.state.currentList.entries.map((entry, index) => {
       return <li key={index}>{entry}</li>
     })
 
@@ -80,7 +82,7 @@ class ListView extends Component {
         />
         <div className="list-view-container">
           <div className="list-container nes-container is-dark is-rounded with-title lists">
-            <p className="title">{this.state.listTitle}</p>
+            <p className="title">{this.state.currentList.title}</p>
             <ul className="entries nes-list">
               {entries}
             </ul>
