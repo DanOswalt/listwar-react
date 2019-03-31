@@ -116,6 +116,7 @@ a:hover {
   margin: auto;
   text-align: left;
   font-size: 11px;
+  background: orangered;
 }
 
 .Create .add-entry,

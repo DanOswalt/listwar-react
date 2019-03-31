@@ -9,6 +9,7 @@ import Home from '../pages/Home.js';
 import Create from '../pages/Create.js';
 import Examples from '../pages/Examples.js';
 import ListView from '../pages/List/ListView.js';
+import ListWar from '../pages/List/ListWar.js';
 
 const Layout = ({state, match, ...props}) => {
   return (
@@ -28,6 +29,10 @@ const Layout = ({state, match, ...props}) => {
         <Route 
           path="/examples" 
           render={()=> <Examples state={state}/>}
+        />
+        <Route 
+          path="/list/:listId/:slug/war"
+          render={(props) => <ListWar state={state} {...props} />}
         />
         <Route 
           path="/list/:listId/:slug"

@@ -29,7 +29,7 @@ class ListView extends Component {
         },
         confirm: {
           text: "War",
-          route: "#",
+          route: `${props.match.url}/war`,
           disabled: false,
           action: null
         } 
@@ -74,21 +74,26 @@ class ListView extends Component {
     const entries = this.state.currentList.entries.map((entry, index) => {
       return <li key={index}>{entry}</li>
     })
+    const listTitle = this.state.currentList.title;
+    const listExists = entries.length > 0;
+
+    const list = (
+      <div className="list-view-container">
+        <div className="list-container nes-container is-dark is-rounded with-title lists">
+          <p className="title">{listTitle}</p>
+           <ul className="entries nes-list">
+            {entries}
+           </ul>
+        </div>
+      </div>
+    )
 
     return (
       <div className="ListView">
         <Header 
           pageTitle={pageTitle} 
         />
-        <div className="list-view-container">
-          <div className="list-container nes-container is-dark is-rounded with-title lists">
-            <p className="title">{this.state.currentList.title}</p>
-            <ul className="entries nes-list">
-              {entries}
-            </ul>
-          </div>
-        </div>
-
+        { listExists && list }
         <footer>
           {/* <Message /> */}
 
