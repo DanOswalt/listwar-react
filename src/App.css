@@ -116,7 +116,14 @@ a:hover {
   margin: auto;
   text-align: left;
   font-size: 11px;
-  background: orangered;
+  /* background: orangered; */
+}
+
+.ListView .entries {
+  padding: 0;
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 2;
 }
 
 .Create .add-entry,

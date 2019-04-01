@@ -4,6 +4,7 @@ import Message from '../../layout/Message.js';
 import NavButtons from '../../layout/NavButtons.js';
 
 import firebase from '../../../firebase/firebaseInit.js';
+import RoundsNotifier from './RoundsNotifier';
 require('firebase/auth');
 
 class ListView extends Component {
@@ -75,7 +76,8 @@ class ListView extends Component {
       return <li key={index}>{entry}</li>
     })
     const listTitle = this.state.currentList.title;
-    const listExists = entries.length > 0;
+    const numEntries = entries.length;
+    const listExists = numEntries > 0;
 
     const list = (
       <div className="list-view-container">
@@ -91,10 +93,12 @@ class ListView extends Component {
     return (
       <div className="ListView">
         <Header 
-          pageTitle={pageTitle} 
+          pageTitle={pageTitle}
         />
         { listExists && list }
         <footer>
+          <RoundsNotifier numEntries={numEntries} />
+
           {/* <Message /> */}
 
           <NavButtons 

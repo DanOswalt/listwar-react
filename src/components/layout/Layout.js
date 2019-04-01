@@ -35,6 +35,7 @@ const Layout = ({state, match, ...props}) => {
           render={(props) => <ListWar state={state} {...props} />}
         />
         <Route 
+          exact
           path="/list/:listId/:slug"
           render={(props) => <ListView state={state} {...props} />}
         />
