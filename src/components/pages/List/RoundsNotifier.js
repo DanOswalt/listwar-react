@@ -1,7 +1,6 @@
 import React from 'react';
 
 const RoundsNotifier = ({numEntries}) => {
-  console.log(numEntries)
   let numRounds = 0; 
   for (let i = 0; i < numEntries; i++) {
     numRounds += i

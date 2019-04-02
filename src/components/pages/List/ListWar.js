@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import Header from '../../layout/Header';
 import Message from '../../layout/Message.js';
 import NavButtons from '../../layout/NavButtons.js';
+import MatchItem from './MatchItem.js';
 import chance from 'chance';
 
 class ListWar extends Component {
@@ -11,10 +12,13 @@ class ListWar extends Component {
     const mockList = {
       title: "Mock List",
       entries: [
-        "apples",
-        "pears",
-        "bananas",
-        "oranges"
+        "Pizza",
+        "Bananas",
+        "Fish",
+        "Lasagna",
+        "Grapes",
+        "Orange",
+        "Cheese"
       ]
     }
 
@@ -23,23 +27,13 @@ class ListWar extends Component {
       pageTitle: "War!",
       // currentList: props.state.currentList,
       currentList: mockList,
-      currentResult: {
-        // listId: this.listId,
-        items: props.state.currentList.entries.map((value, index) => {
-          return {
-            value: value,
-            points: 0,
-            id: index,
-            beats: [],
-            rank: null
-          }
-        })
-      },
+      currentResult: null,
       schedule: [],
       currentMatch: {
-
+        hero: { value: "", listIndex: -1 },
+        villain: { value: "", listIndex: -1 }
       },
-      matchIndex: 0,
+      matchIndex: -1,
       navButtons: {
         back: {
           text: "Back",
@@ -66,14 +60,32 @@ class ListWar extends Component {
   componentDidMount() {
     setTimeout(() => {
       if (this.state.currentList) {
-        console.log('start')
+        this.createInitialEmptyResult();
         this.createSchedule();
         this.nextMatch();
       }
     }, 1000);
   }
 
-  createSchedule() {
+  createInitialEmptyResult = () => {
+    const { currentList } = this.state;
+    const currentResult = {
+      // listId: this.listId,
+      items: currentList.entries.map((value, index) => {
+        return {
+          value: value,
+          points: 0,
+          id: index,
+          beats: [],
+          rank: null
+        }
+      })
+    }
+
+    this.setState({ currentResult });
+  }
+
+  createSchedule = () => {
     const { currentList, Chance } = this.state;
     const n = currentList.entries.length;
     const matches = [];
@@ -92,48 +104,65 @@ class ListWar extends Component {
     this.setState({ schedule });
   }
 
-  nextMatch() {
-    const { schedule, matchIndex, currentList } = this.state;
+  nextMatch = () => {
+    const { schedule, currentList } = this.state;
+    let { matchIndex } = this.state;
     const { entries } = currentList;
+    matchIndex++;
 
-    if (matchIndex > entries.length) {
+    if (matchIndex === schedule.length) {
       // finish method
-      console.log('all done');
+      
+      console.log('result:', this.state.currentResult);
+      this.setState({ currentMatch: {
+        hero: { value: "", listIndex: -1 },
+        villain: { value: "", listIndex: -1 }
+      }})
+
     } else {
       // update message method
-      console.log(schedule)
       const heroIndex = schedule[matchIndex][0];
       const villainIndex = schedule[matchIndex][1];
       const currentMatch = {
-        hero: { value: entries[heroIndex], listIndex: heroIndex },
-        villain: { value: entries[villainIndex], listIndex: villainIndex }
+        hero: { value: entries[heroIndex], index: heroIndex },
+        villain: { value: entries[villainIndex], index: villainIndex }
       }
 
-      this.setState({
-        currentMatch
-      })
-
+      this.setState({ currentMatch, matchIndex })
     }
   }
 
-  pickWinner (winnerIndex, loserIndex) {
+  pickWinner = (winnerIndex, loserIndex) => {
     const { currentResult } = this.state;
-    currentResult.items[winnerIndex].points += 1
-    currentResult.items[winnerIndex].beats.push(loserIndex)
-    this.nextBattle()
+    currentResult.items[winnerIndex].points += 1;
+    currentResult.items[winnerIndex].beats.push(loserIndex);
+    this.nextMatch()
   }
 
   render () {
-    const { pageTitle, navButtons } = this.state;
+    const { pageTitle, navButtons, currentMatch } = this.state;
+    const showMatches = currentMatch.hero.listIndex !== -1;
 
     return (
       <div className="ListView">
-        <Header 
-          pageTitle={pageTitle} 
-        />
+        <Header pageTitle={pageTitle}/>
+        { showMatches && 
+          <div className="match-container nes-container is-dark">
+            <MatchItem 
+              pickWinner={this.pickWinner}
+              winnerIndex={currentMatch.hero.index}
+              loserIndex={currentMatch.villain.index}
+              text={currentMatch.hero.value} 
+            />
+            <MatchItem 
+              pickWinner={this.pickWinner}
+              winnerIndex={currentMatch.villain.index}
+              loserIndex={currentMatch.hero.index}
+              text={currentMatch.villain.value} 
+            />
+          </div> }
         <footer>
           {/* <Message /> */}
-
           <NavButtons 
             back={navButtons.back}
             share={navButtons.share}
@@ -143,7 +172,6 @@ class ListWar extends Component {
       </div>
     )
   }
-
 }
 
 export default ListWar;
