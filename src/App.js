@@ -54,7 +54,8 @@ class App extends Component {
       listId,
       title,
       entries,
-      listSlug
+      listSlug,
+      completed: false
     }
 
     user.lists.push(newList.listId);

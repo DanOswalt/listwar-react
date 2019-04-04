@@ -3,7 +3,9 @@ import Header from '../../layout/Header';
 import Message from '../../layout/Message.js';
 import NavButtons from '../../layout/NavButtons.js';
 import MatchItem from './MatchItem.js';
+import { withRouter } from 'react-router-dom';
 import chance from 'chance';
+import firebase from '../../../firebase/firebaseInit.js';
 
 class ListWar extends Component {
   constructor(props) {
@@ -25,8 +27,8 @@ class ListWar extends Component {
     this.state = {
       Chance: new chance(),
       pageTitle: "War!",
-      // currentList: props.state.currentList,
-      currentList: mockList,
+      currentList: this.props.state.currentList,
+      // currentList: mockList,
       currentResult: null,
       schedule: [],
       currentMatch: {
@@ -69,8 +71,10 @@ class ListWar extends Component {
 
   createInitialEmptyResult = () => {
     const { currentList } = this.state;
+    const { user } = this.props.state;
+
     const currentResult = {
-      // listId: this.listId,
+      id: currentList.listId + user.uid,  
       items: currentList.entries.map((value, index) => {
         return {
           value: value,
@@ -112,13 +116,12 @@ class ListWar extends Component {
 
     if (matchIndex === schedule.length) {
       // finish method
-      
       console.log('result:', this.state.currentResult);
       this.setState({ currentMatch: {
         hero: { value: "", listIndex: -1 },
         villain: { value: "", listIndex: -1 }
       }})
-
+      this.finish();
     } else {
       // update message method
       const heroIndex = schedule[matchIndex][0];
@@ -137,6 +140,44 @@ class ListWar extends Component {
     currentResult.items[winnerIndex].points += 1;
     currentResult.items[winnerIndex].beats.push(loserIndex);
     this.nextMatch()
+  }
+
+  finish = () => {
+    this.processResult();
+    this.saveResult();
+  }
+
+  processResult() {
+    // do something
+  }
+
+  saveResult() {
+    const db = firebase.firestore();
+    const result = this.state.currentResult;
+    const resultRef = db.collection('results').doc(result.id);
+    resultRef.set(result)
+      .then(doc => {
+        console.log('result added');
+        this.markAsComplete();
+      })
+      .catch(err => { console.log(err)})
+  }
+
+  markAsComplete() {
+    const db = firebase.firestore();
+    const user = this.props.state.user;
+    const { listId : currentListId } = this.state.currentList;
+    // const listComplete = { listId: currentListId, completed: true };
+    const listIndex = user.lists.findIndex(list => list.listId === currentListId);
+    console.log(listIndex)
+    user.lists[listIndex].completed = true;
+
+    const userRef = db.collection('users').doc(user.uid);
+    userRef.set(user)
+      .then(doc => {
+        this.setState({ user: doc.data() })
+      })
+      .catch(err => { console.log(err)})
   }
 
   render () {
@@ -174,4 +215,4 @@ class ListWar extends Component {
   }
 }
 
-export default ListWar;
+export default withRouter(ListWar);

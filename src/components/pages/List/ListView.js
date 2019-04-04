@@ -2,9 +2,9 @@ import React, { Component} from 'react';
 import Header from '../../layout/Header';
 import Message from '../../layout/Message.js';
 import NavButtons from '../../layout/NavButtons.js';
-
-import firebase from '../../../firebase/firebaseInit.js';
 import RoundsNotifier from './RoundsNotifier';
+import { withRouter } from 'react-router-dom';
+import firebase from '../../../firebase/firebaseInit.js';
 require('firebase/auth');
 
 class ListView extends Component {
@@ -13,8 +13,8 @@ class ListView extends Component {
 
     this.state = {
       pageTitle: "View List",
-      listId: props.match.params.listId,
-      currentList: props.state.currentList,
+      listId: this.props.match.params.listId,
+      currentList: this.props.state.currentList,
       navButtons: {
         back: {
           text: "Back",
@@ -30,7 +30,7 @@ class ListView extends Component {
         },
         confirm: {
           text: "War",
-          route: `${props.match.url}/war`,
+          route: `${this.props.match.url}/war`,
           disabled: false,
           action: null
         } 
@@ -113,4 +113,4 @@ class ListView extends Component {
 
 }
 
-export default ListView;
+export default withRouter(ListView);

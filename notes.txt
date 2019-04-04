@@ -1,35 +1,19 @@
-what's working:
+[x] change lists to [{ listId: xxx, completed: true }]
+[ ] fix data transfer from listview to listwar (remove setTimeout)
+[ ] create a MyResult page
+[ ] transfer to MyResult page from listview
+[ ] guard /war route? (so user doesn't do list again)
+[ ] give anonymously generated name to user
 
-create a list. this list should go into its own database, the user should only have a ref to id.
-
-list id doesn't get pushed to user.lists until completed.
-
-lists should only contain the lists, not the results or even who made the list?
-
-when user goes to /list/:listId/:slug,
-
-the app will look for a user,
-if the user is logged in, then it will check the user to see if that list is in user.lists.
--if so, look and see if in user.results
-
-if user does not have it in lists....
-
-if a user receives shared list, does that become part of their lists? sure. if they have ever
-opened a list, it will be in their lists as uncompleted.
-
-so: list shows any list created or opened.
-if a user has completed the list, they cannot complete it again.
-resulsts are in a separate collection.
-their ids could be userid+listid.
-
-so: if a user recieves a list url
-it will get saved to their lists.
-then check for results.
-if no result, green button will lead to "War", if result.
-if result, green button will lead to "My Result" or something, message should explain.
-
-
-
-
-
-
+currentResult = {
+  listId: "abcdef" + "123456",
+  items: currentList.entries.map((value, index) => {
+    return {
+      value: value,
+      points: 0,
+      id: index,
+      beats: [],
+      rank: null
+    }
+  })
+}

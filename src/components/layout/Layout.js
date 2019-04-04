@@ -32,12 +32,12 @@ const Layout = ({state, match, ...props}) => {
         />
         <Route 
           path="/list/:listId/:slug/war"
-          render={(props) => <ListWar state={state} {...props} />}
+          render={() => <ListWar state={state} />}
         />
         <Route 
           exact
           path="/list/:listId/:slug"
-          render={(props) => <ListView state={state} {...props} />}
+          render={() => <ListView state={state} />}
         />
         <Redirect to="/" />
       </Switch>
