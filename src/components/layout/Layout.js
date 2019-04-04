@@ -11,10 +11,10 @@ import Examples from '../pages/Examples.js';
 import ListView from '../pages/List/ListView.js';
 import ListWar from '../pages/List/ListWar.js';
 
-const Layout = ({state, match, ...props}) => {
+const Layout = ({appState, match, ...props}) => {
   return (
   <div className="Layout">
-    {state.loading && <div className="loading">Loading...</div>}
+    {appState.loading && <div className="loading">Loading...</div>}
     <main>
       <Switch>
         <Route 
@@ -24,20 +24,36 @@ const Layout = ({state, match, ...props}) => {
         />
         <Route 
           path="/create"
-          render={()=> <Create state={state} createNewList={props.createNewList}/>}
+          render={()=> <Create createNewList={props.createNewList}/>}
         />
         <Route 
           path="/examples" 
-          render={()=> <Examples state={state}/>}
+          render={()=> <Examples/>}
         />
         <Route 
           path="/list/:listId/:slug/war"
-          render={() => <ListWar state={state} />}
+          render={
+            () => (
+              <ListWar
+                user={appState.user}
+                currentList={appState.currentList}
+                saveResult={props.saveResult}
+              />
+            )
+          }
         />
         <Route 
           exact
           path="/list/:listId/:slug"
-          render={() => <ListView state={state} />}
+          render={
+            () => (
+              <ListView
+                user={appState.user}
+                currentList={appState.currentList}
+                getCurrentList={props.getCurrentList}
+              />
+            )
+          }
         />
         <Redirect to="/" />
       </Switch>

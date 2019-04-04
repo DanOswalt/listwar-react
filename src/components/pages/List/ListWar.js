@@ -5,30 +5,27 @@ import NavButtons from '../../layout/NavButtons.js';
 import MatchItem from './MatchItem.js';
 import { withRouter } from 'react-router-dom';
 import chance from 'chance';
-import firebase from '../../../firebase/firebaseInit.js';
 
 class ListWar extends Component {
   constructor(props) {
     super(props);
 
-    const mockList = {
-      title: "Mock List",
-      entries: [
-        "Pizza",
-        "Bananas",
-        "Fish",
-        "Lasagna",
-        "Grapes",
-        "Orange",
-        "Cheese"
-      ]
-    }
+    // const mockList = {
+    //   title: "Mock List",
+    //   entries: [
+    //     "Pizza",
+    //     "Bananas",
+    //     "Fish",
+    //     "Lasagna",
+    //     "Grapes",
+    //     "Orange",
+    //     "Cheese"
+    //   ]
+    // }
 
     this.state = {
       Chance: new chance(),
       pageTitle: "War!",
-      currentList: this.props.state.currentList,
-      // currentList: mockList,
       currentResult: null,
       schedule: [],
       currentMatch: {
@@ -61,7 +58,7 @@ class ListWar extends Component {
 
   componentDidMount() {
     setTimeout(() => {
-      if (this.state.currentList) {
+      if (this.props.currentList) {
         this.createInitialEmptyResult();
         this.createSchedule();
         this.nextMatch();
@@ -70,8 +67,7 @@ class ListWar extends Component {
   }
 
   createInitialEmptyResult = () => {
-    const { currentList } = this.state;
-    const { user } = this.props.state;
+    const { currentList, user } = this.props;
 
     const currentResult = {
       id: currentList.listId + user.uid,  
@@ -90,7 +86,8 @@ class ListWar extends Component {
   }
 
   createSchedule = () => {
-    const { currentList, Chance } = this.state;
+    const { currentList } = this.props;
+    const { Chance } = this.state;
     const n = currentList.entries.length;
     const matches = [];
     let schedule = [];
@@ -109,7 +106,8 @@ class ListWar extends Component {
   }
 
   nextMatch = () => {
-    const { schedule, currentList } = this.state;
+    const { schedule } = this.state;
+    const { currentList } = this.props;
     let { matchIndex } = this.state;
     const { entries } = currentList;
     matchIndex++;
@@ -144,40 +142,11 @@ class ListWar extends Component {
 
   finish = () => {
     this.processResult();
-    this.saveResult();
+    this.props.saveResult(this.state.currentResult, this.props.currentList.listId);
   }
 
   processResult() {
     // do something
-  }
-
-  saveResult() {
-    const db = firebase.firestore();
-    const result = this.state.currentResult;
-    const resultRef = db.collection('results').doc(result.id);
-    resultRef.set(result)
-      .then(doc => {
-        console.log('result added');
-        this.markAsComplete();
-      })
-      .catch(err => { console.log(err)})
-  }
-
-  markAsComplete() {
-    const db = firebase.firestore();
-    const user = this.props.state.user;
-    const { listId : currentListId } = this.state.currentList;
-    // const listComplete = { listId: currentListId, completed: true };
-    const listIndex = user.lists.findIndex(list => list.listId === currentListId);
-    console.log(listIndex)
-    user.lists[listIndex].completed = true;
-
-    const userRef = db.collection('users').doc(user.uid);
-    userRef.set(user)
-      .then(doc => {
-        this.setState({ user: doc.data() })
-      })
-      .catch(err => { console.log(err)})
   }
 
   render () {

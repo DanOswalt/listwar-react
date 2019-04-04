@@ -11,10 +11,10 @@ class ListView extends Component {
   constructor(props) {
     super(props);
 
+    const { match } = this.props;
+
     this.state = {
       pageTitle: "View List",
-      listId: this.props.match.params.listId,
-      currentList: this.props.state.currentList,
       navButtons: {
         back: {
           text: "Back",
@@ -30,7 +30,7 @@ class ListView extends Component {
         },
         confirm: {
           text: "War",
-          route: `${this.props.match.url}/war`,
+          route: `${match.url}/war`,
           disabled: false,
           action: null
         } 
@@ -38,44 +38,29 @@ class ListView extends Component {
     }
   }
 
-  fetchList() {
-    const db = firebase.firestore();
-    const listRef = db.collection('lists').doc(this.state.listId);
-
-    listRef.get()
-      .then(doc => {
-        if (!doc.exists) {
-          console.log('no list')
-          // load doesn't exist text
-        } else {
-          console.log('list exists')
-          const currentList = doc.data();
-          this.setState({currentList});
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
-
   componentDidMount () {
-    if (this.props.state.currentList.entries.length > 0) {
-      console.log('from create page');
-    } else {
-      console.log('from url');
-      // get list from db, if exists
-      // check user to see if list was already completed
-      // for now, assume user has not
-      this.fetchList();
-    }
+    const { currentList, match } = this.props;
+    setTimeout(() => {
+      if (currentList.entries.length > 0) {
+        console.log('from create page');
+      } else {
+        console.log('from url');
+        // get list from db, if exists
+        // check user to see if list was already completed
+        // for now, assume user has not
+        console.log(match)
+        this.props.getCurrentList(match.params.listId);
+      }
+    }, 1000)
   }
 
   render () {
     const { pageTitle, navButtons } = this.state;
-    const entries = this.state.currentList.entries.map((entry, index) => {
+    const { currentList } = this.props;
+    const entries = currentList.entries.map((entry, index) => {
       return <li key={index}>{entry}</li>
     })
-    const listTitle = this.state.currentList.title;
+    const listTitle = currentList.title;
     const numEntries = entries.length;
     const listExists = numEntries > 0;
 

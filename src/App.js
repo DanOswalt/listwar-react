@@ -27,9 +27,54 @@ class App extends Component {
       showErrorMessage: false,
       showInfoMessage: false
     }
+  }
 
-    this.createAppUser = this.createAppUser.bind(this);
-    this.createNewList = this.createNewList.bind(this);
+  getCurrentList = listId => {
+    console.log("listid:", listId)
+    const self = this;
+    const db = firebase.firestore();
+    const listRef = db.collection('lists').doc(listId);
+
+    listRef.get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log('no list')
+          // load doesn't exist text
+        } else {
+          console.log('list exists')
+          const currentList = doc.data();
+          console.log('fresh from db:', currentList)
+          self.setState({currentList});
+        }
+      })
+      .catch(this.handleError)
+  }
+
+  saveResult = (result, currentListId) => {
+    const db = firebase.firestore();
+    const resultRef = db.collection('results').doc(result.id);
+    resultRef.set(result)
+      .then(doc => {
+        console.log('result added', currentListId);
+        this.markAsComplete(currentListId);
+      })
+      .catch(err => { console.log(err)})
+  }
+
+  markAsComplete = currentListId => {
+    const db = firebase.firestore();
+    const { user } = this.state
+    console.log('user lists', user.lists);
+    console.log('currentList', currentListId)
+    const listIndex = user.lists.findIndex(list => list.listId === currentListId);
+    user.lists[listIndex].completed = true;
+
+    const userRef = db.collection('users').doc(user.uid);
+    userRef.set(user)
+      .then(doc => {
+        this.setState({ user: doc.data() })
+      })
+      .catch(err => { console.log(err)})
   }
 
   handleError = error => {
@@ -41,7 +86,7 @@ class App extends Component {
     })
   }
 
-  createNewList(title, entries) {
+  createNewList = (title, entries) => {
     const { user } = this.state;
     const db = firebase.firestore();
     const listSlug = slugify(title, {
@@ -75,7 +120,7 @@ class App extends Component {
       .catch(this.handleError)
   }
 
-  createAppUser({ uid }) {
+  createAppUser = ({ uid }) => {
     const db = firebase.firestore();
     const lists = [];
     const newUser = { uid, lists }
@@ -94,7 +139,7 @@ class App extends Component {
     .catch(this.handleError)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     firebase.auth().onAuthStateChanged((authenticatedUser) => {
       if (authenticatedUser) {
         let user = null;
@@ -143,8 +188,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Layout state={this.state}
-                createNewList={this.createNewList}/>
+        <Layout 
+          appState={this.state}
+          createNewList={this.createNewList}
+          getCurrentList={this.getCurrentList}
+          saveResult={this.saveResult}
+        />
       </div>
     );
   }
