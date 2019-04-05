@@ -63,20 +63,15 @@ class App extends Component {
 
   markAsComplete = currentListId => {
     const db = firebase.firestore();
-    const user = this.state.user.slice();
+    const user = {...this.state.user};
     const listIndex = user.lists.findIndex(list => list.listId === currentListId);
     user.lists[listIndex].completed = true;
-    console.log(user.id)
-    // TODO: lookup info on update
     const userRef = db.collection('users').doc(user.uid);
-    userRef.update({
-      
-    })
-      .then(doc => {
-        console.log("doc", doc);
-        this.setState({ user: doc.data() });
+    userRef.update({lists: user.lists})
+      .then(() => {
+        this.setState({ user });
       })
-      .catch(err => { console.log(err)})
+      .catch(this.handleError);
   }
 
   createNewList = (title, entries) => {
