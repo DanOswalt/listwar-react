@@ -47,7 +47,7 @@ class App extends Component {
           self.setState({currentList});
         }
       })
-      .catch(this.handleError)
+      .catch(this.handleError);
   }
 
   saveResult = (result, currentListId) => {
@@ -58,32 +58,25 @@ class App extends Component {
         console.log('result added', currentListId);
         this.markAsComplete(currentListId);
       })
-      .catch(err => { console.log(err)})
+      .catch(this.handleError);
   }
 
   markAsComplete = currentListId => {
     const db = firebase.firestore();
-    const { user } = this.state
-    console.log('user lists', user.lists);
-    console.log('currentList', currentListId)
+    const user = this.state.user.slice();
     const listIndex = user.lists.findIndex(list => list.listId === currentListId);
     user.lists[listIndex].completed = true;
-
+    console.log(user.id)
+    // TODO: lookup info on update
     const userRef = db.collection('users').doc(user.uid);
-    userRef.set(user)
+    userRef.update({
+      
+    })
       .then(doc => {
-        this.setState({ user: doc.data() })
+        console.log("doc", doc);
+        this.setState({ user: doc.data() });
       })
       .catch(err => { console.log(err)})
-  }
-
-  handleError = error => {
-    console.log(error.message)
-    this.setState({ 
-      loading: false,
-      message: error.message,
-      showErrorMessage: true
-    })
   }
 
   createNewList = (title, entries) => {
@@ -99,11 +92,10 @@ class App extends Component {
       listId,
       title,
       entries,
-      listSlug,
-      completed: false
+      listSlug
     }
 
-    user.lists.push(newList.listId);
+    user.lists.push({ listId: newList.listId, completed: false});
 
     const listRef = db.collection('lists').doc(newList.listId);
     const userRef = db.collection('users').doc(user.uid);
@@ -137,6 +129,15 @@ class App extends Component {
       });
     })
     .catch(this.handleError)
+  }
+
+  handleError = error => {
+    console.log(error.message)
+    this.setState({ 
+      loading: false,
+      message: error.message,
+      showErrorMessage: true
+    })
   }
 
   componentDidMount() {
