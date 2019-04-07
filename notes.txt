@@ -1,5 +1,5 @@
 [x] change lists to [{ listId: xxx, completed: true }]
-[ ] fix data transfer from listview to listwar (remove setTimeout)
+[x] fix data transfer from listview to listwar (remove setTimeout)
 [ ] create a MyResult page
 [ ] transfer to MyResult page from listview
 [ ] guard /war route? (so user doesn't do list again)
@@ -17,3 +17,9 @@ currentResult = {
     }
   })
 }
+
+// wins + *.1 head-to-head tiebreak points + .001 rest-of-field comparison + .0001 randNum
+tiebreaks not calculated if tie is already broken
+
+// counter = 1
+// sort into tiers
