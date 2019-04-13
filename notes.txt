@@ -1,25 +1,15 @@
 [x] change lists to [{ listId: xxx, completed: true }]
 [x] fix data transfer from listview to listwar (remove setTimeout)
-[ ] create a MyResult page
-[ ] transfer to MyResult page from listview
-[ ] guard /war route? (so user doesn't do list again)
-[ ] give anonymously generated name to user
-
-currentResult = {
-  listId: "abcdef" + "123456",
-  items: currentList.entries.map((value, index) => {
-    return {
-      value: value,
-      points: 0,
-      id: index,
-      beats: [],
-      rank: null
-    }
-  })
-}
-
-// wins + *.1 head-to-head tiebreak points + .001 rest-of-field comparison + .0001 randNum
-tiebreaks not calculated if tie is already broken
-
-// counter = 1
-// sort into tiers
+[x] create a MyResult page
+[x] transfer to MyResult page from listview
+[ ] guard list routes if not completed
+[ ] allow user to do list
+[ ] give anonymously generated name to user / editable name
+[ ] Share buttons
+[ ] AllResults Page
+[ ] Examples Page
+[ ] MyLists Page
+[ ] Styling
+[ ] Animation
+[ ] Change Secuirty Rules
+[ ] Hosting

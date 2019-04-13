@@ -2,35 +2,32 @@ import React, { Component} from 'react';
 import Header from '../../layout/Header';
 import Message from '../../layout/Message.js';
 import NavButtons from '../../layout/NavButtons.js';
-import RoundsNotifier from './RoundsNotifier';
 import { withRouter } from 'react-router-dom';
-import firebase from '../../../firebase/firebaseInit.js';
-require('firebase/auth');
 
-class ListView extends Component {
+class AllResults extends Component {
   constructor(props) {
     super(props);
 
     const { match } = this.props;
 
     this.state = {
-      pageTitle: "View List",
+      pageTitle: "All Results For " + props.currentList.title,
       navButtons: {
         back: {
-          text: "Home",
+          text: "Back",
           route: "/",
           disabled: false,
           action: null
         },
         share: {
           text: "Share",
-          route: `${match.url}/share`,
+          route: "/",
           disabled: false,
           action: null
         },
         confirm: {
-          text: "War",
-          route: `${match.url}/war`,
+          text: "Your Result",
+          route: `${match.url}/myResult`,
           disabled: false,
           action: null
         } 
@@ -39,54 +36,45 @@ class ListView extends Component {
   }
 
   componentDidMount () {
-    // check for existing result and/or existing list
-    const { currentList, match } = this.props;
+    const { currentResult, match } = this.props;
     setTimeout(() => {
-      if (currentList.entries.length > 0) {
-        console.log('from create page');
-      } else {
-        console.log('from url');
-        // get list from db, if exists
-        // check user to see if list was already completed
-        // for now, assume user has not
-        console.log(match)
-        this.props.getCurrentList(match.params.listId);
+      if (currentResult.items.length > 0) {
+        console.log('from war page');
       }
     }, 1000)
   }
 
   render () {
     const { pageTitle, navButtons } = this.state;
-    const { currentList } = this.props;
-    const entries = currentList.entries.map((entry, index) => {
-      return <li key={index}>{entry}</li>
+    const { currentResult } = this.props;
+    const items = currentResult.items.map((item, index) => {
+      const { rank, value, wins } = item;
+      const resultItem = `${rank}. ${value} (${wins} pts)`;
+      return <li key={rank}>{resultItem}</li>
     })
-    const listTitle = currentList.title;
-    const numEntries = entries.length;
-    const listExists = numEntries > 0;
+    const listTitle = currentResult.title;
+    const numItems = items.length;
+    const listExists = numItems > 0;
 
     const list = (
       <div className="list-view-container">
         <div className="list-container nes-container is-dark is-rounded with-title lists">
           <p className="title">{listTitle}</p>
-           <ul className="entries nes-list">
-            {entries}
+           <ul className="items nes-list">
+            {items}
            </ul>
         </div>
       </div>
     )
 
     return (
-      <div className="ListView">
+      <div className="AllResults">
         <Header 
           pageTitle={pageTitle}
         />
         { listExists && list }
         <footer>
-          <RoundsNotifier numEntries={numEntries} />
-
           {/* <Message /> */}
-
           <NavButtons 
             back={navButtons.back}
             share={navButtons.share}
@@ -99,4 +87,4 @@ class ListView extends Component {
 
 }
 
-export default withRouter(ListView);
+export default withRouter(AllResults);

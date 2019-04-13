@@ -132,6 +132,16 @@ a:hover {
   max-width: 300px;
 }
 
+.Share .urlBox {
+  text-align: center;
+  margin: 100px auto;
+  max-width: 360px;
+}
+
+.Share #shareUrl {
+  font-size: 9px;
+}
+
 .footerpadding {
   content: "";
   height: 100px;

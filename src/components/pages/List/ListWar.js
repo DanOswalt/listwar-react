@@ -10,6 +10,8 @@ class ListWar extends Component {
   constructor(props) {
     super(props);
 
+    const { match } = props;
+
     this.state = {
       Chance: new chance(),
       pageTitle: "War!",
@@ -22,14 +24,14 @@ class ListWar extends Component {
       matchIndex: -1,
       navButtons: {
         back: {
-          text: "Back",
-          route: "/",
-          disabled: true,
+          text: "Start Over",
+          route: `/list/${match.params.listId}/${match.params.slug}`,
+          disabled: false,
           action: null
         },
         share: {
           text: "Share",
-          route: "/",
+          route: "#",
           disabled: true,
           action: null
         },
@@ -44,17 +46,18 @@ class ListWar extends Component {
   }
 
   componentDidMount() {
+    // maybe not necessary? is this the wrong hook?
     setTimeout(() => {
       if (this.props.currentList) {
         this.createInitialEmptyResult();
         this.createSchedule();
         this.nextMatch();
       }
-    }, 1000);
+    }, 0);
   }
 
   createInitialEmptyResult = () => {
-    const { currentList, user } = this.props;
+    const { currentList, user } = this.props; 
 
     const currentResult = {
       id: currentList.listId + user.uid,  
@@ -100,12 +103,12 @@ class ListWar extends Component {
     const { entries } = currentList;
     matchIndex++;
 
-    if (matchIndex === schedule.length) {
+    if (matchIndex > 0 && matchIndex === schedule.length) {
       console.log('result:', this.state.currentResult);
       this.setState({ currentMatch: {
         hero: { value: "", listIndex: -1 },
         villain: { value: "", listIndex: -1 }
-      }})
+      }});
       this.finish();
     } else {
       // update message method
@@ -114,9 +117,9 @@ class ListWar extends Component {
       const currentMatch = {
         hero: { value: entries[heroIndex], index: heroIndex },
         villain: { value: entries[villainIndex], index: villainIndex }
-      }
+      };
 
-      this.setState({ currentMatch, matchIndex })
+      this.setState({ currentMatch, matchIndex });
     }
   }
 
@@ -130,8 +133,9 @@ class ListWar extends Component {
   }
 
   finish = () => {
-    this.processResult();
-    this.props.saveResult(this.state.currentResult, this.props.currentList.listId);
+    const result = this.processResult();
+    // issue here?
+    this.props.saveResult(result, this.props.currentList.listId);
   }
 
   processResult() {
@@ -164,7 +168,7 @@ class ListWar extends Component {
     result.items.sort(_descByPoints);
     result.items.forEach(_setItemRank);
 
-    this.setState({ currentResult: result});
+    return result;
   }
 
   doHeadToHeadTiebreaks(pointsTiers, result) {
@@ -221,7 +225,7 @@ class ListWar extends Component {
     const showMatches = currentMatch.hero.listIndex !== -1;
 
     return (
-      <div className="ListView">
+      <div className="ListWar">
         <Header pageTitle={pageTitle}/>
         { showMatches && 
           <div className="match-container nes-container is-dark">

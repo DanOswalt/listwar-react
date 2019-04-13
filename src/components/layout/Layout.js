@@ -10,6 +10,8 @@ import Create from '../pages/Create.js';
 import Examples from '../pages/Examples.js';
 import ListView from '../pages/List/ListView.js';
 import ListWar from '../pages/List/ListWar.js';
+import MyResult from '../pages/List/MyResult.js';
+import Share from '../pages/List/Share.js';
 
 const Layout = ({appState, match, ...props}) => {
   return (
@@ -38,6 +40,45 @@ const Layout = ({appState, match, ...props}) => {
                 user={appState.user}
                 currentList={appState.currentList}
                 saveResult={props.saveResult}
+              />
+            )
+          }
+        />
+        <Route 
+          exact
+          path="/list/:listId/:slug/myResult"
+          render={
+            () => (
+              <MyResult
+                user={appState.user}
+                currentList={appState.currentList}
+                currentResult={appState.currentResult}
+                getCurrentList={props.getCurrentList}
+              />
+            )
+          }
+        />
+        <Route 
+          exact
+          path="/list/:listId/:slug/share"
+          render={
+            () => (
+              <Share
+                user={appState.user}
+              />
+            )
+          }
+        />
+        <Route  
+          exact
+          path="/list/:listId/:slug/allResults"
+          render={
+            () => (
+              <MyResult
+                user={appState.user}
+                currentList={appState.currentList}
+                currentResult={appState.currentResult}
+                getCurrentList={props.getCurrentList}
               />
             )
           }

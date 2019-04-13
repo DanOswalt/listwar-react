@@ -22,7 +22,7 @@ class Create extends Component {
         },
         share: {
           text: "Share",
-          route: "/",
+          route: "#",
           disabled: true,
           action: null
         },

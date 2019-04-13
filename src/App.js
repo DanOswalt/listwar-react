@@ -22,6 +22,10 @@ class App extends Component {
         entries: [],
         listSlug: ""
       },
+      currentResult: {
+        id: "",
+        items: []
+      },
       loading: true,
       message: null,
       showErrorMessage: false,
@@ -54,9 +58,10 @@ class App extends Component {
     const db = firebase.firestore();
     const resultRef = db.collection('results').doc(result.id);
     resultRef.set(result)
-      .then(doc => {
+      .then(() => {
         console.log('result added', currentListId);
         this.markAsComplete(currentListId);
+        this.setState({ currentResult: result });
       })
       .catch(this.handleError);
   }
@@ -71,6 +76,7 @@ class App extends Component {
       .then(() => {
         this.setState({ user });
       })
+      .then(() => this.props.history.push(`/list/${currentListId}/${this.state.currentList.listSlug}/myResult`))
       .catch(this.handleError);
   }
 
