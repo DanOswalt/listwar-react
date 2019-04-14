@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MatchItem = ({ pickWinner, winnerIndex, loserIndex, text }) => {
-  return <div className="nes-btn is-primary" onClick={() => {pickWinner(winnerIndex, loserIndex)}} >{text}</div>
+  return <div className="list-entry match-entry" onClick={() => {pickWinner(winnerIndex, loserIndex)}} >{text}</div>
 }
 
 export default MatchItem;

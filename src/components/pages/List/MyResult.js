@@ -57,7 +57,7 @@ class MyResult extends Component {
     const items = currentResult.items.map((item, index) => {
       const { rank, value, wins } = item;
       const resultItem = `${rank}. ${value} (${wins} pts)`;
-      return <li key={rank}>{resultItem}</li>
+      return <li className="list-entry" key={rank}>{resultItem}</li>
     })
     const listTitle = currentResult.title;
     const numItems = items.length;
@@ -66,7 +66,7 @@ class MyResult extends Component {
     const list = (
       <div className="list-view-container">
         <div className="list-container nes-container is-dark is-rounded with-title lists">
-          <p className="title">{listTitle}</p>
+          <p className="title is-primary">{listTitle}</p>
            <ul className="items nes-list">
             {items}
            </ul>

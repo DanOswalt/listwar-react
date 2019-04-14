@@ -24,7 +24,7 @@ class ListWar extends Component {
       matchIndex: -1,
       navButtons: {
         back: {
-          text: "Start Over",
+          text: "Reset",
           route: `/list/${match.params.listId}/${match.params.slug}`,
           disabled: false,
           action: null
@@ -228,7 +228,7 @@ class ListWar extends Component {
       <div className="ListWar">
         <Header pageTitle={pageTitle}/>
         { showMatches && 
-          <div className="match-container nes-container is-dark">
+          <div className="match-container">
             <MatchItem 
               pickWinner={this.pickWinner}
               winnerIndex={currentMatch.hero.index}

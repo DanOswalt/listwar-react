@@ -58,13 +58,13 @@ class Share extends Component {
             readOnly
           />
         </div>
-        <div class="social-buttons">
+        <div className="social-buttons">
           <p>...or do the social media thing</p> 
-          <div class="share">
-            <a><i class="nes-icon twitter"></i></a> 
-            <a><i class="nes-icon facebook"></i></a>
-            <a><i class="nes-icon google"></i></a>
-            <a><i class="nes-icon linkedin"></i></a>
+          <div className="share">
+            <a><i className="nes-icon twitter"></i></a> 
+            <a><i className="nes-icon facebook"></i></a>
+            <a><i className="nes-icon google"></i></a>
+            <a><i className="nes-icon linkedin"></i></a>
           </div>
         </div>
         <footer>

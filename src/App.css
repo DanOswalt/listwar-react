@@ -36,6 +36,11 @@ a:hover {
   font-size: 2em;
 }
 
+.logo h1,
+.logo {
+  color: yellowgreen;
+}
+
 .Header .logo {
   margin: 0;
 }
@@ -142,6 +147,10 @@ a:hover {
   font-size: 9px;
 }
 
+.Share .social-buttons a {
+  margin: 8px;
+}
+
 .footerpadding {
   content: "";
   height: 100px;
@@ -153,4 +162,46 @@ a:hover {
 
 .NavButtons .fade {
   opacity: 0.1;
+}
+
+.list-entry {
+  border-radius: 3px;
+  margin-bottom: 6px;
+  background-color: yellowgreen;
+  color: #222;
+}
+
+.entry-value {
+  border-radius: 3px;
+  margin-bottom: 5px;
+  background-color: yellowgreen;
+  color: #222;
+  width: 80%;
+  padding-top: 4px;
+  text-align: center;
+}
+
+.delete-entry {
+  margin-top: -2px;
+}
+
+.ListWar .match-container {
+  margin: 110px auto;
+  max-width: 360px;
+}
+
+.match-entry {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  height: 50px;
+  padding-top: 8px;
+}
+
+.match-entry:hover {
+  background: white;
+
+}
+
+.make-it-blue {
+  color: #209cee important!;
 }

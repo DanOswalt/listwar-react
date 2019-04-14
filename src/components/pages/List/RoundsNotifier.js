@@ -5,11 +5,11 @@ const RoundsNotifier = ({numEntries}) => {
   for (let i = 0; i < numEntries; i++) {
     numRounds += i
   }
-  const message = `(${numEntries} entries = ${numRounds} rounds. Ready?)`
+  const message = `${numEntries} entries = ${numRounds} rounds. Ready?`
   
   return (
     <div className="RoundsNotifier">
-      <div className="nes-text is-success">
+      <div className="nes-text">
         {message}
       </div>
     </div>

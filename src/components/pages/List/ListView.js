@@ -59,7 +59,7 @@ class ListView extends Component {
     const { pageTitle, navButtons } = this.state;
     const { currentList } = this.props;
     const entries = currentList.entries.map((entry, index) => {
-      return <li key={index}>{entry}</li>
+      return <li className="nes-text is-dark is-rounded list-entry" key={index}>{entry}</li>
     })
     const listTitle = currentList.title;
     const numEntries = entries.length;
@@ -69,7 +69,7 @@ class ListView extends Component {
       <div className="list-view-container">
         <div className="list-container nes-container is-dark is-rounded with-title lists">
           <p className="title">{listTitle}</p>
-           <ul className="entries nes-list">
+           <ul className="nes-list is-disc entries">
             {entries}
            </ul>
         </div>
@@ -81,12 +81,10 @@ class ListView extends Component {
         <Header 
           pageTitle={pageTitle}
         />
+        { listExists && <RoundsNotifier numEntries={numEntries} /> }
         { listExists && list }
         <footer>
-          <RoundsNotifier numEntries={numEntries} />
-
           {/* <Message /> */}
-
           <NavButtons 
             back={navButtons.back}
             share={navButtons.share}
