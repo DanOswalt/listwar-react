@@ -202,15 +202,16 @@ a:hover {
 
 .match-entry:hover {
   background: white;
-
 }
 
-.make-it-blue {
-  color: #209cee important!;
-}
-
-
-
-.list-clip {
-
+.list-clip .winner-entry{
+  display: inline-block;
+  border-radius: 3px;
+  margin-left: 8px;
+  margin-bottom: 5px;
+  background-color: yellowgreen;
+  color: #222;
+  width: 90%;
+  padding-top: 4px;
+  text-align: center;
 }

@@ -40,7 +40,6 @@ const Layout = ({appState, match, ...props}) => {
               <MyLists
                 user={appState.user}
                 currentList={appState.currentList}
-                getUserLists={props.getUserLists}
               />
             )
           }
@@ -66,7 +65,7 @@ const Layout = ({appState, match, ...props}) => {
                 user={appState.user}
                 currentList={appState.currentList}
                 currentResult={appState.currentResult}
-                getCurrentList={props.getCurrentList}
+                getCurrentResult={props.getCurrentResult}
               />
             )
           }
@@ -97,7 +96,6 @@ const Layout = ({appState, match, ...props}) => {
           }
         />
         <Route 
-          exact
           path="/list/:listId/:slug"
           render={
             () => (

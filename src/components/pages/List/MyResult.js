@@ -8,7 +8,7 @@ class MyResult extends Component {
   constructor(props) {
     super(props);
 
-    const { match, currentList } = this.props;
+    const { match } = this.props;
 
     this.state = {
       pageTitle: "Your Final Ranks:",
@@ -37,16 +37,13 @@ class MyResult extends Component {
 
   componentDidMount () {
     const { currentResult, match } = this.props;
+
     setTimeout(() => {
       if (currentResult.items.length > 0) {
         console.log('from war page');
-      // } else {
-      //   console.log('from url');
-      //   // get list from db, if exists
-      //   // check user to see if list was already completed
-      //   // for now, assume user has not
-      //   console.log(match)
-      //   this.props.getCurrentResult(match.params.resultId);
+      } else {
+        console.log('from url');
+        this.props.getCurrentResult(match.params.listId);
       }
     }, 1000)
   }

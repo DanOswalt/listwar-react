@@ -14,7 +14,8 @@ class App extends Component {
     super(props);
     this.state = {
       user: {
-        lists: []
+        lists: [],
+        uid: null
       },
       currentList: {
         listId: "",
@@ -85,8 +86,30 @@ class App extends Component {
       .catch(this.handleError);
   }
 
-  getUserLists = () => {
-    
+  getCurrentResult = listId => {
+    console.log("listId:", listId)
+
+    const { user } = this.state;
+    console.log("uid", user.uid)
+    const resultId = listId + user.uid;
+
+    const self = this;
+    const db = firebase.firestore();
+    const resultRef = db.collection('results').doc(resultId);
+
+    resultRef.get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log('no result')
+          // load doesn't exist text
+        } else {
+          console.log('result exists')
+          const currentResult = doc.data();
+          console.log('fresh from db:', currentResult)
+          self.setState({currentResult});
+        }
+      })
+      .catch(this.handleError);
   }
 
   createNewList = (title, entries) => {
@@ -109,6 +132,7 @@ class App extends Component {
       listId: newList.listId, 
       completed: false, 
       winner: null,
+      url: `list/${listId}/${listSlug}`,
       title  
     });
 
@@ -208,7 +232,7 @@ class App extends Component {
           appState={this.state}
           createNewList={this.createNewList}
           getCurrentList={this.getCurrentList}
-          getUserLists={this.getUserLists}
+          getCurrentResult={this.getCurrentResult}
           saveResult={this.saveResult}
         />
       </div>

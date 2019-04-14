@@ -38,7 +38,6 @@ class MyLists extends Component {
 
   componentDidMount () {
     // set to loading (must define this function on app.js);
-    this.props.getUserLists();
   }
 
   render () {
@@ -47,7 +46,7 @@ class MyLists extends Component {
     const userLists = user.lists.map((list, index) => <ListClip key={index} list={list} />);
 
     const list = (
-      <div className="list-container">
+      <div className="list-container">  
         {userLists}
       </div>
     )
