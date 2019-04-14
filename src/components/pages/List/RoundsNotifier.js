@@ -5,7 +5,7 @@ const RoundsNotifier = ({numEntries}) => {
   for (let i = 0; i < numEntries; i++) {
     numRounds += i
   }
-  const message = `${numEntries} entries = ${numRounds} rounds. Ready?`
+  const message = `${numEntries} entries = ${numRounds} rounds.`
   
   return (
     <div className="RoundsNotifier">

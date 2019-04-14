@@ -14,7 +14,7 @@ class ListView extends Component {
     const { match } = this.props;
 
     this.state = {
-      pageTitle: "View List",
+      pageTitle: "Ready?",
       navButtons: {
         back: {
           text: "Home",
@@ -29,7 +29,7 @@ class ListView extends Component {
           action: null
         },
         confirm: {
-          text: "War",
+          text: "Ready!",
           route: `${match.url}/war`,
           disabled: false,
           action: null
@@ -46,10 +46,6 @@ class ListView extends Component {
         console.log('from create page');
       } else {
         console.log('from url');
-        // get list from db, if exists
-        // check user to see if list was already completed
-        // for now, assume user has not
-        console.log(match)
         this.props.getCurrentList(match.params.listId);
       }
     }, 1000)
@@ -81,7 +77,11 @@ class ListView extends Component {
         <Header 
           pageTitle={pageTitle}
         />
-        { listExists && <RoundsNotifier numEntries={numEntries} /> }
+        <div className="instructions">
+          <p>Two items will pop up each round.</p>
+          <p>Pick a winner. Don't think too hard!</p>
+          { listExists && <RoundsNotifier numEntries={numEntries} /> }
+        </div>
         { listExists && list }
         <footer>
           {/* <Message /> */}

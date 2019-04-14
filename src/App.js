@@ -57,20 +57,25 @@ class App extends Component {
   saveResult = (result, currentListId) => {
     const db = firebase.firestore();
     const resultRef = db.collection('results').doc(result.id);
+    const winner = result.items[0].value;
     resultRef.set(result)
       .then(() => {
         console.log('result added', currentListId);
-        this.markAsComplete(currentListId);
+        this.markAsComplete(currentListId, winner);
         this.setState({ currentResult: result });
       })
       .catch(this.handleError);
   }
 
-  markAsComplete = currentListId => {
+  markAsComplete = (currentListId, winner) => {
     const db = firebase.firestore();
     const user = {...this.state.user};
     const listIndex = user.lists.findIndex(list => list.listId === currentListId);
-    user.lists[listIndex].completed = true;
+    const list = user.lists[listIndex];
+
+    list.completed = true;
+    list.winner = winner;
+
     const userRef = db.collection('users').doc(user.uid);
     userRef.update({lists: user.lists})
       .then(() => {
@@ -78,6 +83,10 @@ class App extends Component {
       })
       .then(() => this.props.history.push(`/list/${currentListId}/${this.state.currentList.listSlug}/myResult`))
       .catch(this.handleError);
+  }
+
+  getUserLists = () => {
+    
   }
 
   createNewList = (title, entries) => {
@@ -96,7 +105,12 @@ class App extends Component {
       listSlug
     }
 
-    user.lists.push({ listId: newList.listId, completed: false});
+    user.lists.push({ 
+      listId: newList.listId, 
+      completed: false, 
+      winner: null,
+      title  
+    });
 
     const listRef = db.collection('lists').doc(newList.listId);
     const userRef = db.collection('users').doc(user.uid);
@@ -194,6 +208,7 @@ class App extends Component {
           appState={this.state}
           createNewList={this.createNewList}
           getCurrentList={this.getCurrentList}
+          getUserLists={this.getUserLists}
           saveResult={this.saveResult}
         />
       </div>

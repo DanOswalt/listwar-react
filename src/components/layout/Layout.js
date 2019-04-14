@@ -8,6 +8,7 @@ import {
 import Home from '../pages/Home.js';
 import Create from '../pages/Create.js';
 import Examples from '../pages/Examples.js';
+import MyLists from '../pages/MyLists.js';
 import ListView from '../pages/List/ListView.js';
 import ListWar from '../pages/List/ListWar.js';
 import MyResult from '../pages/List/MyResult.js';
@@ -31,6 +32,18 @@ const Layout = ({appState, match, ...props}) => {
         <Route 
           path="/examples" 
           render={()=> <Examples/>}
+        />
+        <Route 
+          path="/mylists" 
+          render={
+            () => (
+              <MyLists
+                user={appState.user}
+                currentList={appState.currentList}
+                getUserLists={props.getUserLists}
+              />
+            )
+          }
         />
         <Route 
           path="/list/:listId/:slug/war"

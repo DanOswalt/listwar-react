@@ -3,9 +3,8 @@
 [x] create a MyResult page
 [x] transfer to MyResult page from listview
 [ ] guard list routes if not completed
-[ ] allow user to do list
 [ ] give anonymously generated name to user / editable name
-[ ] Share buttons
+[x] Share buttons
 [ ] AllResults Page
 [ ] Examples Page
 [ ] MyLists Page

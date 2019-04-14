@@ -32,11 +32,11 @@ a:hover {
 }
 
 .Home .home-logo {
-  height: 40vh;
+  height: 35vh;
   font-size: 2em;
 }
 
-.logo h1,
+.logo h2,
 .logo {
   color: yellowgreen;
 }
@@ -109,14 +109,17 @@ a:hover {
   margin-top: 50px;
 }
 
+.ListView .instructions {
+  font-size: 0.75rem;
+}
+
 .Create .new-list-form {
   max-width: 400px;
   font-size: 11px;
   margin-bottom: 15px;
 }
 
-.Create .list-container,
-.ListView .list-container {
+.list-container {
   width: 360px;
   margin: auto;
   text-align: left;
@@ -204,4 +207,10 @@ a:hover {
 
 .make-it-blue {
   color: #209cee important!;
+}
+
+
+
+.list-clip {
+
 }
