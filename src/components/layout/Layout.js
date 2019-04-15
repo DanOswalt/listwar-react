@@ -13,6 +13,7 @@ import ListView from '../pages/List/ListView.js';
 import ListWar from '../pages/List/ListWar.js';
 import MyResult from '../pages/List/MyResult.js';
 import Share from '../pages/List/Share.js';
+import ChangeName from '../pages/ChangeName.js';
 
 const Layout = ({appState, match, ...props}) => {
   return (
@@ -23,7 +24,11 @@ const Layout = ({appState, match, ...props}) => {
         <Route 
           exact 
           path="/"
-          component={Home}
+          render={()=> <Home alias={appState.user.alias}/>}
+        />
+        <Route 
+          path="/changeName"
+          render={()=> <ChangeName changeAlias={props.changeAlias} alias={appState.user.alias}/>}
         />
         <Route 
           path="/create"

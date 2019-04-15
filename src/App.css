@@ -32,7 +32,7 @@ a:hover {
 }
 
 .Home .home-logo {
-  height: 35vh;
+  height: 30vh;
   font-size: 2em;
 }
 
@@ -213,5 +213,20 @@ a:hover {
   color: #222;
   width: 90%;
   padding-top: 4px;
+  text-align: center;
+}
+
+.alias-box {
+  margin-top: 120px;
+  text-align: center;
+}
+
+.alias-box .alias {
+  margin: 20px;
+  font-size: 20px;
+  color: white;
+}
+
+.change-name-form {
   text-align: center;
 }

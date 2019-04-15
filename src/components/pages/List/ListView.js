@@ -46,6 +46,7 @@ class ListView extends Component {
         console.log('from create page');
       } else {
         console.log('from url');
+        console.log("user here??", this.props.user)
         this.props.getCurrentList(match.params.listId);
       }
     }, 1000)

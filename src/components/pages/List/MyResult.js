@@ -14,8 +14,8 @@ class MyResult extends Component {
       pageTitle: "Your Final Ranks:",
       navButtons: {
         back: {
-          text: "Back",
-          route: `/list/${match.params.listId}/${match.params.slug}`,
+          text: "Home",
+          route: "/",
           disabled: false,
           action: null
         },
@@ -88,7 +88,6 @@ class MyResult extends Component {
       </div>
     )
   }
-
 }
 
 export default withRouter(MyResult);

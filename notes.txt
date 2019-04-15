@@ -3,12 +3,13 @@
 [x] create a MyResult page
 [x] transfer to MyResult page from listview
 [ ] guard list routes if not completed
-[ ] give anonymously generated name to user / editable name
+[ ] redirect to myresult if completed
+[x] give anonymously generated name to user / editable name
 [x] Share buttons
 [ ] AllResults Page
 [ ] Examples Page
-[ ] MyLists Page
-[ ] Styling
+[x] MyLists Page
+[x] Styling
 [ ] Animation
-[ ] Change Secuirty Rules
+[ ] Change Security Rules
 [ ] Hosting

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Home = ({ guest, username }) => {
+const Home = ({ alias }) => {
   return (
     <div className="Home">
       <div className="home-logo nes-container is-centered is-dark is-rounded">
@@ -13,10 +13,17 @@ const Home = ({ guest, username }) => {
       <div className="home-menu-box">
         <ul className="home-menu">
           <li><Link to="create"><button className="nes-btn menu-btn">Create New</button></Link></li>
-          <li><Link to="mylists"><button className="nes-btn menu-btn">My Lists</button></Link></li>
+          <li><Link to="myLists"><button className="nes-btn menu-btn">My Lists</button></Link></li>
           <li><Link to="examples"><button className="nes-btn menu-btn">Examples</button></Link></li>
         </ul>
       </div>
+      <Link to="changeName">
+        <div className="alias-box">
+          <i class="nes-icon is-medium star"></i>
+          <span className="nes-text alias">{alias}</span>
+          <i class="nes-icon is-medium star"></i>
+        </div>
+      </Link>
     </div>
   )
 }

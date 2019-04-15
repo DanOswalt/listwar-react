@@ -15,7 +15,8 @@ class App extends Component {
     this.state = {
       user: {
         lists: [],
-        uid: null
+        uid: null,
+        alias: "anon"
       },
       currentList: {
         listId: "",
@@ -37,6 +38,17 @@ class App extends Component {
   getCurrentList = listId => {
     console.log("listid:", listId)
     const self = this;
+    const { user } = self.state;
+    console.log(self.state);
+
+    // // is list is completed, redirect to myResult
+    // const listIndex = user.lists.findIndex(list => list.listId === listId);
+    // const list = user.lists[listIndex];
+
+    // if (list.completed) {
+    //   self.props.history.push(list.url + "/myResult");
+    // }
+
     const db = firebase.firestore();
     const listRef = db.collection('lists').doc(listId);
 
@@ -87,10 +99,7 @@ class App extends Component {
   }
 
   getCurrentResult = listId => {
-    console.log("listId:", listId)
-
     const { user } = this.state;
-    console.log("uid", user.uid)
     const resultId = listId + user.uid;
 
     const self = this;
@@ -154,20 +163,42 @@ class App extends Component {
   createAppUser = ({ uid }) => {
     const db = firebase.firestore();
     const lists = [];
-    const newUser = { uid, lists }
-
+    const alias = "guest-" + uid.slice(0, 6);
+    const newUser = { uid, lists, alias }
     const userRef = db.collection('users').doc(uid);
+
     userRef.set(newUser)
-    .then(user => {
-      console.log('App user created:', newUser);
-      this.setState({
-        loading: false,
-        message: "App user created",
-        showInfoMessage: true,
-        user: newUser
-      });
-    })
-    .catch(this.handleError)
+      .then(user => {
+        console.log('App user created:', newUser);
+        this.setState({
+          loading: false,
+          message: "App user created",
+          showInfoMessage: true,
+          user: newUser
+        });
+      })
+      .catch(this.handleError)
+  }
+
+  changeAlias = alias => {
+    const db = firebase.firestore();
+    const user = {...this.state.user};
+    user.alias = alias;
+
+    const userRef = db.collection('users').doc(user.uid);
+    userRef.set(user)
+      .then(() => {
+        console.log('Alias changed:', user.alias);
+        this.setState({
+          loading: false,
+          message: "Alias updated",
+          showInfoMessage: true,
+          user
+        });
+      })
+      .then(() => this.props.history.push("/"))
+      .catch(this.handleError)
+
   }
 
   handleError = error => {
@@ -234,6 +265,7 @@ class App extends Component {
           getCurrentList={this.getCurrentList}
           getCurrentResult={this.getCurrentResult}
           saveResult={this.saveResult}
+          changeAlias={this.changeAlias}
         />
       </div>
     );

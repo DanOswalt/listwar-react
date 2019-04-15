@@ -138,7 +138,7 @@ class Create extends Component {
 
         <footer>
           {/* <Message /> */}
-          {navButtons.confirm.disabled = entries.length < 4}
+          {navButtons.confirm.disabled = entries.length < 4 && entries.length > 12}
           <NavButtons 
             back={navButtons.back}
             share={navButtons.share}
