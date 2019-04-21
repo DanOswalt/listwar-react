@@ -104,7 +104,7 @@ a:hover {
   margin: auto;
 }
 
-.ListView .list-view-container {
+.list-view-container {
   margin: auto;
   margin-top: 50px;
 }
@@ -124,7 +124,21 @@ a:hover {
   margin: auto;
   text-align: left;
   font-size: 11px;
-  /* background: orangered; */
+}
+
+.results-container {
+  width: 360px;
+  margin: auto;
+  text-align: left;
+  font-size: 11px;
+}
+
+.results-container .items {
+  padding: 0;
+}
+
+.rank-box {
+  width: 5%;
 }
 
 .ListView .entries {
@@ -188,14 +202,9 @@ a:hover {
   margin-top: -2px;
 }
 
-.ListWar .match-container {
-  margin: 110px auto;
-  max-width: 360px;
-}
-
 .match-entry {
   font-size: 1.6rem;
-  margin-bottom: 20px;
+  margin-bottom: 20px auto;
   height: 50px;
   padding-top: 8px;
 }
@@ -204,7 +213,8 @@ a:hover {
   background: white;
 }
 
-.list-clip .winner-entry{
+.winner-entry,
+.result-entry {
   display: inline-block;
   border-radius: 3px;
   margin-left: 8px;
@@ -228,5 +238,23 @@ a:hover {
 }
 
 .change-name-form {
+  text-align: center;
+}
+
+.ListWar .match-container {
+  margin: 110px auto;
+  max-width: 360px;
+  text-align: center;
+}
+
+.matchStyle {
+  border-radius: 3px;
+  background-color: yellowgreen;
+  color: #222;
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  height: 50px;
+  padding-top: 8px;
+  width: 300px;
   text-align: center;
 }

@@ -15,13 +15,6 @@ class ListWar extends Component {
     this.state = {
       Chance: new chance(),
       pageTitle: "War!",
-      currentResult: null,
-      schedule: [],
-      currentMatch: {
-        hero: { value: "", listIndex: -1 },
-        villain: { value: "", listIndex: -1 }
-      },
-      matchIndex: -1,
       navButtons: {
         back: {
           text: "Reset",
@@ -41,7 +34,21 @@ class ListWar extends Component {
           disabled: true,
           action: null
         } 
-      }
+      },
+      currentResult: null,
+      schedule: [],
+      currentMatch: {
+        hero: { value: "", listIndex: -1 },
+        villain: { value: "", listIndex: -1 }
+      },
+      matchIndex: -1,
+      animation: "enter",
+      heroFrom: { marginLeft: -100, opacity: 0 },
+      heroTo: { marginLeft: 25 , opacity: 1 },
+      heroDelay: "800",
+      villainFrom: { marginLeft: -100, opacity: 0 },
+      villainTo: { marginLeft: 25 , opacity: 1 },
+      villainDelay: "800"
     }
   }
 
@@ -123,13 +130,18 @@ class ListWar extends Component {
     }
   }
 
-  pickWinner = (winnerIndex, loserIndex) => {
+  pickWinner = (winnerIndex, loserIndex, heroWins) => {
     const { currentResult } = this.state;
     const winner = currentResult.items[winnerIndex];
     winner.wins += 1;
     winner.points += 1;
     winner.beats.push(loserIndex);
-    this.nextMatch();
+
+    this.leaveAnimation(heroWins);
+    setTimeout(() => {
+      this.enterAnimation();
+      this.nextMatch();
+    }, 800);
   }
 
   finish = () => {
@@ -217,11 +229,71 @@ class ListWar extends Component {
         hero.points += Math.random() * .001;
       })
     }
-    // console.log("rando tiebreaks", result)
+  }
+
+  enterAnimation = () => {
+    const enter = {
+      from: { 
+        marginLeft: -400,
+        opacity: 0
+      },
+      to: { 
+        marginLeft: 25,
+        opacity: 1
+      },
+      delay: "200"
+    }
+
+    this.setState({
+      animation: "enter",
+      heroFrom: enter.from,
+      heroTo: enter.to,
+      heroDelay: enter.delay,
+      villainFrom: enter.from,
+      villainTo: enter.to,
+      villainDelay: enter.delay
+    });
+  }
+
+  leaveAnimation = (heroWins) => {
+    const leaveWinner = {
+      from: { 
+        marginLeft: 25,
+        opacity: 1 
+      },
+      to: { 
+        marginLeft: 400,
+        opacity: 0 
+      },
+      delay: "200"
+    }
+
+    const leaveLoser = {
+      from: {
+        marginLeft: 25, 
+        opacity: 1
+      },
+      to: {
+        marginLeft: 25, 
+        opacity: 0
+      },
+      delay: "200",
+      duration: "400"
+    }
+
+    this.setState({
+      animation: "leave",
+      heroFrom: heroWins ? leaveWinner.from : leaveLoser.from,
+      heroTo: heroWins ? leaveWinner.to : leaveLoser.to,
+      heroDelay: heroWins ? leaveWinner.delay : leaveLoser.delay,
+      villainFrom: !heroWins ? leaveWinner.from : leaveLoser.from,
+      villainTo: !heroWins ? leaveWinner.to : leaveLoser.to,
+      villainDelay: !heroWins ? leaveWinner.delay : leaveLoser.delay,
+    })
   }
 
   render () {
-    const { pageTitle, navButtons, currentMatch } = this.state;
+    const { pageTitle, navButtons, currentMatch, heroFrom, heroTo, heroDelay,  villainFrom, villainTo, villainDelay, animation } = this.state;
     const showMatches = currentMatch.hero.listIndex !== -1;
 
     return (
@@ -233,13 +305,23 @@ class ListWar extends Component {
               pickWinner={this.pickWinner}
               winnerIndex={currentMatch.hero.index}
               loserIndex={currentMatch.villain.index}
-              text={currentMatch.hero.value} 
+              text={currentMatch.hero.value}
+              isHero={true}
+              animation={animation}
+              from={heroFrom}
+              to={heroTo}
+              delay={heroDelay}
             />
             <MatchItem 
               pickWinner={this.pickWinner}
               winnerIndex={currentMatch.villain.index}
               loserIndex={currentMatch.hero.index}
-              text={currentMatch.villain.value} 
+              text={currentMatch.villain.value}
+              isHero={false}
+              animation={animation}
+              from={villainFrom}
+              to={villainTo}
+              delay={villainDelay}
             />
           </div> }
         <footer>

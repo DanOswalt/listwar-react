@@ -4,8 +4,6 @@ import Message from '../../layout/Message.js';
 import NavButtons from '../../layout/NavButtons.js';
 import RoundsNotifier from './RoundsNotifier';
 import { withRouter } from 'react-router-dom';
-import firebase from '../../../firebase/firebaseInit.js';
-require('firebase/auth');
 
 class ListView extends Component {
   constructor(props) {
@@ -63,7 +61,7 @@ class ListView extends Component {
     const listExists = numEntries > 0;
 
     const list = (
-      <div className="list-view-container">
+      <div className="list-view-container"> 
         <div className="list-container nes-container is-dark is-rounded with-title lists">
           <p className="title">{listTitle}</p>
            <ul className="nes-list is-disc entries">
@@ -79,8 +77,8 @@ class ListView extends Component {
           pageTitle={pageTitle}
         />
         <div className="instructions">
-          <p>Two items will pop up each round.</p>
-          <p>Pick a winner. Don't think too hard!</p>
+          <div>Two items will pop up each round.</div>
+          <div>Pick a winner. Don't think too hard!</div>
           { listExists && <RoundsNotifier numEntries={numEntries} /> }
         </div>
         { listExists && list }

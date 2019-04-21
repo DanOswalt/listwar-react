@@ -22,11 +22,14 @@ class App extends Component {
         listId: "",
         title: "",
         entries: [],
-        listSlug: ""
+        listSlug: "",
+        url: ""
       },
       currentResult: {
         id: "",
-        items: []
+        title: "",
+        items: [],
+        url: ""
       },
       loading: true,
       message: null,

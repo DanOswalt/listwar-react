@@ -11,7 +11,7 @@ class MyResult extends Component {
     const { match } = this.props;
 
     this.state = {
-      pageTitle: "Your Final Ranks:",
+      pageTitle: "Your Ranks:",
       navButtons: {
         back: {
           text: "Home",
@@ -26,7 +26,7 @@ class MyResult extends Component {
           action: null
         },
         confirm: {
-          text: "See All",
+          text: "Compare",
           route: `/list/${match.params.listId}/${match.params.slug}/allResults`,
           disabled: false,
           action: null
@@ -53,26 +53,27 @@ class MyResult extends Component {
     const { currentResult } = this.props;
     const items = currentResult.items.map((item, index) => {
       const { rank, value, wins } = item;
-      const resultItem = `${rank}. ${value} (${wins} pts)`;
-      return <li className="list-entry" key={rank}>{resultItem}</li>
+      const rankElm = rank === 1 ? <i class="nes-icon trophy is-small"></i> : <span>{rank}.</span>;
+      const resultItem = `${value} (${wins} pts)`;
+      return <div><span className="rank-box">{rankElm}</span><li className="result-entry" key={rank}>{resultItem}</li></div>;
     })
     const listTitle = currentResult.title;
     const numItems = items.length;
     const listExists = numItems > 0;
 
     const list = (
-      <div className="list-view-container">
-        <div className="list-container nes-container is-dark is-rounded with-title lists">
-          <p className="title is-primary">{listTitle}</p>
-           <ul className="items nes-list">
-            {items}
-           </ul>
+      <div className="result-view-container">
+        <div className="nes-container is-dark is-rounded with-title results-container">
+          <p className="title">{listTitle}</p>
+          <ul className="items nes-list">
+          {items}
+          </ul>
         </div>
       </div>
     )
 
     return (
-      <div className="ListWar">
+      <div className="MyResults">
         <Header 
           pageTitle={pageTitle}
         />
