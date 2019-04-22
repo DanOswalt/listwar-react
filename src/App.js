@@ -38,19 +38,31 @@ class App extends Component {
     }
   }
 
-  getCurrentList = listId => {
+  getCurrentList = (listId, slug, redirectIfCompleted) => {
     console.log("listid:", listId)
     const self = this;
     const { user } = self.state;
+
+    //the following is a failure to understand react and/or firebase async loading
+    let counter = 0;
+    if (!user.uid) {
+      setTimeout(() => {
+        counter++;
+        if(counter === 100) {
+          this.props.history.push("/");
+        }
+        this.getCurrentList(listId, slug, redirectIfCompleted);
+      }, 0);
+    }
     console.log(self.state);
 
-    // // is list is completed, redirect to myResult
-    // const listIndex = user.lists.findIndex(list => list.listId === listId);
-    // const list = user.lists[listIndex];
+    // is list is completed, redirect to myResult
+    const listIndex = user.lists.findIndex(list => list.listId === listId);
+    const list = user.lists[listIndex];
 
-    // if (list.completed) {
-    //   self.props.history.push(list.url + "/myResult");
-    // }
+    if (redirectIfCompleted && list && list.completed) {
+      self.props.history.push(`/list/${listId}/${slug}/myResult`)
+    }
 
     const db = firebase.firestore();
     const listRef = db.collection('lists').doc(listId);

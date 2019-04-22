@@ -44,8 +44,7 @@ class ListView extends Component {
         console.log('from create page');
       } else {
         console.log('from url');
-        console.log("user here??", this.props.user)
-        this.props.getCurrentList(match.params.listId);
+        this.props.getCurrentList(match.params.listId, match.params.slug, true);
       }
     }, 1000)
   }
@@ -79,6 +78,7 @@ class ListView extends Component {
         <div className="instructions">
           <div>Two items will pop up each round.</div>
           <div>Pick a winner. Don't think too hard!</div>
+          <br />
           { listExists && <RoundsNotifier numEntries={numEntries} /> }
         </div>
         { listExists && list }

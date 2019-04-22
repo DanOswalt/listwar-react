@@ -237,6 +237,12 @@ a:hover {
   color: white;
 }
 
+.countDown .remaining {
+  margin: 20px;
+  font-size: 16px;
+  color: white;
+}
+
 .change-name-form {
   text-align: center;
 }

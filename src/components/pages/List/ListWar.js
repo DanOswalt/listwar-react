@@ -42,9 +42,10 @@ class ListWar extends Component {
         villain: { value: "", listIndex: -1 }
       },
       matchIndex: -1,
+      remaining: -1,
       animation: "enter",
       heroFrom: { marginLeft: -100, opacity: 0 },
-      heroTo: { marginLeft: 25 , opacity: 1 },
+      heroTo: { marginLeft: 25 , opacity: 1},
       heroDelay: "800",
       villainFrom: { marginLeft: -100, opacity: 0 },
       villainTo: { marginLeft: 25 , opacity: 1 },
@@ -100,15 +101,16 @@ class ListWar extends Component {
 
     schedule = Chance.shuffle(matches);
 
-    this.setState({ schedule });
+    this.setState({ schedule, remaining: schedule.length + 1 });
   }
 
   nextMatch = () => {
     const { schedule } = this.state;
     const { currentList } = this.props;
-    let { matchIndex } = this.state;
+    let { matchIndex, remaining } = this.state;
     const { entries } = currentList;
     matchIndex++;
+    remaining--;
 
     if (matchIndex > 0 && matchIndex === schedule.length) {
       console.log('result:', this.state.currentResult);
@@ -126,7 +128,7 @@ class ListWar extends Component {
         villain: { value: entries[villainIndex], index: villainIndex }
       };
 
-      this.setState({ currentMatch, matchIndex });
+      this.setState({ currentMatch, matchIndex, remaining });
     }
   }
 
@@ -241,7 +243,7 @@ class ListWar extends Component {
         marginLeft: 25,
         opacity: 1
       },
-      delay: "200"
+      delay: "0"
     }
 
     this.setState({
@@ -259,13 +261,13 @@ class ListWar extends Component {
     const leaveWinner = {
       from: { 
         marginLeft: 25,
-        opacity: 1 
+        opacity: 1
       },
       to: { 
         marginLeft: 400,
-        opacity: 0 
+        opacity: 0
       },
-      delay: "200"
+      delay: "0"
     }
 
     const leaveLoser = {
@@ -277,8 +279,7 @@ class ListWar extends Component {
         marginLeft: 25, 
         opacity: 0
       },
-      delay: "200",
-      duration: "400"
+      delay: "200"
     }
 
     this.setState({
@@ -293,37 +294,45 @@ class ListWar extends Component {
   }
 
   render () {
-    const { pageTitle, navButtons, currentMatch, heroFrom, heroTo, heroDelay,  villainFrom, villainTo, villainDelay, animation } = this.state;
+    const { pageTitle, navButtons, remaining, currentMatch, heroFrom, heroTo, heroDelay, villainFrom, villainTo, villainDelay, animation } = this.state;
     const showMatches = currentMatch.hero.listIndex !== -1;
 
     return (
       <div className="ListWar">
         <Header pageTitle={pageTitle}/>
-        { showMatches && 
-          <div className="match-container">
-            <MatchItem 
-              pickWinner={this.pickWinner}
-              winnerIndex={currentMatch.hero.index}
-              loserIndex={currentMatch.villain.index}
-              text={currentMatch.hero.value}
-              isHero={true}
-              animation={animation}
-              from={heroFrom}
-              to={heroTo}
-              delay={heroDelay}
-            />
-            <MatchItem 
-              pickWinner={this.pickWinner}
-              winnerIndex={currentMatch.villain.index}
-              loserIndex={currentMatch.hero.index}
-              text={currentMatch.villain.value}
-              isHero={false}
-              animation={animation}
-              from={villainFrom}
-              to={villainTo}
-              delay={villainDelay}
-            />
-          </div> }
+        { showMatches &&
+          <> 
+            <div className="match-container">
+              <MatchItem 
+                pickWinner={this.pickWinner}
+                winnerIndex={currentMatch.hero.index}
+                loserIndex={currentMatch.villain.index}
+                text={currentMatch.hero.value}
+                isHero={true}
+                animation={animation}
+                from={heroFrom}
+                to={heroTo}
+                delay={heroDelay}
+              />
+              <MatchItem 
+                pickWinner={this.pickWinner}
+                winnerIndex={currentMatch.villain.index}
+                loserIndex={currentMatch.hero.index}
+                text={currentMatch.villain.value}
+                isHero={false}
+                animation={animation}
+                from={villainFrom}
+                to={villainTo}
+                delay={villainDelay}
+              />
+            </div>
+            <div className="countDown">
+              <i class="nes-icon is-small star"></i>
+                <span className="nes-text remaining">{remaining} remaining</span>
+              <i class="nes-icon is-small star"></i>
+            </div>
+          </>
+        }
         <footer>
           {/* <Message /> */}
           <NavButtons 
