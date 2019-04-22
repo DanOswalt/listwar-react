@@ -86,6 +86,8 @@ class App extends Component {
     const db = firebase.firestore();
     const resultRef = db.collection('results').doc(result.id);
     const winner = result.items[0].value;
+    result.timestamp = firebase.firestore.FieldValue.serverTimestamp();
+    
     resultRef.set(result)
       .then(() => {
         console.log('result added', currentListId);

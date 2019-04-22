@@ -68,7 +68,8 @@ class ListWar extends Component {
     const { currentList, user } = this.props; 
 
     const currentResult = {
-      id: currentList.listId + user.uid,  
+      id: currentList.listId + user.uid, 
+      title: currentList.title,
       items: currentList.entries.map((value, index) => {
         return {
           value: value,
@@ -78,7 +79,8 @@ class ListWar extends Component {
           beats: [],
           rank: null
         }
-      })
+      }),
+      url: `list/${currentList.listId}/${currentList.slug}/myResult`
     }
 
     this.setState({ currentResult });
@@ -148,21 +150,19 @@ class ListWar extends Component {
 
   finish = () => {
     const result = this.processResult();
-    // issue here?
     this.props.saveResult(result, this.props.currentList.listId);
   }
 
   processResult() {
     const result = JSON.parse(JSON.stringify(this.state.currentResult));
-    const pointsTiers = {};
-
+    const pointsTiers = {};   
     const _descByPoints = (a, b) => b.points - a.points;
 
     const _setItemRank = (item, index) => item.rank = index + 1;
 
     const _createPointsTiers = item => {
       const pts = item.points;
-      if (!pointsTiers[pts]) { // if doesn't exist, create the tier
+      if (!pointsTiers[pts]) {
         pointsTiers[pts] = []
       }
       pointsTiers[pts].push(item.id);
@@ -170,8 +170,6 @@ class ListWar extends Component {
 
     result.items.forEach(_createPointsTiers);
     this.doHeadToHeadTiebreaks(pointsTiers, result);
-    console.log(result)
-    console.log(this.state.currentResult)
 
     // result.items.forEach(_createPointsTiers);
     // this.doBestBeatComparisonTiebreak(pointsTiers, result);

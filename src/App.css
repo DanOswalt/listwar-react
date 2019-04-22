@@ -128,13 +128,17 @@ a:hover {
 
 .results-container {
   width: 360px;
-  margin: auto;
+  margin: auto; 
   text-align: left;
   font-size: 11px;
 }
 
 .results-container .items {
   padding: 0;
+}
+
+.results-container .trophy {
+  margin-right: 6px;
 }
 
 .rank-box {
@@ -247,7 +251,8 @@ a:hover {
   text-align: center;
 }
 
-.ListWar .match-container {
+.ListWar .match-container,
+.result-view-container {
   margin: 110px auto;
   max-width: 360px;
   text-align: center;
