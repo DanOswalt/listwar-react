@@ -50,7 +50,7 @@ class MyResult extends Component {
 
   render () {
     const { pageTitle, navButtons } = this.state;
-    const { currentResult } = this.props;
+    const { currentResult, alias } = this.props;
     const items = currentResult.items.map((item, index) => {
       const { rank, value, wins } = item;
       const rankElm = rank === 1 ? <i class="nes-icon trophy is-small"></i> : <span>{rank}.</span>;
@@ -60,9 +60,11 @@ class MyResult extends Component {
     const listTitle = currentResult.title;
     const numItems = items.length;
     const listExists = numItems > 0;
+    const resultAlias = currentResult.alias;
 
     const list = (
       <div className="result-view-container">
+        <h6 className="nes-text header-alias">{resultAlias}</h6>
         <div className="nes-container is-dark is-rounded with-title results-container">
           <p className="title">{listTitle}</p>
           <ul className="items nes-list">
@@ -76,6 +78,7 @@ class MyResult extends Component {
       <div className="MyResults">
         <Header 
           pageTitle={pageTitle}
+          alias={alias}
         />
         { listExists && list }
         <footer>

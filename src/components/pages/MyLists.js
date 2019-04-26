@@ -42,8 +42,10 @@ class MyLists extends Component {
 
   render () {
     const { pageTitle, navButtons } = this.state;
-    const { user } = this.props;
-    const userLists = user.lists.map((list, index) => <ListClip key={index} list={list} />);
+    const { user, alias } = this.props;
+    // hellloooo here!!!!
+    const userLists = user.lists.sort((a, b) => b.timestamp - a.timestamp)
+                                .map((list, index) => <ListClip key={index} list={list} />);
 
     const list = (
       <div className="list-container">  
@@ -55,6 +57,7 @@ class MyLists extends Component {
       <div className="MyLists">
         <Header 
           pageTitle={pageTitle}
+          alias={alias}
         />
         {list}
         <footer>

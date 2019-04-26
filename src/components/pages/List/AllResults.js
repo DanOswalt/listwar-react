@@ -37,6 +37,7 @@ class AllResults extends Component {
 
   componentDidMount () {
     const { currentResult, match } = this.props;
+    const { alias } = this.props;
     setTimeout(() => {
       if (currentResult.items.length > 0) {
         console.log('from war page');
@@ -71,6 +72,7 @@ class AllResults extends Component {
       <div className="AllResults">
         <Header 
           pageTitle={pageTitle}
+          alias={alias}
         />
         { listExists && list }
         <footer>

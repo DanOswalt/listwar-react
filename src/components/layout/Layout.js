@@ -32,7 +32,7 @@ const Layout = ({appState, match, ...props}) => {
         />
         <Route 
           path="/create"
-          render={()=> <Create createNewList={props.createNewList}/>}
+          render={()=> <Create createNewList={props.createNewList} alias={appState.user.alias}/>}
         />
         <Route 
           path="/examples" 
@@ -44,7 +44,9 @@ const Layout = ({appState, match, ...props}) => {
             () => (
               <MyLists
                 user={appState.user}
+                alias={appState.user.alias}
                 currentList={appState.currentList}
+                changeAlias={props.changeAlias}
               />
             )
           }
@@ -55,6 +57,7 @@ const Layout = ({appState, match, ...props}) => {
             () => (
               <ListWar
                 user={appState.user}
+                alias={appState.user.alias}
                 currentList={appState.currentList}
                 saveResult={props.saveResult}
               />
@@ -68,6 +71,7 @@ const Layout = ({appState, match, ...props}) => {
             () => (
               <MyResult
                 user={appState.user}
+                alias={appState.user.alias}
                 currentList={appState.currentList}
                 currentResult={appState.currentResult}
                 getCurrentResult={props.getCurrentResult}
@@ -82,6 +86,8 @@ const Layout = ({appState, match, ...props}) => {
             () => (
               <Share
                 user={appState.user}
+                alias={appState.user.alias}
+                currentList={appState.currentList}
               />
             )
           }
@@ -93,6 +99,7 @@ const Layout = ({appState, match, ...props}) => {
             () => (
               <MyResult
                 user={appState.user}
+                alias={appState.user.alias}
                 currentList={appState.currentList}
                 currentResult={appState.currentResult}
                 getCurrentList={props.getCurrentList}
@@ -106,6 +113,7 @@ const Layout = ({appState, match, ...props}) => {
             () => (
               <ListView
                 user={appState.user}
+                alias={appState.user.alias}
                 currentList={appState.currentList}
                 getCurrentList={props.getCurrentList}
               />

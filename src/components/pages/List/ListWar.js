@@ -68,7 +68,7 @@ class ListWar extends Component {
     const { currentList, user } = this.props; 
 
     const currentResult = {
-      id: currentList.listId + user.uid, 
+      id: currentList.listId + user.uid + user.alias, 
       title: currentList.title,
       items: currentList.entries.map((value, index) => {
         return {
@@ -80,6 +80,7 @@ class ListWar extends Component {
           rank: null
         }
       }),
+      alias: user.alias,
       url: `list/${currentList.listId}/${currentList.slug}/myResult`
     }
 
@@ -293,11 +294,12 @@ class ListWar extends Component {
 
   render () {
     const { pageTitle, navButtons, remaining, currentMatch, heroFrom, heroTo, heroDelay, villainFrom, villainTo, villainDelay, animation } = this.state;
+    const { alias } = this.props;
     const showMatches = currentMatch.hero.listIndex !== -1;
 
     return (
       <div className="ListWar">
-        <Header pageTitle={pageTitle}/>
+        <Header pageTitle={pageTitle} alias={alias}/>
         { showMatches &&
           <> 
             <div className="match-container">

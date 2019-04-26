@@ -86,6 +86,7 @@ class Create extends Component {
 
   render () {
     const { pageTitle, newEntry, listTitle, navButtons } = this.state;
+    const { alias } = this.props;
     const entries = this.state.entries.map((entry, index) => {
       return <ListEntry 
                value={entry} 
@@ -97,7 +98,8 @@ class Create extends Component {
     return (
       <div className="Create">
         <Header 
-          pageTitle={pageTitle} 
+          pageTitle={pageTitle}
+          alias={alias} 
         />
         <div className="new-list-container">
           <form 

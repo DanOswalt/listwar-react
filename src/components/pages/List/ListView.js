@@ -51,7 +51,7 @@ class ListView extends Component {
 
   render () {
     const { pageTitle, navButtons } = this.state;
-    const { currentList } = this.props;
+    const { currentList, alias } = this.props;
     const entries = currentList.entries.map((entry, index) => {
       return <li className="nes-text is-dark is-rounded list-entry" key={index}>{entry}</li>
     })
@@ -74,6 +74,7 @@ class ListView extends Component {
       <div className="ListView">
         <Header 
           pageTitle={pageTitle}
+          alias={alias}
         />
         <div className="instructions">
           <div>Two items will pop up each round.</div>

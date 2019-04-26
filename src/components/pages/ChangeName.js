@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import Header from '../layout/Header';
 import Message from '../layout/Message.js';
 import NavButtons from '../layout/NavButtons.js';
+import { withRouter } from 'react-router-dom';
 
 class ChangeName extends Component {
   constructor(props) {
@@ -12,10 +13,10 @@ class ChangeName extends Component {
       userInput: "",
       navButtons: {
         back: {
-          text: "Nevermind",
-          route: "/",
+          text: "Back",
+          route: "#",
           disabled: false,
-          action: null
+          action: () => this.props.history.goBack()
         },
         share: {
           text: "Share",
@@ -35,13 +36,16 @@ class ChangeName extends Component {
 
   handleInput = (e) => {
     const userInput = e.target.value;
-    this.setState({ userInput })
+    if (userInput.length <= 10) {
+      this.setState({ userInput })
+    }
   }
 
   handleSubmit = (e) => {
     const { changeAlias } = this.props;
     const { userInput } = this.state;
     e.preventDefault();
+
     changeAlias(userInput);
   }
 
@@ -53,13 +57,15 @@ class ChangeName extends Component {
       <div className="ChangeName">
         <Header 
           pageTitle={pageTitle} 
+          alias={alias}
         />
         <div className="list-container">
           <form 
             className="change-name-form"
             onSubmit={this.handleSubmit}
           >
-          <p>(This name will always be associated with this device)</p>
+          <p>Changing the alias also allows multiple people to complete the same list on the same device.</p>
+          <p>Can have letters, numbers, underscores, and be 10 characters or less.</p>
             <div className="nes-field">
               <input
                 className="new-title nes-input is-dark" 
@@ -67,6 +73,7 @@ class ChangeName extends Component {
                 id="change-name"
                 placeholder={userInput}
                 onChange={this.handleInput}
+                maxLength="10"
               />
             </div>
           </form>
@@ -79,7 +86,9 @@ class ChangeName extends Component {
 
         <footer>
           {/* <Message /> */}
-          {navButtons.confirm.disabled = userInput.trim() === ""}
+          {navButtons.confirm.disabled = userInput.trim() === "" || 
+                                         userInput.trim().length > 10 ||
+                                         userInput.trim().match(/^\w+$/) === null}
           <NavButtons 
             back={navButtons.back}
             share={navButtons.share}
@@ -91,4 +100,4 @@ class ChangeName extends Component {
   }
 }
 
-export default ChangeName
+export default withRouter(ChangeName);

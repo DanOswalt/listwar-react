@@ -87,7 +87,7 @@ class App extends Component {
     const resultRef = db.collection('results').doc(result.id);
     const winner = result.items[0].value;
     result.timestamp = firebase.firestore.FieldValue.serverTimestamp();
-    
+
     resultRef.set(result)
       .then(() => {
         console.log('result added', currentListId);
@@ -104,6 +104,8 @@ class App extends Component {
     const list = user.lists[listIndex];
 
     list.completed = true;
+    list.timestamp = new Date().getTime();
+    list.alias = user.alias;
     list.winner = winner;
 
     const userRef = db.collection('users').doc(user.uid);
@@ -213,7 +215,7 @@ class App extends Component {
           user
         });
       })
-      .then(() => this.props.history.push("/"))
+      .then(() => this.props.history.goBack())
       .catch(this.handleError)
 
   }

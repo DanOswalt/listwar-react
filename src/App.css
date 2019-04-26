@@ -160,7 +160,7 @@ a:hover {
 
 .Share .urlBox {
   text-align: center;
-  margin: 100px auto;
+  margin: 20px auto;
   max-width: 360px;
 }
 
@@ -251,9 +251,14 @@ a:hover {
   text-align: center;
 }
 
-.ListWar .match-container,
-.result-view-container {
+.ListWar .match-container {
   margin: 110px auto;
+  max-width: 360px;
+  text-align: center;
+}
+
+.result-view-container {
+  margin: 50px auto;
   max-width: 360px;
   text-align: center;
 }
@@ -267,5 +272,29 @@ a:hover {
   height: 50px;
   padding-top: 8px;
   width: 300px;
+  text-align: center;
+}
+
+.list-clip-container {
+  margin-top: 20px;
+}
+
+.header-alias {
+  text-align: center;
+  display: inline-block;
+  margin: 4px 3px 0px 3px;
+  color: white;
+}
+
+.little-alias {
+  text-align: center;
+  display: inline-block;
+  font-size: 9px;
+  margin: 4px 3px 0px 3px;
+  color: white;
+}
+
+.little-alias-box {
+  margin-top: 3px;
   text-align: center;
 }

@@ -1,17 +1,24 @@
 import React from 'react';
 
 const ListClip = ({ list }) => {
-  const { title, url, winner, completed } = list;
+  const { title, url, winner, completed, alias } = list;
   const icon = completed && <i className="nes-icon trophy is-small"></i>;
   const item = completed ? <div className="winner-entry">{winner}</div> : "--not yet completed--";
 
   return (
-    <a href={url}>
-      <div className="list-clip nes-container with-title is-dark is-rounded">
-        <p className="title">{title}</p>
-        {icon}{item}
-      </div>
-    </a>
+    <div className="list-clip-container">
+      <a href={url}>
+        <div className="little-alias-box">
+          <i class="nes-icon is-small star"></i>
+            <h6 className="nes-text little-alias">{alias}</h6>
+          <i class="nes-icon is-small star"></i>
+        </div>
+        <div className="list-clip nes-container with-title is-dark is-rounded">
+          <p className="title">{title}</p>
+          {icon}{item}
+        </div>
+      </a>
+    </div>
   )
 }
 

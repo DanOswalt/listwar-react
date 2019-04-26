@@ -2,18 +2,43 @@
 [x] fix data transfer from listview to listwar (remove setTimeout)
 [x] create a MyResult page
 [x] transfer to MyResult page from listview
-[ ] guard list routes if not completed
 [x] redirect to myresult if completed
 [x] give anonymously generated name to user / editable name
 [x] Share buttons
-[ ] AllResults Page
-[ ] Examples Page
 [x] MyLists Page
 [x] Styling
 [x] Animation
-[ ] Change Security Rules
-[ ] Hosting
-[ ] MyResult styling
-[ ] List title on share page, other page
-[ ] Timestamps in results and list
-[ ] Sort by timestamp
+[x] MyResult styling
+[x] Timestamps in results and list
+[x] Sort by timestamp
+[x] Alias on all pages 1
+[x] Return change name to previous page
+[x] Limit alias length .5
+[x] List Result should show who completed the list (as opposed to who is logged up top)
+[x] Alias length, special characters message .5
+[x] Disallow blank alias or special characters .5
+[x] Alias on all results 2
+[ ] Don't redirect if alias is different from a list's completed alias name 1
+[ ] Changing alias to allow completing list again. 2
+[ ] Tell user that they can change alias to hand to another user to complete. .5
+[ ] AllResults Page 2
+[ ] Examples Page 2
+[ ] guard list routes if not completed 2
+[ ] List title on share page 1
+[ ] Enable social share buttons 3
+[ ] Use alias in share messages 1
+[ ] Message component? 3
+[ ] Loading? 2
+[ ] Better errors w/ message? 2
+[ ] Lists Animation 3
+[ ] Page Transitions 2
+[ ] Click winner styling/quicker swoopy motion 1
+[ ] Better transition to urls?? Am I doing it wrong? 1
+[ ] Safe user input 1
+[ ] Change Security Rules 1
+[ ] Hosting 1
+
+32 hrs of work? probably less than that, but at least 20.
+Learning multiple things at once
+
+

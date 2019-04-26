@@ -40,13 +40,17 @@ class Share extends Component {
 
   render () {
     const { pageTitle, navButtons } = this.state;
-    const shareUrl = window.location.href.replace("/share", ""); 
+    const { user } = this.props;
+    const shareUrl = window.location.href.replace("/share", "");
 
     return (
       <div className="Share">
         <Header 
           pageTitle={pageTitle}
+          alias={user.alias}
         />
+        <h5>On same device: Just change the alias name at the top! A new name will save a new result.</h5>
+        <h5>On different device:</h5>
         <div className="urlBox">
           <label htmlFor="shareUrl">Copy this url...</label>
           <input 
