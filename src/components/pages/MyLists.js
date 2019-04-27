@@ -44,7 +44,7 @@ class MyLists extends Component {
     const { pageTitle, navButtons } = this.state;
     const { user, alias } = this.props;
     const userLists = user.lists.sort((a, b) => b.timestamp - a.timestamp)
-                                .map((list, index) => <ListClip key={index} list={list} />);
+                                .map((list, index) => <ListClip key={index} list={list} userAlias={alias}/>);
 
     const list = (
       <div className="list-container">  

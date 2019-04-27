@@ -84,7 +84,7 @@ class App extends Component {
     }
   }
 
-  saveResult = (result, currentListId) => {
+  saveResult = (result, slug, currentListId) => {
     const db = firebase.firestore();
     const resultRef = db.collection('results').doc(result.id);
     const winner = result.items[0].value;
@@ -93,13 +93,13 @@ class App extends Component {
     resultRef.set(result)
       .then(() => {
         console.log('result added', currentListId);
-        this.markAsComplete(currentListId, winner);
+        this.markAsComplete(currentListId, slug, winner);
         this.setState({ loading:false, currentResult: result });
       })
       .catch(this.handleError);
   }
 
-  markAsComplete = (currentListId, winner) => {
+  markAsComplete = (currentListId, slug, winner) => {
     const db = firebase.firestore();
     const user = {...this.state.user};
     const listIndex = user.lists.findIndex(list => list.listId === currentListId);
@@ -115,25 +115,24 @@ class App extends Component {
       .then(() => {
         this.setState({ loading: false, user });
       })
-      .then(() => this.props.history.push(`/list/${currentListId}/${this.state.currentList.listSlug}/myResult`))
+      .then(() => this.props.history.push(`/list/${currentListId}/${slug}`))
       .catch(this.handleError);
   }
 
-  getCurrentResult = listId => {
+  getCurrentResult = (listId, slug) => {
     const { user } = this.state;
     const resultId = listId + user.uid + user.alias;
 
     const self = this;
     const db = firebase.firestore();
     const resultRef = db.collection('results').doc(resultId);
-    console.log(resultId)
-    console.log(listId)
 
     resultRef.get()
       .then(doc => {
         if (!doc.exists) {
           console.log('no result')
-          this.setState({loading: false})
+          this.props.history.push(`/list/${listId}/${slug}`);
+          
           // load doesn't exist text
         } else {
           console.log('result exists')

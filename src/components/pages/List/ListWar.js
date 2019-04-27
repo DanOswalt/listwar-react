@@ -151,7 +151,7 @@ class ListWar extends Component {
 
   finish = () => {
     const result = this.processResult();
-    this.props.saveResult(result, this.props.currentList.listId);
+    this.props.saveResult(result, this.props.currentList.listId, this.props.currentList.listSlug);
   }
 
   processResult() {

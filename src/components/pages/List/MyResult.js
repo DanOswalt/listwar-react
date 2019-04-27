@@ -40,7 +40,7 @@ class MyResult extends Component {
     toggleLoading();
 
     setTimeout(() => {
-      this.props.getCurrentResult(match.params.listId);
+      this.props.getCurrentResult(match.params.listId, match.params.slug);
     }, 1000)
   }
 
