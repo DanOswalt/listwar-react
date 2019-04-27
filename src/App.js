@@ -54,32 +54,34 @@ class App extends Component {
         this.getCurrentList(listId, slug, redirectIfCompleted);
       }, 0);
     }
-    console.log(self.state);
 
     // is list is completed, redirect to myResult
-    const listIndex = user.lists.findIndex(list => list.listId === listId);
-    const list = user.lists[listIndex];
-
-    if (redirectIfCompleted && list && list.completed) {
-      self.props.history.push(`/list/${listId}/${slug}/myResult`)
+    if (user.uid) {
+      const listIndex = user.lists.findIndex(list => list.listId === listId);
+      const list = user.lists[listIndex];
+  
+      if (redirectIfCompleted && list && list.completed && user.alias === list.alias) {
+        self.props.history.push(`/list/${listId}/${slug}/myResult`)
+      }
+  
+      const db = firebase.firestore();
+      const listRef = db.collection('lists').doc(listId);
+  
+      listRef.get()
+        .then(doc => {
+          if (!doc.exists) {
+            console.log('no list')
+            // load doesn't exist text
+            self.setState({ loading: false });
+          } else {
+            console.log('list exists')
+            const currentList = doc.data();
+            console.log('fresh from db:', currentList)
+            self.setState({ loading: false, currentList});
+          }
+        })
+        .catch(this.handleError);
     }
-
-    const db = firebase.firestore();
-    const listRef = db.collection('lists').doc(listId);
-
-    listRef.get()
-      .then(doc => {
-        if (!doc.exists) {
-          console.log('no list')
-          // load doesn't exist text
-        } else {
-          console.log('list exists')
-          const currentList = doc.data();
-          console.log('fresh from db:', currentList)
-          self.setState({currentList});
-        }
-      })
-      .catch(this.handleError);
   }
 
   saveResult = (result, currentListId) => {
@@ -92,7 +94,7 @@ class App extends Component {
       .then(() => {
         console.log('result added', currentListId);
         this.markAsComplete(currentListId, winner);
-        this.setState({ currentResult: result });
+        this.setState({ loading:false, currentResult: result });
       })
       .catch(this.handleError);
   }
@@ -111,7 +113,7 @@ class App extends Component {
     const userRef = db.collection('users').doc(user.uid);
     userRef.update({lists: user.lists})
       .then(() => {
-        this.setState({ user });
+        this.setState({ loading: false, user });
       })
       .then(() => this.props.history.push(`/list/${currentListId}/${this.state.currentList.listSlug}/myResult`))
       .catch(this.handleError);
@@ -119,22 +121,28 @@ class App extends Component {
 
   getCurrentResult = listId => {
     const { user } = this.state;
-    const resultId = listId + user.uid;
+    const resultId = listId + user.uid + user.alias;
 
     const self = this;
     const db = firebase.firestore();
     const resultRef = db.collection('results').doc(resultId);
+    console.log(resultId)
+    console.log(listId)
 
     resultRef.get()
       .then(doc => {
         if (!doc.exists) {
           console.log('no result')
+          this.setState({loading: false})
           // load doesn't exist text
         } else {
           console.log('result exists')
           const currentResult = doc.data();
           console.log('fresh from db:', currentResult)
-          self.setState({currentResult});
+          self.setState({
+            loading: false,
+            currentResult
+          });
         }
       })
       .catch(this.handleError);
@@ -171,6 +179,7 @@ class App extends Component {
       .then(() => {
         userRef.set(user)
         this.setState({
+          loading: false,
           currentList: newList
           // loading: true
         })
@@ -217,7 +226,6 @@ class App extends Component {
       })
       .then(() => this.props.history.goBack())
       .catch(this.handleError)
-
   }
 
   handleError = error => {
@@ -227,6 +235,29 @@ class App extends Component {
       message: error.message,
       showErrorMessage: true
     })
+  }
+
+  resetCurrents = () => {
+    const currentList = {
+      listId: "",
+      title: "",
+      entries: [],
+      listSlug: "",
+      url: ""
+    }
+
+    const currentResult = {
+      id: "",
+      title: "",
+      items: [],
+      url: ""
+    }
+
+    this.setState({ currentList, currentResult });
+  }
+
+  toggleLoading = () => {
+    this.setState({ loading: !this.state.loading})
   }
 
   componentDidMount() {
@@ -284,7 +315,9 @@ class App extends Component {
           getCurrentList={this.getCurrentList}
           getCurrentResult={this.getCurrentResult}
           saveResult={this.saveResult}
+          resetCurrents={this.resetCurrents}
           changeAlias={this.changeAlias}
+          toggleLoading={this.toggleLoading}
         />
       </div>
     );

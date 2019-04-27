@@ -19,8 +19,8 @@
 [x] Disallow blank alias or special characters .5
 [x] Alias on all results 2
 [ ] Don't redirect if alias is different from a list's completed alias name 1
-[ ] Changing alias to allow completing list again. 2
-[ ] Tell user that they can change alias to hand to another user to complete. .5
+[x] Changing alias to allow completing list again. 2
+[x] Tell user that they can change alias to hand to another user to complete. .5
 [ ] AllResults Page 2
 [ ] Examples Page 2
 [ ] guard list routes if not completed 2
@@ -28,7 +28,7 @@
 [ ] Enable social share buttons 3
 [ ] Use alias in share messages 1
 [ ] Message component? 3
-[ ] Loading? 2
+[x] Loading? 2
 [ ] Better errors w/ message? 2
 [ ] Lists Animation 3
 [ ] Page Transitions 2

@@ -37,13 +37,12 @@ class MyLists extends Component {
   }
 
   componentDidMount () {
-    // set to loading (must define this function on app.js);
+    this.props.resetCurrents();
   }
 
   render () {
     const { pageTitle, navButtons } = this.state;
     const { user, alias } = this.props;
-    // hellloooo here!!!!
     const userLists = user.lists.sort((a, b) => b.timestamp - a.timestamp)
                                 .map((list, index) => <ListClip key={index} list={list} />);
 

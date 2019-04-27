@@ -11,7 +11,7 @@ class MyResult extends Component {
     const { match } = this.props;
 
     this.state = {
-      pageTitle: "Your Ranks:",
+      pageTitle: "Final Result:",
       navButtons: {
         back: {
           text: "Home",
@@ -36,15 +36,11 @@ class MyResult extends Component {
   }
 
   componentDidMount () {
-    const { currentResult, match } = this.props;
+    const { match, toggleLoading } = this.props;
+    toggleLoading();
 
     setTimeout(() => {
-      if (currentResult.items.length > 0) {
-        console.log('from war page');
-      } else {
-        console.log('from url');
-        this.props.getCurrentResult(match.params.listId);
-      }
+      this.props.getCurrentResult(match.params.listId);
     }, 1000)
   }
 

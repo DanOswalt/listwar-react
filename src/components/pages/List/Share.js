@@ -49,10 +49,9 @@ class Share extends Component {
           pageTitle={pageTitle}
           alias={user.alias}
         />
-        <h5>On same device: Just change the alias name at the top! A new name will save a new result.</h5>
-        <h5>On different device:</h5>
+        <h5>On same device: Just change the alias!</h5>
         <div className="urlBox">
-          <label htmlFor="shareUrl">Copy this url...</label>
+          <label htmlFor="shareUrl">Or share this url...</label>
           <input 
             className="new-entry nes-input is-dark" 
             type="text" 
@@ -63,7 +62,7 @@ class Share extends Component {
           />
         </div>
         <div className="social-buttons">
-          <p>...or do the social media thing</p> 
+          <p>...or do the social thing</p> 
           <div className="share">
             <a><i className="nes-icon twitter"></i></a> 
             <a><i className="nes-icon facebook"></i></a>

@@ -32,7 +32,14 @@ const Layout = ({appState, match, ...props}) => {
         />
         <Route 
           path="/create"
-          render={()=> <Create createNewList={props.createNewList} alias={appState.user.alias}/>}
+          render={
+            ()=> (
+              <Create 
+                createNewList={props.createNewList} 
+                alias={appState.user.alias} 
+                resetCurrents={props.resetCurrents}/>
+              )
+            }
         />
         <Route 
           path="/examples" 
@@ -45,8 +52,8 @@ const Layout = ({appState, match, ...props}) => {
               <MyLists
                 user={appState.user}
                 alias={appState.user.alias}
-                currentList={appState.currentList}
-                changeAlias={props.changeAlias}
+                resetCurrents={props.resetCurrents}
+                toggleLoading={props.toggleLoading}
               />
             )
           }
@@ -75,6 +82,8 @@ const Layout = ({appState, match, ...props}) => {
                 currentList={appState.currentList}
                 currentResult={appState.currentResult}
                 getCurrentResult={props.getCurrentResult}
+                resetCurrents={props.resetCurrents}
+                toggleLoading={props.toggleLoading}
               />
             )
           }
@@ -103,6 +112,7 @@ const Layout = ({appState, match, ...props}) => {
                 currentList={appState.currentList}
                 currentResult={appState.currentResult}
                 getCurrentList={props.getCurrentList}
+                toggleLoading={props.toggleLoading}
               />
             )
           }
@@ -116,6 +126,7 @@ const Layout = ({appState, match, ...props}) => {
                 alias={appState.user.alias}
                 currentList={appState.currentList}
                 getCurrentList={props.getCurrentList}
+                toggleLoading={props.toggleLoading}
               />
             )
           }

@@ -9,10 +9,10 @@ class ListView extends Component {
   constructor(props) {
     super(props);
 
-    const { match } = this.props;
+    const { match, user } = this.props;
 
     this.state = {
-      pageTitle: "Ready?",
+      pageTitle: `Ready ${user.alias}?`,
       navButtons: {
         back: {
           text: "Home",
@@ -37,16 +37,11 @@ class ListView extends Component {
   }
 
   componentDidMount () {
-    // check for existing result and/or existing list
-    const { currentList, match } = this.props;
+    const { match, toggleLoading } = this.props;
+    toggleLoading();
     setTimeout(() => {
-      if (currentList.entries.length > 0) {
-        console.log('from create page');
-      } else {
-        console.log('from url');
-        this.props.getCurrentList(match.params.listId, match.params.slug, true);
-      }
-    }, 1000)
+      this.props.getCurrentList(match.params.listId, match.params.slug, true);
+    }, 0)
   }
 
   render () {
