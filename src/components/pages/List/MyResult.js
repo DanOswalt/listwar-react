@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import Header from '../../layout/Header';
 import Message from '../../layout/Message.js';
 import NavButtons from '../../layout/NavButtons.js';
+import { Trail } from 'react-spring/renderprops';
 import { withRouter } from 'react-router-dom';
 
 class MyResult extends Component {
@@ -47,14 +48,14 @@ class MyResult extends Component {
   render () {
     const { pageTitle, navButtons } = this.state;
     const { currentResult, alias } = this.props;
-    const items = currentResult.items.map((item, index) => {
+    const entries = currentResult.items.map((item, index) => {
       const { rank, value, wins } = item;
       const rankElm = rank === 1 ? <i class="nes-icon trophy is-small"></i> : <span>{rank}.</span>;
       const resultItem = `${value} (${wins} pts)`;
       return <div><span className="rank-box">{rankElm}</span><li className="result-entry" key={rank}>{resultItem}</li></div>;
     })
     const listTitle = currentResult.title;
-    const numItems = items.length;
+    const numItems = entries.length;
     const listExists = numItems > 0;
     const resultAlias = currentResult.alias;
 
@@ -64,7 +65,17 @@ class MyResult extends Component {
         <div className="nes-container is-dark is-rounded with-title results-container">
           <p className="title">{listTitle}</p>
           <ul className="items nes-list">
-          {items}
+          <Trail
+              items={entries}
+              keys={entry => entry}
+              from={{ marginTop: -100, opacity: 0 }}
+              to={{ marginTop: 0, opacity: 1 }}>
+              {entry => props => (
+                <div style={props} className="animated-entry">
+                  {entry}
+                </div>
+              )}
+            </Trail>
           </ul>
         </div>
       </div>

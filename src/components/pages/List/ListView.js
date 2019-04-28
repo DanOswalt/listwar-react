@@ -3,6 +3,7 @@ import Header from '../../layout/Header';
 import Message from '../../layout/Message.js';
 import NavButtons from '../../layout/NavButtons.js';
 import RoundsNotifier from './RoundsNotifier';
+import { Trail } from 'react-spring/renderprops';
 import { withRouter } from 'react-router-dom';
 
 class ListView extends Component {
@@ -12,7 +13,7 @@ class ListView extends Component {
     const { match, user } = this.props;
 
     this.state = {
-      pageTitle: `Ready ${user.alias}?`,
+      pageTitle: `Ready?`,
       navButtons: {
         back: {
           text: "Home",
@@ -58,8 +59,18 @@ class ListView extends Component {
       <div className="list-view-container"> 
         <div className="list-container nes-container is-dark is-rounded with-title lists">
           <p className="title">{listTitle}</p>
-           <ul className="nes-list is-disc entries">
-            {entries}
+           <ul className="nes-list entries">
+            <Trail
+              items={entries}
+              keys={entry => entry}
+              from={{ marginTop: -100, opacity: 0 }}
+              to={{ marginTop: 0, opacity: 1 }}>
+              {entry => props => (
+                <div style={props} className="animated-entry">
+                  {entry}
+                </div>
+              )}
+            </Trail>
            </ul>
         </div>
       </div>
