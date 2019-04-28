@@ -56,10 +56,11 @@ class App extends Component {
 
     // is list is completed, redirect to myResult
     if (user.uid) {
-      const listIndex = user.lists.findIndex(list => list.listId === listId);
-      const list = user.lists[listIndex];
+      const listsForAlias = user.lists.filter(list => list.alias === user.alias);
+      const listIndex = listsForAlias.findIndex(list => list.listId === listId);
+      const list = listsForAlias[listIndex];
   
-      if (redirectIfCompleted && list && list.completed && user.alias === list.alias) {
+      if (redirectIfCompleted && list && list.resultId && user.alias === list.alias) {
         self.props.history.push(`/list/${listId}/${slug}/myResult`)
       }
   
@@ -74,7 +75,18 @@ class App extends Component {
           } else {
             console.log('list exists')
             const currentList = doc.data();
-            console.log('fresh from db:', currentList)
+            // okay, check if user.lists is there for this alias
+            if (listIndex === -1) {
+              console.log('...but not cached for this alias')
+              user.lists.push({
+                alias: user.alias, 
+                listId,
+                resultId: null,
+                winner: null,
+                url: `list/${listId}/${currentList.listSlug}`,
+                title: currentList.title  
+              });
+            }
             self.setState({ loading: false, currentList});
           }
         })
@@ -82,7 +94,7 @@ class App extends Component {
     }
   }
 
-  saveResult = (result, slug, currentListId) => {
+  saveResult = (result, currentListId, slug) => {
     const db = firebase.firestore();
     const resultRef = db.collection('results').doc(result.id);
     const winner = result.items[0].value;
@@ -91,23 +103,22 @@ class App extends Component {
     resultRef.set(result)
       .then(() => {
         console.log('result added', result);
-        this.markAsComplete(currentListId, slug, winner);
+        this.markAsComplete(currentListId, slug, winner, result);
         this.setState({ loading:false, currentResult: result });
       })
       .catch(this.handleError);
   }
 
-  markAsComplete = (currentListId, slug, winner) => {
+  markAsComplete = (currentListId, slug, winner, result) => {
     const db = firebase.firestore();
     const user = {...this.state.user};
     // filter lists by alias... then the list should be unique
     const listsForAlias = user.lists.filter(list => list.alias === user.alias);
     const listIndex = listsForAlias.findIndex(list => list.listId === currentListId);
-    const list = user.lists[listIndex];
+    const list = listsForAlias[listIndex];
 
-    list.completed = true; 
+    list.resultId = result.id; 
     list.timestamp = new Date().getTime();
-    list.alias = user.alias;
     list.winner = winner;
 
     const userRef = db.collection('users').doc(user.uid);
@@ -163,9 +174,10 @@ class App extends Component {
       listSlug
     }
 
-    user.lists.push({ 
-      listId: newList.listId, 
-      completed: false, 
+    user.lists.push({
+      alias: user.alias, 
+      listId: newList.listId,
+      resultId: null,
       winner: null,
       url: `list/${listId}/${listSlug}`,
       title  
@@ -190,7 +202,7 @@ class App extends Component {
   createAppUser = ({ uid }) => {
     const db = firebase.firestore();
     const lists = [];
-    const alias = "guest-" + uid.slice(0, 6);
+    const alias = "anon" + uid.slice(0, 6);
     const newUser = { uid, lists, alias }
     const userRef = db.collection('users').doc(uid);
 
@@ -249,7 +261,8 @@ class App extends Component {
       id: "",
       title: "",
       items: [],
-      url: ""
+      url: "",
+      listId: ""
     }
 
     this.setState({ currentList, currentResult });

@@ -55,11 +55,16 @@ class ListWar extends Component {
   }
 
   componentDidMount() {
+    const { match } = this.props;
     setTimeout(() => {
       if (this.props.currentList) {
         this.createInitialEmptyResult();
         this.createSchedule();
-        this.nextMatch();
+        if (this.state.schedule.length > 0) {
+          this.nextMatch();
+        } else {
+          this.props.history.push(`/list/${match.params.listId}/${match.params.slug}`);
+        }
       }
     }, 0);
   }
@@ -81,6 +86,7 @@ class ListWar extends Component {
         }
       }),
       alias: user.alias,
+      listId: currentList.listId,
       url: `list/${currentList.listId}/${currentList.slug}/myResult`
     }
 

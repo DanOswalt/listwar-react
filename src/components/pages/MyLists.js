@@ -44,23 +44,27 @@ class MyLists extends Component {
   render () {
     const { pageTitle, navButtons } = this.state;
     const { user, alias } = this.props;
-    const userLists = user.lists.sort((a, b) => b.timestamp - a.timestamp)
+    const listsFilteredByAlias = user.lists.filter(list => list.alias === alias);
+    const userLists = listsFilteredByAlias.sort((a, b) => b.timestamp - a.timestamp)
                                 .map((list, index) => <li><ListClip key={index} list={list} userAlias={alias}/></li>);
 
     const list = (
       <div className="list-container">
         <ul className="mylist-clips">
-          <Trail
-            items={userLists}
-            keys={clip => clip}
-            from={{ marginTop: 50, opacity: 0 }}
-            to={{ marginTop: 0, opacity: 1 }}>
-            {clip => props => (
-              <div style={props} className="animated-clip">
-                {clip}
-              </div>
-            )}
-          </Trail>
+          {userLists.length > 0 ?
+            <Trail
+              items={userLists}
+              keys={clip => clip}
+              from={{ marginTop: 50, opacity: 0 }}
+              to={{ marginTop: 0, opacity: 1 }}>
+              {clip => props => (
+                <div style={props} className="animated-clip">
+                  {clip}
+                </div>
+              )}
+            </Trail>
+          : <p className="nes-text history-msg">This alias has no history!</p>
+          }
         </ul>
       </div>
     )
@@ -73,7 +77,6 @@ class MyLists extends Component {
         />
         {list}
         <footer>
-          {/* <Message /> */}
           <NavButtons 
             back={navButtons.back}
             share={navButtons.share}

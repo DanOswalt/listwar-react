@@ -306,6 +306,7 @@ a:hover {
 .mylist-clips {
   list-style-type: none;
   padding: 0;
+  text-align: center;
 }
 
 .results .result-entry:nth-child(1) {

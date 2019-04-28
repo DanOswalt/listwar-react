@@ -32,7 +32,7 @@ things
 [ ] Fix alias-based results 3
 [ ] AllResults Page 2
 [ ] Examples Page 2
-[ ] guard list routes if not completed 2
+[x] guard list routes if not completed 2
 
 share
 [ ] List title on share page 1

@@ -88,7 +88,6 @@ class MyResult extends Component {
         />
         { listExists && list }
         <footer>
-          {/* <Message /> */}
           <NavButtons 
             back={navButtons.back}
             share={navButtons.share}
