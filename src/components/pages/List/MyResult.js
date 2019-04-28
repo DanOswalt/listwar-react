@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import Header from '../../layout/Header';
-import Message from '../../layout/Message.js';
 import NavButtons from '../../layout/NavButtons.js';
 import { Trail } from 'react-spring/renderprops';
 import { withRouter } from 'react-router-dom';
@@ -64,8 +63,8 @@ class MyResult extends Component {
         <h6 className="nes-text header-alias">{resultAlias}</h6>
         <div className="nes-container is-dark is-rounded with-title results-container">
           <p className="title">{listTitle}</p>
-          <ul className="items nes-list">
-          <Trail
+          <ul className="results items nes-list">
+            <Trail
               items={entries}
               keys={entry => entry}
               from={{ marginTop: -100, opacity: 0 }}

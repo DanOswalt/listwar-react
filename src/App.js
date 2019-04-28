@@ -43,7 +43,6 @@ class App extends Component {
     const self = this;
     const { user } = self.state;
 
-    //the following is a failure to understand react and/or firebase async loading
     let counter = 0;
     if (!user.uid) {
       setTimeout(() => {
@@ -71,7 +70,6 @@ class App extends Component {
         .then(doc => {
           if (!doc.exists) {
             console.log('no list')
-            // load doesn't exist text
             self.setState({ loading: false });
           } else {
             console.log('list exists')
@@ -88,11 +86,11 @@ class App extends Component {
     const db = firebase.firestore();
     const resultRef = db.collection('results').doc(result.id);
     const winner = result.items[0].value;
-    result.timestamp = firebase.firestore.FieldValue.serverTimestamp();
+    result.timestamp = new Date().getTime();
 
     resultRef.set(result)
       .then(() => {
-        console.log('result added', currentListId);
+        console.log('result added', result);
         this.markAsComplete(currentListId, slug, winner);
         this.setState({ loading:false, currentResult: result });
       })
@@ -102,10 +100,12 @@ class App extends Component {
   markAsComplete = (currentListId, slug, winner) => {
     const db = firebase.firestore();
     const user = {...this.state.user};
-    const listIndex = user.lists.findIndex(list => list.listId === currentListId);
+    // filter lists by alias... then the list should be unique
+    const listsForAlias = user.lists.filter(list => list.alias === user.alias);
+    const listIndex = listsForAlias.findIndex(list => list.listId === currentListId);
     const list = user.lists[listIndex];
 
-    list.completed = true;
+    list.completed = true; 
     list.timestamp = new Date().getTime();
     list.alias = user.alias;
     list.winner = winner;

@@ -19,9 +19,9 @@ const Home = ({ alias }) => {
       </div>
       <Link to="changeName">
         <div className="alias-box">
-          <i class="nes-icon is-medium star"></i>
+          <i className="nes-icon is-medium star"></i>
           <span className="nes-text alias">{alias}</span>
-          <i class="nes-icon is-medium star"></i>
+          <i className="nes-icon is-medium star"></i>
         </div>
       </Link>
     </div>

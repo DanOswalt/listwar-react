@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import Header from '../../layout/Header';
-import Message from '../../layout/Message.js';
 import NavButtons from '../../layout/NavButtons.js';
 import RoundsNotifier from './RoundsNotifier';
 import { Trail } from 'react-spring/renderprops';
@@ -63,7 +62,7 @@ class ListView extends Component {
             <Trail
               items={entries}
               keys={entry => entry}
-              from={{ marginTop: -100, opacity: 0 }}
+              from={{ marginTop: 50, opacity: 0 }}
               to={{ marginTop: 0, opacity: 1 }}>
               {entry => props => (
                 <div style={props} className="animated-entry">

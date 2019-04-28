@@ -35,6 +35,7 @@ class ListWar extends Component {
           action: null
         } 
       },
+      clickAble: true,
       currentResult: null,
       schedule: [],
       currentMatch: {
@@ -54,7 +55,6 @@ class ListWar extends Component {
   }
 
   componentDidMount() {
-    // maybe not necessary? is this the wrong hook?
     setTimeout(() => {
       if (this.props.currentList) {
         this.createInitialEmptyResult();
@@ -135,18 +135,27 @@ class ListWar extends Component {
     }
   }
 
-  pickWinner = (winnerIndex, loserIndex, heroWins) => {
-    const { currentResult } = this.state;
-    const winner = currentResult.items[winnerIndex];
-    winner.wins += 1;
-    winner.points += 1;
-    winner.beats.push(loserIndex);
+  toggleClckable = () => {
+    this.setState({ clickAble: !this.state.clickAble });
+  }
 
-    this.leaveAnimation(heroWins);
-    setTimeout(() => {
-      this.enterAnimation();
-      this.nextMatch();
-    }, 800);
+  pickWinner = (winnerIndex, loserIndex, heroWins) => {
+    const { currentResult, clickAble } = this.state;
+
+    if (clickAble) {
+      const winner = currentResult.items[winnerIndex];
+      winner.wins += 1;
+      winner.points += 1;
+      winner.beats.push(loserIndex);
+      this.toggleClckable();
+      this.leaveAnimation(heroWins);
+      
+      setTimeout(() => {
+        this.toggleClckable();
+        this.enterAnimation();
+        this.nextMatch();
+      }, 800);
+    }
   }
 
   finish = () => {

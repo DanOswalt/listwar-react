@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import Header from '../layout/Header';
-import Message from '../layout/Message.js';
 import NavButtons from '../layout/NavButtons.js';
 import ListEntry from './Create/ListEntry.js';
 

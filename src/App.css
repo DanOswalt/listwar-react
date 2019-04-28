@@ -230,6 +230,10 @@ a:hover {
   text-align: center;
 }
 
+.winner-entry {
+  background-color: rgba(241, 245, 29, 0.719);
+}
+
 .alias-box {
   margin-top: 120px;
   text-align: center;
@@ -297,4 +301,13 @@ a:hover {
 .little-alias-box {
   margin-top: 3px;
   text-align: center;
+}
+
+.mylist-clips {
+  list-style-type: none;
+  padding: 0;
+}
+
+.results .result-entry:nth-child(1) {
+  background-color: rgba(241, 245, 29, 0.719);
 }
