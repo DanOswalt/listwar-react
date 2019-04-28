@@ -44,12 +44,12 @@ class ListWar extends Component {
       matchIndex: -1,
       remaining: -1,
       animation: "enter",
-      heroFrom: { marginLeft: -100, opacity: 0 },
+      heroFrom: { marginLeft: 0, opacity: 0 },
       heroTo: { marginLeft: 25 , opacity: 1},
-      heroDelay: "800",
-      villainFrom: { marginLeft: -100, opacity: 0 },
+      heroDelay: "400",
+      villainFrom: { marginLeft: 0, opacity: 0 },
       villainTo: { marginLeft: 25 , opacity: 1 },
-      villainDelay: "800"
+      villainDelay: "400"
     }
   }
 
@@ -235,7 +235,7 @@ class ListWar extends Component {
   enterAnimation = () => {
     const enter = {
       from: { 
-        marginLeft: -400,
+        marginLeft: 0,
         opacity: 0
       },
       to: { 
@@ -260,13 +260,17 @@ class ListWar extends Component {
     const leaveWinner = {
       from: { 
         marginLeft: 25,
-        opacity: 1
+        opacity: 1,
+        backgroundColor: 'white',
+        transform: 'scale(1.2)'
       },
       to: { 
-        marginLeft: 400,
-        opacity: 0
+        marginLeft: 75,
+        opacity: 0,
+        backgroundColor: '#9acd32',
+        transform: 'scale(1)'
       },
-      delay: "0"
+      delay: "400"
     }
 
     const leaveLoser = {
@@ -278,7 +282,7 @@ class ListWar extends Component {
         marginLeft: 25, 
         opacity: 0
       },
-      delay: "200"
+      delay: "0"
     }
 
     this.setState({

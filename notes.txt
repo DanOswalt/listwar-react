@@ -18,7 +18,7 @@
 [x] Alias length, special characters message .5
 [x] Disallow blank alias or special characters .5
 [x] Alias on all results 2
-[ ] Don't redirect if alias is different from a list's completed alias name 1
+[x] Don't redirect if alias is different from a list's completed alias name 1
 [x] Changing alias to allow completing list again. 2
 [x] Tell user that they can change alias to hand to another user to complete. .5
 [ ] AllResults Page 2
@@ -27,13 +27,11 @@
 [ ] List title on share page 1
 [ ] Enable social share buttons 3
 [ ] Use alias in share messages 1
-[ ] Message component? 3
 [x] Loading? 2
-[ ] Better errors w/ message? 2
 [ ] Lists Animation 3
 [ ] Page Transitions 2
 [ ] Click winner styling/quicker swoopy motion 1
-[ ] Better transition to urls?? Am I doing it wrong? 1
+[x] Better transition to urls?? Am I doing it wrong? 1
 [ ] Safe user input 1
 [ ] Change Security Rules 1
 [ ] Hosting 1
