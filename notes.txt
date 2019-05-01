@@ -26,20 +26,22 @@
 [x] Click winner styling/quicker swoopy motion 1
 [x] Better transition to urls?? Am I doing it wrong? 1
 [x] Disable multiple click on winner .5
-
-things
-[ ] MyResults styles 1
-[ ] Fix alias-based results 3
-[ ] AllResults Page 2
-[ ] Examples Page 2
+[x] MyResults styles 1
+[x] Fix alias-based results 3
 [x] guard list routes if not completed 2
 
-share
+things
+[ ] AllResults Page 2
+[ ] Examples Page 2
+[ ] duplicate clicks in war page
+[ ] createlist button
+
+share (these can wait)
 [ ] List title on share page 1
 [ ] Enable social share buttons 3
 [ ] Use alias in share messages 1
 
-list limits
+list limits (these can wait)
 [ ] Limits for number of lists saved
 [ ] Delete lists
 [ ] Messaging list limits

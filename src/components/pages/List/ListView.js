@@ -63,7 +63,8 @@ class ListView extends Component {
               items={entries}
               keys={entry => entry}
               from={{ marginTop: 50, opacity: 0 }}
-              to={{ marginTop: 0, opacity: 1 }}>
+              to={{ marginTop: 0, opacity: 1 }}
+              config={{ tension: 120, friction: 14, clamp: true }}>
               {entry => props => (
                 <div style={props} className="animated-entry">
                   {entry}

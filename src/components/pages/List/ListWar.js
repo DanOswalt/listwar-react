@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import Header from '../../layout/Header';
-import Message from '../../layout/Message.js';
 import NavButtons from '../../layout/NavButtons.js';
 import MatchItem from './MatchItem.js';
 import { withRouter } from 'react-router-dom';
@@ -141,7 +140,7 @@ class ListWar extends Component {
     }
   }
 
-  toggleClckable = () => {
+  toggleClickable = () => {
     this.setState({ clickAble: !this.state.clickAble });
   }
 
@@ -153,14 +152,14 @@ class ListWar extends Component {
       winner.wins += 1;
       winner.points += 1;
       winner.beats.push(loserIndex);
-      this.toggleClckable();
+      // this.toggleClickable();
       this.leaveAnimation(heroWins);
       
       setTimeout(() => {
-        this.toggleClckable();
+        //this.toggleClickable(); //clickable setting new?
         this.enterAnimation();
         this.nextMatch();
-      }, 800);
+      }, 1000);
     }
   }
 
@@ -307,7 +306,7 @@ class ListWar extends Component {
       heroDelay: heroWins ? leaveWinner.delay : leaveLoser.delay,
       villainFrom: !heroWins ? leaveWinner.from : leaveLoser.from,
       villainTo: !heroWins ? leaveWinner.to : leaveLoser.to,
-      villainDelay: !heroWins ? leaveWinner.delay : leaveLoser.delay,
+      villainDelay: !heroWins ? leaveWinner.delay : leaveLoser.delay
     })
   }
 
@@ -353,7 +352,6 @@ class ListWar extends Component {
           </>
         }
         <footer>
-          {/* <Message /> */}
           <NavButtons 
             back={navButtons.back}
             share={navButtons.share}
