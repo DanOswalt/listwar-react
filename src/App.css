@@ -309,6 +309,8 @@ a:hover {
   text-align: center;
 }
 
-.results .result-entry:nth-child(1) {
-  background-color: rgba(241, 245, 29, 0.719);
+.results-lists {
+  list-style-type: none;
+  padding: 0;
 }
+

@@ -31,9 +31,9 @@
 [x] guard list routes if not completed 2
 
 things
-[ ] AllResults Page 2
+[x] AllResults Page 2
 [ ] Examples Page 2
-[ ] duplicate clicks in war page
+[ ] duplicate clicks in war page (onStart, onRest for clickable?)
 [ ] createlist button
 
 share (these can wait)

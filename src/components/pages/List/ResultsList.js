@@ -3,7 +3,9 @@ import { Trail, config } from 'react-spring/renderprops';
 
 const ResultsList = ({ alias, title, entries}) => (
   <div className="result-view-container">
-    <h6 className="nes-text header-alias">{alias}</h6>
+    <i className="nes-icon is-small star"></i>
+      <h6 className="nes-text header-alias">{alias}</h6>
+    <i className="nes-icon is-small star"></i>
     <div className="nes-container is-dark is-rounded with-title results-container">
       <p className="title">{title}</p>
       <ul className="results items nes-list">

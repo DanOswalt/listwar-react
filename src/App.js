@@ -31,6 +31,7 @@ class App extends Component {
         items: [],
         url: ""
       },
+      allResults: [],
       loading: true,
       message: null,
       showErrorMessage: false,
@@ -38,8 +39,28 @@ class App extends Component {
     }
   }
 
+  getAllResultsByListId = (listId) => {
+    const db = firebase.firestore();
+    const allResultsRef = db.collection('results').where('listId', '==', listId).orderBy('timestamp');
+    const allResults = [];
+
+    allResultsRef.get()
+      .then(snapshot => {
+        snapshot.docs.forEach(doc => {
+          console.log(doc.data())
+          allResults.push(doc.data());
+        })
+      })
+      .then(() => {
+        this.setState({
+          loading: false,
+          allResults
+        })
+      })
+      .catch(this.handleError)
+  }
+
   getCurrentList = (listId, slug, redirectIfCompleted) => {
-    console.log("listid:", listId)
     const self = this;
     const { user } = self.state;
 
@@ -326,6 +347,7 @@ class App extends Component {
           createNewList={this.createNewList}
           getCurrentList={this.getCurrentList}
           getCurrentResult={this.getCurrentResult}
+          getAllResultsByListId={this.getAllResultsByListId}
           saveResult={this.saveResult}
           resetCurrents={this.resetCurrents}
           changeAlias={this.changeAlias}

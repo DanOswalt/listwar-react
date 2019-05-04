@@ -12,6 +12,7 @@ import MyLists from '../pages/MyLists.js';
 import ListView from '../pages/List/ListView.js';
 import ListWar from '../pages/List/ListWar.js';
 import MyResult from '../pages/List/MyResult.js';
+import AllResults from '../pages/List/AllResults.js';
 import Share from '../pages/List/Share.js';
 import ChangeName from '../pages/ChangeName.js';
 
@@ -90,6 +91,21 @@ const Layout = ({appState, match, ...props}) => {
         />
         <Route 
           exact
+          path="/list/:listId/:slug/allResults"
+          render={
+            () => (
+              <AllResults
+                user={appState.user}
+                alias={appState.user.alias}
+                allResults={appState.allResults}
+                getAllResultsByListId={props.getAllResultsByListId}
+                toggleLoading={props.toggleLoading}
+              />
+            )
+          }
+        />
+        <Route 
+          exact
           path="/list/:listId/:slug/share"
           render={
             () => (
@@ -101,7 +117,7 @@ const Layout = ({appState, match, ...props}) => {
             )
           }
         />
-        <Route  
+        {/* <Route  
           exact
           path="/list/:listId/:slug/allResults"
           render={
@@ -109,14 +125,13 @@ const Layout = ({appState, match, ...props}) => {
               <MyResult
                 user={appState.user}
                 alias={appState.user.alias}
-                currentList={appState.currentList}
-                currentResult={appState.currentResult}
+                allResults={appState.allResults}
                 getCurrentList={props.getCurrentList}
                 toggleLoading={props.toggleLoading}
               />
             )
           }
-        />
+        /> */}
         <Route 
           path="/list/:listId/:slug"
           render={

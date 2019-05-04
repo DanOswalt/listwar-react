@@ -1,7 +1,8 @@
 import React, { Component} from 'react';
 import Header from '../../layout/Header';
-import Message from '../../layout/Message.js';
 import NavButtons from '../../layout/NavButtons.js';
+import ResultsList from './ResultsList.js';
+import { Trail } from 'react-spring/renderprops';
 import { withRouter } from 'react-router-dom';
 
 class AllResults extends Component {
@@ -11,24 +12,24 @@ class AllResults extends Component {
     const { match } = this.props;
 
     this.state = {
-      pageTitle: "All Results For " + props.currentList.title,
+      pageTitle: "All results for this list:",
       navButtons: {
         back: {
           text: "Back",
-          route: "/",
+          route: `/list/${match.params.listId}/${match.params.slug}/myResult`,
           disabled: false,
           action: null
         },
         share: {
           text: "Share",
-          route: "/",
+          route: `/list/${match.params.listId}/${match.params.slug}/share`,
           disabled: false,
           action: null
         },
         confirm: {
-          text: "Your Result",
-          route: `${match.url}/myResult`,
-          disabled: false,
+          text: "Compare",
+          route: "#",
+          disabled: true,
           action: null
         } 
       }
@@ -36,37 +37,34 @@ class AllResults extends Component {
   }
 
   componentDidMount () {
-    const { currentResult, match } = this.props;
-    const { alias } = this.props;
+    const { match, toggleLoading, getAllResultsByListId } = this.props;
+    toggleLoading();
+
     setTimeout(() => {
-      if (currentResult.items.length > 0) {
-        console.log('from war page');
-      }
-    }, 1000)
+      getAllResultsByListId(match.params.listId, match.params.slug);
+    }, 0)
   }
 
   render () {
     const { pageTitle, navButtons } = this.state;
-    const { currentResult } = this.props;
-    const items = currentResult.items.map((item, index) => {
-      const { rank, value, wins } = item;
-      const resultItem = `${rank}. ${value} (${wins} pts)`;
-      return <li key={rank}>{resultItem}</li>
-    })
-    const listTitle = currentResult.title;
-    const numItems = items.length;
-    const listExists = numItems > 0;
+    const { allResults, alias } = this.props;
 
-    const list = (
-      <div className="list-view-container">
-        <div className="list-container nes-container is-dark is-rounded with-title lists">
-          <p className="title">{listTitle}</p>
-           <ul className="items nes-list">
-            {items}
-           </ul>
-        </div>
-      </div>
-    )
+    const lists = allResults.map(result => {
+      const entries = result.items.map((item, index) => {
+        const { rank, value, wins } = item;
+        const rankElm = rank === 1 ? <i class="nes-icon trophy is-small"></i> : <span>{rank}.</span>;
+        const resultItem = `${value} (${wins} pts)`;
+        return <div><span className="rank-box">{rankElm}</span><li className="result-entry" key={rank}>{resultItem}</li></div>;
+      })
+      const listTitle = result.title;
+      const resultAlias = result.alias;
+
+      return (
+        <li className="results-list-item">
+          <ResultsList alias={resultAlias} title={listTitle} entries={entries} />
+        </li>
+      )
+    })
 
     return (
       <div className="AllResults">
@@ -74,9 +72,22 @@ class AllResults extends Component {
           pageTitle={pageTitle}
           alias={alias}
         />
-        { listExists && list }
+        <ul className="results-lists">
+          { lists.length > 0 &&
+            <Trail
+              items={lists}
+              keys={clip => clip}
+              from={{ marginTop: 50, opacity: 0 }}
+              to={{ marginTop: 0, opacity: 1 }}>
+              {clip => props => (
+                <div style={props} className="animated-clip">
+                  {clip}
+                </div>
+              )}
+            </Trail>  
+          }
+        </ul>
         <footer>
-          {/* <Message /> */}
           <NavButtons 
             back={navButtons.back}
             share={navButtons.share}
@@ -86,7 +97,6 @@ class AllResults extends Component {
       </div>
     )
   }
-
 }
 
 export default withRouter(AllResults);
