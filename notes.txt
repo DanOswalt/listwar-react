@@ -29,12 +29,31 @@
 [x] MyResults styles 1
 [x] Fix alias-based results 3
 [x] guard list routes if not completed 2
-
-things
 [x] AllResults Page 2
-[ ] Examples Page 2
+[x] Hosting
+
+functional
+[ ] message modals component
 [ ] duplicate clicks in war page (onStart, onRest for clickable?)
 [ ] createlist button
+[ ] delete lists
+
+styling
+[ ] mobile styling changes
+[ ] smaller fonts
+[ ] can't see things on create list
+[ ]
+
+lastly
+[ ] Safe user input 1
+[ ] Change Security Rules 1
+
+first-time-user modals
+[ ] include param in user creation to toggle ftu
+
+user-shared modal
+[x] add sharedBy query string in share page
+[ ] 
 
 share (these can wait)
 [ ] List title on share page 1
@@ -45,10 +64,5 @@ list limits (these can wait)
 [ ] Limits for number of lists saved
 [ ] Delete lists
 [ ] Messaging list limits
-
-lastly
-[ ] Safe user input 1
-[ ] Change Security Rules 1
-[ ] Hosting 1
 
 

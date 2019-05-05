@@ -14,14 +14,14 @@ const Home = ({ alias }) => {
         <ul className="home-menu">
           <li><Link to="create"><button className="nes-btn menu-btn">Create New</button></Link></li>
           <li><Link to="myLists"><button className="nes-btn menu-btn">My Lists</button></Link></li>
-          <li><Link to="examples"><button className="nes-btn menu-btn">Examples</button></Link></li>
         </ul>
       </div>
       <Link to="changeName">
         <div className="alias-box">
-          <i className="nes-icon is-medium star"></i>
+          <h6 className="alias-label nes-text">Playing as:</h6>
+          <i className="nes-icon is-small star"></i>
           <span className="nes-text alias">{alias}</span>
-          <i className="nes-icon is-medium star"></i>
+          <i className="nes-icon is-small star"></i>
         </div>
       </Link>
     </div>

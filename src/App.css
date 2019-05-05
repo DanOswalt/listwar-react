@@ -28,11 +28,11 @@ a:hover {
 }
 
 .Header .pageTitle {
-  color: white;
+  color: yellowgreen;
 }
 
 .Home .home-logo {
-  height: 30vh;
+  /* height: 30vh; */
   font-size: 2em;
 }
 
@@ -56,7 +56,6 @@ a:hover {
 }
 
 .ListEntry .delete-entry {
-  /* align-self: flex-end; */
   width: 30px;
   height: 30px;
   font-size: 10px;
@@ -72,6 +71,7 @@ a:hover {
 
 .NavButtons .nav-btn {
   color: rgb(20, 20, 20);
+  font-size: 14px;
 }
 
 .NavButtons .navlinks {
@@ -104,6 +104,11 @@ a:hover {
   margin: auto;
 }
 
+.new-title {
+  max-width: 340px;
+  margin: auto;
+}
+
 .list-view-container {
   margin: auto;
   margin-top: 50px;
@@ -129,7 +134,7 @@ a:hover {
 .results-container {
   width: 360px;
   margin: auto; 
-  text-align: left;
+  text-align: right;
   font-size: 11px;
 }
 
@@ -160,7 +165,7 @@ a:hover {
 
 .Share .urlBox {
   text-align: center;
-  margin: 60px auto;
+  margin: auto;
   max-width: 360px;
 }
 
@@ -225,7 +230,7 @@ a:hover {
   margin-bottom: 5px;
   background-color: yellowgreen;
   color: #222;
-  width: 90%;
+  width: 85%;
   padding-top: 4px;
   text-align: center;
 }
@@ -237,6 +242,7 @@ a:hover {
 .alias-box {
   margin-top: 120px;
   text-align: center;
+  color: white;
 }
 
 .alias-box .alias {
@@ -289,6 +295,10 @@ a:hover {
   margin: 4px 3px 0px 3px;
   color: white;
 }
+.alias-label {
+  color: white;
+  font-size: 12px;
+}
 
 .little-alias {
   text-align: center;
@@ -314,3 +324,16 @@ a:hover {
   padding: 0;
 }
 
+.instructions {
+  font-size: 12px;
+}
+
+@media (max-width: 400px) {
+  .Header .logo {
+    font-size: 20px;
+  }
+
+  .Home .logo {
+    font-size: 24px;
+  }
+}

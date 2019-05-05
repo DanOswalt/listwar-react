@@ -41,7 +41,8 @@ class Share extends Component {
   render () {
     const { pageTitle, navButtons } = this.state;
     const { user } = this.props;
-    const shareUrl = window.location.href.replace("/share", "");
+    const sharedByQueryString = "?sharedby=" + user.alias;
+    const shareUrl = window.location.href.replace("/share", sharedByQueryString);
 
     return (
       <div className="Share">
@@ -49,10 +50,15 @@ class Share extends Component {
           pageTitle={pageTitle}
           alias={user.alias}
         />
-        <h5>On same device: Just change the alias!</h5>
+        <br/>
+        <p className="nes-text instructions">Same device:</p>
+        <p className="nes-text instructions">Change the "Playing as" alias above.</p>
+        <br/>
+        <p className="nes-text instructions">Different device:</p>
+        <p className="nes-text instructions">Copy this url or click a social link:</p>
+        <br/>
         <div className="urlBox">
-          <label htmlFor="shareUrl">Or share this url...</label>
-          <input 
+          <textarea 
             className="new-entry nes-input is-dark" 
             type="text" 
             id="shareUrl"
@@ -62,7 +68,6 @@ class Share extends Component {
           />
         </div>
         <div className="social-buttons">
-          <p>...or do the social thing</p> 
           <div className="share">
             <a><i className="nes-icon twitter"></i></a> 
             <a><i className="nes-icon facebook"></i></a>

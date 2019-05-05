@@ -114,6 +114,7 @@ class Create extends Component {
                 onChange={this.handleInput}
                 onKeyUp={this.handleKeyup}
               />
+              <br/>
               <input 
                 className="new-entry nes-input is-dark" 
                 type="text" 

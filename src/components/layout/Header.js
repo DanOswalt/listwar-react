@@ -9,6 +9,7 @@ const Header = ({ pageTitle, alias }) => (
       </Link>
       <Link to="/changeName">
         <div>
+          <span className="nes-text alias-label">Playing as:&nbsp;</span>
           <i className="nes-icon is-small star"></i>
             <h6 className="nes-text header-alias">{alias}</h6>
           <i className="nes-icon is-small star"></i>

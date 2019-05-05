@@ -222,9 +222,12 @@ class App extends Component {
 
   createAppUser = ({ uid }) => {
     const db = firebase.firestore();
-    const lists = [];
-    const alias = "anon" + uid.slice(0, 6);
-    const newUser = { uid, lists, alias }
+    const newUser = { 
+      uid,
+      lists: [],
+      alias: "anon" + uid.slice(0, 6),
+      firstTimeUser: true
+    }
     const userRef = db.collection('users').doc(uid);
 
     userRef.set(newUser)

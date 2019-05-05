@@ -273,13 +273,11 @@ class ListWar extends Component {
   leaveAnimation = (heroWins) => {
     const leaveWinner = {
       from: { 
-        marginLeft: 25,
         opacity: 1,
         backgroundColor: 'white',
         transform: 'scale(1.2)'
       },
       to: { 
-        marginLeft: 75,
         opacity: 0,
         backgroundColor: '#9acd32',
         transform: 'scale(1)'
@@ -288,12 +286,10 @@ class ListWar extends Component {
     }
 
     const leaveLoser = {
-      from: {
-        marginLeft: 25, 
+      from: { 
         opacity: 1
       },
-      to: {
-        marginLeft: 25, 
+      to: { 
         opacity: 0
       },
       delay: "0"

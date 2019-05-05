@@ -64,8 +64,8 @@ class ChangeName extends Component {
             className="change-name-form"
             onSubmit={this.handleSubmit}
           >
-          <p>Changing the alias also allows multiple people to complete the same list on the same device.</p>
-          <p>Can have letters, numbers, underscores, and be 10 characters or less.</p>
+          <p>(Change alias to war a list as another person on same device)</p>
+          <p>10 chars or less, no special chars.</p>
             <div className="nes-field">
               <input
                 className="new-title nes-input is-dark" 
@@ -78,9 +78,9 @@ class ChangeName extends Component {
             </div>
           </form>
           <div className="alias-box">
-            <i class="nes-icon is-medium star"></i>
+            <i class="nes-icon is-small star"></i>
             <span className="nes-text alias">{userInput ? userInput : alias }</span>
-            <i class="nes-icon is-medium star"></i>
+            <i class="nes-icon is-small star"></i>
           </div>
         </div>
 
