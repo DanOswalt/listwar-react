@@ -31,28 +31,24 @@
 [x] guard list routes if not completed 2
 [x] AllResults Page 2
 [x] Hosting
+[x] createlist button
+[x] Safe user input 1
+[x] add sharedBy query string in share page
 
 functional
 [ ] message modals component
 [ ] duplicate clicks in war page (onStart, onRest for clickable?)
-[ ] createlist button
-[ ] delete lists
 
 styling
-[ ] mobile styling changes
-[ ] smaller fonts
-[ ] can't see things on create list
-[ ]
+[ ] layout, bottom footer + 100vh?
 
 lastly
-[ ] Safe user input 1
 [ ] Change Security Rules 1
 
 first-time-user modals
 [ ] include param in user creation to toggle ftu
 
 user-shared modal
-[x] add sharedBy query string in share page
 [ ] 
 
 share (these can wait)

@@ -117,21 +117,6 @@ const Layout = ({appState, match, ...props}) => {
             )
           }
         />
-        {/* <Route  
-          exact
-          path="/list/:listId/:slug/allResults"
-          render={
-            () => (
-              <MyResult
-                user={appState.user}
-                alias={appState.user.alias}
-                allResults={appState.allResults}
-                getCurrentList={props.getCurrentList}
-                toggleLoading={props.toggleLoading}
-              />
-            )
-          }
-        /> */}
         <Route 
           path="/list/:listId/:slug"
           render={
@@ -150,7 +135,7 @@ const Layout = ({appState, match, ...props}) => {
       </Switch>
     </main>
     {/* blank space added to account for footer height */}
-    <div className="footerpadding"></div>
+    {/* <div className="footerpadding"></div> */}
   </div>
   )
 }
