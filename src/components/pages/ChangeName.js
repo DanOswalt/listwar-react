@@ -73,7 +73,7 @@ class ChangeName extends Component {
                 id="change-name"
                 placeholder={userInput}
                 onChange={this.handleInput}
-                maxLength="10"
+                maxLength="12"
               />
             </div>
           </form>
@@ -87,7 +87,7 @@ class ChangeName extends Component {
         <footer>
           {/* <Message /> */}
           {navButtons.confirm.disabled = userInput.trim() === "" || 
-                                         userInput.trim().length > 10 ||
+                                         userInput.trim().length > 12 ||
                                          userInput.trim().match(/^\w+$/) === null}
           <NavButtons 
             back={navButtons.back}
