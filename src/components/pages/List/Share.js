@@ -1,7 +1,8 @@
 import React, { Component} from 'react';
 import Header from '../../layout/Header';
+// import ChangeName from '../ChangeName.js';
 import NavButtons from '../../layout/NavButtons.js';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class Share extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class Share extends Component {
     const { match } = this.props;
 
     this.state = {
-      pageTitle: "Share this list with a friend and compare!",
+      pageTitle: "Have a friend war this list and compare!",
       navButtons: {
         back: {
           text: "Back",
@@ -34,13 +35,22 @@ class Share extends Component {
     }
   }
 
-  handleClick = e => {
+  // handleClick = e => {
+  //   e.target.select();
+  // }
+
+  copyToClipboard = (e) => {
     e.target.select();
-  }
+    document.execCommand('copy');
+    // This is just personal preference.
+    // I prefer to not show the the whole text area selected.
+    e.target.focus();
+    this.setState({ copySuccess: 'Copied!' });
+  };
 
   render () {
     const { pageTitle, navButtons } = this.state;
-    const { user } = this.props;
+    const { user, match } = this.props;
     const sharedByQueryString = "?sharedby=" + user.alias;
     const shareUrl = window.location.href.replace("/share", sharedByQueryString);
 
@@ -51,30 +61,34 @@ class Share extends Component {
           alias={user.alias}
         />
         <br/>
-        <p className="nes-text instructions">Same device:</p>
-        <p className="nes-text instructions">Change the "Playing as" alias above.</p>
+        <h6 className="nes-text instructions-label">Same device:</h6>
+        {/* <p className="nes-text instructions">Change the "playing as" alias above.</p> */}
+        <Link to={`/changeName`}>
+          <div className="nes-btn">Change Alias</div>
+        </Link>
         <br/>
-        <p className="nes-text instructions">Different device:</p>
-        <p className="nes-text instructions">Copy this url or click a social link:</p>
         <br/>
+        <br/>
+        <h6 className="nes-text instructions-label">Different device:</h6>
+        <p className="nes-text instructions">Copy this url:</p>
         <div className="urlBox">
           <textarea 
             className="new-entry nes-input is-dark" 
             type="text" 
             id="shareUrl"
             value={shareUrl}
-            onClick={this.handleClick}
+            onClick={this.copyToClipboard}
             readOnly
           />
         </div>
-        <div className="social-buttons">
+        {/* <div className="social-buttons">
           <div className="share">
             <a><i className="nes-icon twitter"></i></a> 
             <a><i className="nes-icon facebook"></i></a>
             <a><i className="nes-icon google"></i></a>
             <a><i className="nes-icon linkedin"></i></a>
           </div>
-        </div>
+        </div> */}
         <footer>
           <NavButtons 
             back={navButtons.back}

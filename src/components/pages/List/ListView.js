@@ -55,7 +55,6 @@ class ListView extends Component {
     const listExists = numEntries > 0;
 
     const list = (
-      <div className="list-view-container"> 
         <div className="list-container nes-container is-dark is-rounded with-title lists">
           <p className="title">{listTitle}</p>
            <ul className="nes-list entries">
@@ -73,7 +72,6 @@ class ListView extends Component {
             </Trail>
            </ul>
         </div>
-      </div>
     )
 
     return (
@@ -82,13 +80,15 @@ class ListView extends Component {
           pageTitle={pageTitle}
           alias={alias}
         />
-        <div className="instructions">
-          <div>Two items will pop up each round.</div>
-          <div>Pick a winner. Don't think too hard!</div>
-          <br />
-          { listExists && <RoundsNotifier numEntries={numEntries} /> }
+        <div className="list-view-container">
+        <div className="nes-container with-title is-rounded is-dark instructions-box">
+          <p className="title">Each round:</p>
+          <li className="instructions">2 list items pop up.</li>
+          <li className="instructions">Pick a winner.</li>
+          <li className="instructions">Don't think too hard!</li>
         </div>
         { listExists && list }
+        </div>
         <footer>
           {/* <Message /> */}
           <NavButtons 

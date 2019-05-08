@@ -1,55 +1,12 @@
-[x] change lists to [{ listId: xxx, completed: true }]
-[x] fix data transfer from listview to listwar (remove setTimeout)
-[x] create a MyResult page
-[x] transfer to MyResult page from listview
-[x] redirect to myresult if completed
-[x] give anonymously generated name to user / editable name
-[x] Share buttons
-[x] MyLists Page
-[x] Styling
-[x] Animation
-[x] MyResult styling
-[x] Timestamps in results and list
-[x] Sort by timestamp
-[x] Alias on all pages 1
-[x] Return change name to previous page
-[x] Limit alias length .5
-[x] List Result should show who completed the list (as opposed to who is logged up top)
-[x] Alias length, special characters message .5
-[x] Disallow blank alias or special characters .5
-[x] Alias on all results 2
-[x] Don't redirect if alias is different from a list's completed alias name 1
-[x] Changing alias to allow completing list again. 2
-[x] Tell user that they can change alias to hand to another user to complete. .5
-[x] Loading? 2
-[x] Lists Animation 3
-[x] Click winner styling/quicker swoopy motion 1
-[x] Better transition to urls?? Am I doing it wrong? 1
-[x] Disable multiple click on winner .5
-[x] MyResults styles 1
-[x] Fix alias-based results 3
-[x] guard list routes if not completed 2
-[x] AllResults Page 2
-[x] Hosting
-[x] createlist button
-[x] Safe user input 1
-[x] add sharedBy query string in share page
-
 functional
 [ ] message modals component
 [ ] duplicate clicks in war page (onStart, onRest for clickable?)
-
-styling
-[ ] layout, bottom footer + 100vh?
-
-lastly
-[ ] Change Security Rules 1
 
 first-time-user modals
 [ ] include param in user creation to toggle ftu
 
 user-shared modal
-[ ] 
+[ ] new page, sharedBy
 
 share (these can wait)
 [ ] List title on share page 1

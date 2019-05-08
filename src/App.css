@@ -7,6 +7,13 @@
   color: white;
 }
 
+.instructions-box {
+  text-align: left;
+  max-width: 360px;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
 .loading {
   height: 100vh;
   color: white;
@@ -110,7 +117,7 @@ a:hover {
 
 .list-view-container {
   margin: auto;
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 .ListView .instructions {
@@ -323,8 +330,14 @@ a:hover {
   padding: 0;
 }
 
-.instructions {
+.instructions, .instructions-label {
   font-size: 12px;
+}
+
+.instructions-label {
+  color: yellowgreen;
+  margin: 0;
+  padding: 0;
 }
 
 @media (max-width: 400px) {
@@ -335,4 +348,8 @@ a:hover {
   .Home .logo {
     font-size: 24px;
   }
+
+  /* .instructions, .instructions-label {
+    font-size: 8px;
+  } */
 }

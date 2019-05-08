@@ -135,7 +135,7 @@ const Layout = ({appState, match, ...props}) => {
       </Switch>
     </main>
     {/* blank space added to account for footer height */}
-    {/* <div className="footerpadding"></div> */}
+    <div className="footerpadding"></div>
   </div>
   )
 }
