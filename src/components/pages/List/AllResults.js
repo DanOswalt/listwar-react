@@ -21,7 +21,7 @@ class AllResults extends Component {
           action: null
         },
         share: {
-          text: "Share",
+          text: "Invite",
           route: `/list/${match.params.listId}/${match.params.slug}/share`,
           disabled: false,
           action: null

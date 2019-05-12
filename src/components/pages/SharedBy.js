@@ -10,7 +10,7 @@ class SharedBy extends Component {
     const { match } = this.props;
 
     this.state = {
-      pageTitle: `"${match.params.sharedby}" shared a list for you to war!`,
+      pageTitle: `"${match.params.sharedby}" invited you to a listwar!`,
       navButtons: {
         back: {
           text: "Back",
@@ -19,7 +19,7 @@ class SharedBy extends Component {
           action: null
         },
         share: {
-          text: "Share",
+          text: "Invite",
           route: "#",
           disabled: true,
           action: null
@@ -48,7 +48,7 @@ class SharedBy extends Component {
           pageTitle={pageTitle}
           alias={alias}
         />
-        <h5 className="nes-text">Click "ok!" to see it.</h5>
+        <h5 className="nes-text">Click "ok!" to war their list.</h5>
         <br/>
         <div className="list-view-container">
           <div className="nes-container with-title is-rounded is-dark change-name-box ">

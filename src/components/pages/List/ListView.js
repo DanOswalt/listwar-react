@@ -21,7 +21,7 @@ class ListView extends Component {
           action: null
         },
         share: {
-          text: "Share",
+          text: "Invite",
           route: `${match.url}/share`,
           disabled: false,
           action: null
@@ -90,7 +90,6 @@ class ListView extends Component {
         { listExists && list }
         </div>
         <footer>
-          {/* <Message /> */}
           <NavButtons 
             back={navButtons.back}
             share={navButtons.share}

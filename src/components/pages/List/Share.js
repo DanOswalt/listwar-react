@@ -11,7 +11,7 @@ class Share extends Component {
     const { match } = this.props;
 
     this.state = {
-      pageTitle: "Have a friend war this list and compare!",
+      pageTitle: "Invite a friend to play and compare!",
       copied: false,
       navButtons: {
         back: {
@@ -21,7 +21,7 @@ class Share extends Component {
           action: null
         },
         share: {
-          text: "Share",
+          text: "Invite",
           route: "#",
           disabled: true,
           action: null
@@ -61,15 +61,17 @@ class Share extends Component {
           alias={user.alias}
         />
         <br/>
-        <h6 className="nes-text instructions-label">Same device:</h6>
+        <h6 className="nes-text instructions-label">Pass to friend on same device?</h6>
+        <p className="nes-text instructions">Just change name.</p>
         <Link to={`/changeName`}>
           <div className="nes-btn">Change Name</div>
         </Link>
         <br/>
         <br/>
         <br/>
-        <h6 className="nes-text instructions-label">Different device:</h6>
-        <p className="nes-text instructions">Copy this url:</p>
+        <h6 className="nes-text instructions-label">Or send invite url to different device...</h6>
+        <p className="nes-text instructions">Just click/tap this field to copy:</p>
+        { copied && <p className="nes-text instructions copied">Copied! Ready to paste into a message.</p>}
         <div className="urlBox">
           <textarea 
             className="new-entry nes-input is-dark" 
@@ -80,7 +82,6 @@ class Share extends Component {
             readOnly
           />
         </div>
-        { copied && <h6 className="nes-text copied">Copied! Just paste in message.</h6>}
         {/* <div className="social-buttons">
           <div className="share">
             <a><i className="nes-icon twitter"></i></a> 

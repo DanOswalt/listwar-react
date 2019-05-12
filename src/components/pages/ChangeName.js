@@ -19,7 +19,7 @@ class ChangeName extends Component {
           action: () => this.props.history.goBack()
         },
         share: {
-          text: "Share",
+          text: "Invite",
           route: "#",
           disabled: true,
           action: null

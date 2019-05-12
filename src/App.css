@@ -351,6 +351,15 @@ a:hover {
   margin: auto;
 }
 
+.copied {
+  animation: fadein 400ms; 
+}
+
+@keyframes fadein {
+  0%   { opacity: 0; transform: scale(0.4) }
+  100% { opacity: 1; transform: scale(1) }
+}
+
 @media (max-width: 400px) {
   .Header .logo {
     font-size: 20px;

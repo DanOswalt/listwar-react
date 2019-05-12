@@ -22,7 +22,7 @@ class ListWar extends Component {
           action: null
         },
         share: {
-          text: "Share",
+          text: "Invite",
           route: "#",
           disabled: true,
           action: null
