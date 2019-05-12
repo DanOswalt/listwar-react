@@ -170,6 +170,10 @@ a:hover {
   max-width: 300px;
 }
 
+.new-entry.clicked {
+  background-color: yellowgreen;
+}
+
 .Share .urlBox {
   text-align: center;
   margin: auto;

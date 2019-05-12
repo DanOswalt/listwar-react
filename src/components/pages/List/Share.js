@@ -61,7 +61,7 @@ class Share extends Component {
           alias={user.alias}
         />
         <br/>
-        <h6 className="nes-text instructions-label">Pass to friend on same device?</h6>
+        <h6 className="nes-text instructions-label">Passing to friend on same device?</h6>
         <p className="nes-text instructions">Just change name.</p>
         <Link to={`/changeName`}>
           <div className="nes-btn">Change Name</div>
@@ -70,11 +70,13 @@ class Share extends Component {
         <br/>
         <br/>
         <h6 className="nes-text instructions-label">Or send invite url to different device...</h6>
-        <p className="nes-text instructions">Just click/tap this field to copy:</p>
-        { copied && <p className="nes-text instructions copied">Copied! Ready to paste into a message.</p>}
+        { copied ? 
+          <p className="nes-text instructions copied">Copied! Ready to paste into a message.</p> : 
+          <p className="nes-text instructions">Just click/tap this field to copy:</p>
+        }
         <div className="urlBox">
           <textarea 
-            className="new-entry nes-input is-dark" 
+            className={`new-entry nes-input is-dark ${(copied && "clicked")}`}
             type="text" 
             id="shareUrl"
             value={shareUrl}

@@ -266,7 +266,8 @@ class ListWar extends Component {
       heroDelay: enter.delay,
       villainFrom: enter.from,
       villainTo: enter.to,
-      villainDelay: enter.delay
+      villainDelay: enter.delay,
+      clickAble: !this.state.clickAble
     });
   }
 
@@ -302,7 +303,8 @@ class ListWar extends Component {
       heroDelay: heroWins ? leaveWinner.delay : leaveLoser.delay,
       villainFrom: !heroWins ? leaveWinner.from : leaveLoser.from,
       villainTo: !heroWins ? leaveWinner.to : leaveLoser.to,
-      villainDelay: !heroWins ? leaveWinner.delay : leaveLoser.delay
+      villainDelay: !heroWins ? leaveWinner.delay : leaveLoser.delay,
+      clickAble: !this.state.clickAble
     })
   }
 
