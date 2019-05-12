@@ -41,7 +41,7 @@ class App extends Component {
 
   getAllResultsByListId = (listId) => {
     const db = firebase.firestore();
-    const allResultsRef = db.collection('results').where('listId', '==', listId).orderBy('timestamp');
+    const allResultsRef = db.collection('results').where('listId', '==', listId).orderBy('timestamp', 'desc');
     const allResults = [];
 
     allResultsRef.get()
