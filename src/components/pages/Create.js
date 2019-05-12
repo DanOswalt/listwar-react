@@ -53,7 +53,7 @@ class Create extends Component {
   handleAdd = (e) => {
     const newEntry = this.state.newEntry.trim();
 
-    if (newEntry === "" || newEntry.length > 12 || newEntry.match(/^\w+$/) === null) return;
+    if (newEntry === "" || newEntry.length > 20) return;
     if (this.entryIsDuplicate(newEntry)) {
       console.log('message for that entry is already added')
     } else {
@@ -111,7 +111,7 @@ class Create extends Component {
                 type="text" 
                 id="list-title"
                 placeholder="Give it a title"
-                maxLength="12"
+                maxLength="20"
                 onChange={this.handleInput}
                 onKeyUp={this.handleKeyup}
               />
@@ -121,7 +121,7 @@ class Create extends Component {
                 type="text" 
                 id="list-entry"
                 placeholder="Enter new list item"
-                maxLength="12"
+                maxLength="20"
                 value={newEntry}
                 onChange={this.handleInput}
                 onKeyUp={this.handleKeyup}
@@ -143,10 +143,9 @@ class Create extends Component {
         <footer>
           {/* <Message /> */}
           {navButtons.confirm.disabled = entries.length < 4 || 
-                                         entries.length > 12 || 
+                                         entries.length > 20 || 
                                          listTitle.trim() === "" || 
-                                         listTitle.trim().length > 12 ||
-                                         listTitle.trim().match(/^\w+$/) === null}
+                                         listTitle.trim().length > 20}
           <NavButtons 
             back={navButtons.back}
             share={navButtons.share}

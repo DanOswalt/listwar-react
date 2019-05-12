@@ -1,21 +1,11 @@
 functional
-[ ] message modals component
 [ ] duplicate clicks in war page (onStart, onRest for clickable?)
-
-first-time-user modals
-[ ] include param in user creation to toggle ftu
-
-user-shared modal
-[ ] new page, sharedBy
-
-share (these can wait)
-[ ] List title on share page 1
-[ ] Enable social share buttons 3
-[ ] Use alias in share messages 1
+[ ] how to show longer text?
 
 list limits (these can wait)
 [ ] Limits for number of lists saved
 [ ] Delete lists
 [ ] Messaging list limits
+[ ] Firebase rules... how to limit
 
 
