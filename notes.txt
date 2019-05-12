@@ -1,6 +1,5 @@
 functional
 [ ] duplicate clicks in war page (onStart, onRest for clickable?)
-[ ] how to show longer text?
 
 list limits (these can wait)
 [ ] Limits for number of lists saved

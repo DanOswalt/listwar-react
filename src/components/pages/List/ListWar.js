@@ -318,9 +318,9 @@ class ListWar extends Component {
           <> 
             <div className="match-container">
               <div className="countDown">
-                <i class="nes-icon is-small star"></i>
+                <i class="nes-icon is-small trophy"></i>
                   <span className="nes-text remaining">{remaining} remaining</span>
-                <i class="nes-icon is-small star"></i>
+                <i class="nes-icon is-small trophy"></i>
               </div>
               <br/>
               <MatchItem 
