@@ -101,7 +101,8 @@ a:hover {
 }
 
 .Create,
-.ListView {
+.ListView,
+.SharedBy {
   display: flex;
   flex-direction: column;
 }
@@ -257,6 +258,11 @@ a:hover {
   color: white;
 }
 
+.change-name {
+  text-align: center;
+  color: white;
+}
+
 .countDown .remaining {
   margin: 20px;
   font-size: 16px;
@@ -338,6 +344,11 @@ a:hover {
   color: yellowgreen;
   margin: 0;
   padding: 0;
+}
+
+.change-name-box {
+  max-width: 360px;
+  margin: auto;
 }
 
 @media (max-width: 400px) {

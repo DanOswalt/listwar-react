@@ -81,12 +81,12 @@ class ListView extends Component {
           alias={alias}
         />
         <div className="list-view-container">
-        <div className="nes-container with-title is-rounded is-dark instructions-box">
-          <p className="title">Each round:</p>
-          <li className="instructions">2 list items pop up.</li>
-          <li className="instructions">Pick a winner.</li>
-          <li className="instructions">Don't think too hard!</li>
-        </div>
+          <div className="nes-container with-title is-rounded is-dark instructions-box">
+            <p className="title">Each round:</p>
+            <li className="instructions">2 list items pop up.</li>
+            <li className="instructions">Pick a winner.</li>
+            <li className="instructions">Don't think too hard!</li>
+          </div>
         { listExists && list }
         </div>
         <footer>

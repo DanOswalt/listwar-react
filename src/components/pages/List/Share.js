@@ -12,6 +12,7 @@ class Share extends Component {
 
     this.state = {
       pageTitle: "Have a friend war this list and compare!",
+      copied: false,
       navButtons: {
         back: {
           text: "Back",
@@ -45,14 +46,13 @@ class Share extends Component {
     // This is just personal preference.
     // I prefer to not show the the whole text area selected.
     e.target.focus();
-    this.setState({ copySuccess: 'Copied!' });
+    this.setState({ copied: true });
   };
 
   render () {
-    const { pageTitle, navButtons } = this.state;
+    const { pageTitle, navButtons, copied } = this.state;
     const { user, match } = this.props;
-    const sharedByQueryString = "?sharedby=" + user.alias;
-    const shareUrl = window.location.href.replace("/share", sharedByQueryString);
+    const shareUrl = window.location.href.replace("/share", "/sharedby/" + user.alias);
 
     return (
       <div className="Share">
@@ -62,9 +62,8 @@ class Share extends Component {
         />
         <br/>
         <h6 className="nes-text instructions-label">Same device:</h6>
-        {/* <p className="nes-text instructions">Change the "playing as" alias above.</p> */}
         <Link to={`/changeName`}>
-          <div className="nes-btn">Change Alias</div>
+          <div className="nes-btn">Change Name</div>
         </Link>
         <br/>
         <br/>
@@ -81,6 +80,7 @@ class Share extends Component {
             readOnly
           />
         </div>
+        { copied && <h6 className="nes-text copied">Copied! Just paste in message.</h6>}
         {/* <div className="social-buttons">
           <div className="share">
             <a><i className="nes-icon twitter"></i></a> 

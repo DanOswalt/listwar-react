@@ -15,6 +15,7 @@ import MyResult from '../pages/List/MyResult.js';
 import AllResults from '../pages/List/AllResults.js';
 import Share from '../pages/List/Share.js';
 import ChangeName from '../pages/ChangeName.js';
+import SharedBy from '../pages/SharedBy.js';
 
 const Layout = ({appState, match, ...props}) => {
   return (
@@ -100,6 +101,18 @@ const Layout = ({appState, match, ...props}) => {
                 allResults={appState.allResults}
                 getAllResultsByListId={props.getAllResultsByListId}
                 toggleLoading={props.toggleLoading}
+              />
+            )
+          }
+        />
+        <Route 
+          exact
+          path="/list/:listId/:slug/sharedby/:sharedby"
+          render={
+            () => (
+              <SharedBy
+                user={appState.user}
+                alias={appState.user.alias}
               />
             )
           }
