@@ -317,6 +317,12 @@ class ListWar extends Component {
         { showMatches &&
           <> 
             <div className="match-container">
+              <div className="countDown">
+                <i class="nes-icon is-small star"></i>
+                  <span className="nes-text remaining">{remaining} remaining</span>
+                <i class="nes-icon is-small star"></i>
+              </div>
+              <br/>
               <MatchItem 
                 pickWinner={this.pickWinner}
                 winnerIndex={currentMatch.hero.index}
@@ -339,11 +345,6 @@ class ListWar extends Component {
                 to={villainTo}
                 delay={villainDelay}
               />
-            </div>
-            <div className="countDown">
-              <i class="nes-icon is-small star"></i>
-                <span className="nes-text remaining">{remaining} remaining</span>
-              <i class="nes-icon is-small star"></i>
             </div>
           </>
         }
