@@ -1,6 +1,3 @@
-functional
-[ ] duplicate clicks in war page (onStart, onRest for clickable?)
-
 list limits (these can wait)
 [ ] Limits for number of lists saved
 [ ] Delete lists
